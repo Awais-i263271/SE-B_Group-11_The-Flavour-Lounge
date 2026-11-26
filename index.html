@@ -20,7 +20,7 @@
 </head>
 <body>
 
-  <!-- Responsive Bootstrap 5 Navbar -->
+  <!-- Responsive Bootstrap 5 Navbar (Espresso #181512) -->
   <header>
     <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
       <div class="container">
@@ -69,13 +69,13 @@
   </header>
 
   <main>
-    <!-- Hero Section -->
+    <!-- Hero Section (Charcoal #241F1C) -->
     <section class="hero-section">
       <div class="container position-relative">
         <div class="row align-items-center g-5">
-          <div class="col-lg-7">
+          <div class="col-lg-6">
             <span class="hero-eyebrow">
-              <i class="bi bi-stars me-1 text-orange" aria-hidden="true"></i>
+              <i class="bi bi-stars text-gold" aria-hidden="true"></i>
               Freshly Prepared &amp; Delivered
             </span>
             <h1 class="hero-title">
@@ -95,34 +95,50 @@
             </div>
           </div>
 
-          <div class="col-lg-5">
+          <div class="col-lg-6">
             <div class="hero-showcase-card">
-              <div class="d-flex align-items-center justify-content-between mb-3">
-                <span class="text-uppercase small fw-semibold text-orange">Chef's Spotlight</span>
-                <span class="badge rounded-pill bg-cream-dark text-maroon px-3 py-2">Delivering Now</span>
+              <div class="hero-media-wrap">
+                <img
+                  src="images/hero-platter.jpg"
+                  alt="Sizzling chargrilled mixed grill platter with saffron basmati rice and charred naan"
+                  class="hero-media-img"
+                >
+                <div class="hero-media-overlay"></div>
+                <span class="hero-spotlight-badge">
+                  <i class="bi bi-lightning-charge-fill me-1" aria-hidden="true"></i>Delivering Now
+                </span>
               </div>
-              <h2 class="h3 mb-2">Signature Delivery Kitchen</h2>
-              <p class="small text-muted mb-4">
-                From smoky chargrilled platters to velvety saffron infusions, every dish is freshly
-                packed and delivered piping hot for memorable meals at home.
-              </p>
-              <div class="row g-3">
-                <div class="col-4">
-                  <div class="hero-stat-pill">
-                    <span class="hero-stat-value">40+</span>
-                    <span class="hero-stat-label">Craft Dishes</span>
-                  </div>
+
+              <div class="hero-showcase-body">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <span class="text-uppercase small fw-semibold text-gold">Chef's Spotlight</span>
+                  <span class="small text-gold">
+                    <i class="bi bi-star-fill me-1" aria-hidden="true"></i>4.9 Rated
+                  </span>
                 </div>
-                <div class="col-4">
-                  <div class="hero-stat-pill">
-                    <span class="hero-stat-value">4.9</span>
-                    <span class="hero-stat-label">Guest Rating</span>
+                <h2 class="h3 mb-2">Signature Delivery Kitchen</h2>
+                <p class="small text-muted mb-4">
+                  From smoky chargrilled platters to velvety saffron infusions, every dish is freshly
+                  packed and delivered piping hot for memorable meals at home.
+                </p>
+                <div class="row g-3">
+                  <div class="col-4">
+                    <div class="hero-stat-pill">
+                      <span class="hero-stat-value">40+</span>
+                      <span class="hero-stat-label">Craft Dishes</span>
+                    </div>
                   </div>
-                </div>
-                <div class="col-4">
-                  <div class="hero-stat-pill">
-                    <span class="hero-stat-value">11 PM</span>
-                    <span class="hero-stat-label">Late Kitchen</span>
+                  <div class="col-4">
+                    <div class="hero-stat-pill">
+                      <span class="hero-stat-value">30m</span>
+                      <span class="hero-stat-label">Avg Delivery</span>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="hero-stat-pill">
+                      <span class="hero-stat-value">11 PM</span>
+                      <span class="hero-stat-label">Late Kitchen</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -132,7 +148,7 @@
       </div>
     </section>
 
-    <!-- Lounge Highlights -->
+    <!-- Lounge Highlights (Charcoal #241F1C) -->
     <section class="section-padding">
       <div class="container">
         <div class="text-center mb-5">
@@ -147,46 +163,76 @@
         <div class="row g-4">
           <div class="col-md-4">
             <article class="feature-card">
-              <div class="feature-icon">
-                <i class="bi bi-cup-hot" aria-hidden="true"></i>
+              <div class="feature-img-wrap">
+                <img
+                  src="images/feature-menu.jpg"
+                  alt="Rich saffron curry in a copper bowl served with garlic naan"
+                  class="feature-img"
+                >
+                <div class="feature-img-scrim"></div>
               </div>
-              <h3 class="h4 mb-2">Freshly Curated Menu</h3>
-              <p class="text-muted mb-3">
-                Discover appetizers, hearty mains, mocktails, and indulgent desserts tailored to every palate.
-              </p>
-              <a href="pages/menu.html" class="fw-semibold text-orange text-decoration-none">
-                Browse Dishes <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-              </a>
+              <div class="feature-card-body">
+                <div class="feature-icon">
+                  <i class="bi bi-cup-hot" aria-hidden="true"></i>
+                </div>
+                <h3 class="h4 mb-2">Freshly Curated Menu</h3>
+                <p class="text-muted mb-4">
+                  Discover appetizers, hearty mains, mocktails, and indulgent desserts tailored to every palate.
+                </p>
+                <a href="pages/menu.html" class="feature-cta-link">
+                  Browse Dishes <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
             </article>
           </div>
 
           <div class="col-md-4">
             <article class="feature-card">
-              <div class="feature-icon">
-                <i class="bi bi-truck" aria-hidden="true"></i>
+              <div class="feature-img-wrap">
+                <img
+                  src="images/feature-delivery.jpg"
+                  alt="Artisanal takeout box with steaming spiced rice and grilled skewers"
+                  class="feature-img"
+                >
+                <div class="feature-img-scrim"></div>
               </div>
-              <h3 class="h4 mb-2">Fast Doorstep Delivery</h3>
-              <p class="text-muted mb-3">
-                Prepared to order and dispatched promptly in sealed, heat-retaining packaging straight to your door.
-              </p>
-              <a href="pages/menu.html" class="fw-semibold text-orange text-decoration-none">
-                Order Now <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-              </a>
+              <div class="feature-card-body">
+                <div class="feature-icon">
+                  <i class="bi bi-truck" aria-hidden="true"></i>
+                </div>
+                <h3 class="h4 mb-2">Fast Doorstep Delivery</h3>
+                <p class="text-muted mb-4">
+                  Prepared to order and dispatched promptly in sealed, heat-retaining packaging straight to your door.
+                </p>
+                <a href="pages/menu.html" class="feature-cta-link">
+                  Order Now <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
             </article>
           </div>
 
           <div class="col-md-4">
             <article class="feature-card">
-              <div class="feature-icon">
-                <i class="bi bi-bag-check" aria-hidden="true"></i>
+              <div class="feature-img-wrap">
+                <img
+                  src="images/feature-cart.jpg"
+                  alt="Gourmet dessert and artisanal mocktail spread on a dark bistro table"
+                  class="feature-img"
+                >
+                <div class="feature-img-scrim"></div>
               </div>
-              <h3 class="h4 mb-2">Seamless Cart &amp; Checkout</h3>
-              <p class="text-muted mb-3">
-                Add favourites to your cart as you browse and review your order anytime before checkout.
-              </p>
-              <a href="pages/cart.html" class="fw-semibold text-orange text-decoration-none">
-                View Your Cart <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>
-              </a>
+              <div class="feature-card-body">
+                <div class="feature-icon">
+                  <i class="bi bi-bag-check" aria-hidden="true"></i>
+                </div>
+                <h3 class="h4 mb-2">Seamless Cart &amp; Checkout</h3>
+                <p class="text-muted mb-4">
+                  Add favourites to your cart as you browse and review your order anytime before checkout.
+                </p>
+                <a href="pages/cart.html" class="feature-cta-link">
+                  View Your Cart <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                </a>
+              </div>
             </article>
           </div>
         </div>
@@ -212,7 +258,7 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- Footer (Espresso #181512) -->
   <footer class="footer-flavour">
     <div class="container">
       <div class="row g-4">
@@ -249,9 +295,9 @@
         <div class="col-lg-3">
           <h6 class="footer-heading">Visit &amp; Contact</h6>
           <ul class="list-unstyled small d-grid gap-2 mb-0">
-            <li><i class="bi bi-geo-alt text-orange me-2" aria-hidden="true"></i>42 Heritage Avenue, Downtown</li>
-            <li><i class="bi bi-telephone text-orange me-2" aria-hidden="true"></i>+92 300 000 0000</li>
-            <li><i class="bi bi-envelope text-orange me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+            <li><i class="bi bi-geo-alt text-gold me-2" aria-hidden="true"></i>42 Heritage Avenue, Downtown</li>
+            <li><i class="bi bi-telephone text-gold me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+            <li><i class="bi bi-envelope text-gold me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
           </ul>
         </div>
       </div>
@@ -260,7 +306,7 @@
 
       <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-2">
         <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
-        <p class="mb-0 opacity-75">SE-B Group 11 Culinary Web Project</p>
+        <p class="mb-0 text-gold">SE-B Group 11 Culinary Web Project</p>
       </div>
     </div>
   </footer>
