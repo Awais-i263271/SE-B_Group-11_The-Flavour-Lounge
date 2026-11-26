@@ -3,11 +3,9 @@
    Reuses shared CSS variables from css/style.css (no hard-coded colours)
    ========================================================================== */
 
-.reviews-subtitle {
-    max-width: 38rem;
-}
+.reviews-subtitle { max-width: 38rem; }
 
-/* Overall Rating Summary Card */
+/* ── Overall Rating Summary Card ─────────────────────────────────────────── */
 .rating-summary-card {
     background-color: var(--color-white);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
@@ -25,7 +23,7 @@
     line-height: 1;
 }
 
-/* Submit Your Review Form Card */
+/* ── Submit Your Review Form Card ────────────────────────────────────────── */
 .review-form-card {
     background-color: var(--color-white);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
@@ -46,20 +44,31 @@
     background-color: var(--color-white);
     color: var(--color-text);
     border-color: var(--color-orange);
-    box-shadow: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-orange) 25%, transparent);
 }
 
-/* Interactive Star Rating Buttons */
+/* is-invalid state keeps Bootstrap red border but we ensure the error text is visible */
+.review-input.is-invalid {
+    border-color: #dc3545;
+}
+
+/* ── Interactive Star Rating Buttons ─────────────────────────────────────── */
 .star-rating-input {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
 }
 
+/* Each star is at least 44 × 44px for touch targets */
 .star-btn {
     background-color: transparent;
     border: none;
-    padding: 0.15rem 0.25rem;
+    /* explicit size for touch target */
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 1.6rem;
     line-height: 1;
     cursor: pointer;
@@ -67,22 +76,22 @@
     transition: transform var(--transition-base);
 }
 
-.star-btn:hover {
-    transform: scale(1.12);
-}
+.star-btn:hover { transform: scale(1.12); }
 
+/* Visible focus outline for keyboard users */
 .star-btn:focus-visible {
-    outline: 2px solid var(--color-orange);
+    outline: 3px solid var(--color-orange);
     outline-offset: 2px;
 }
 
+/* aria-live error regions under each field */
 .field-error {
     font-size: 0.84rem;
     font-weight: 500;
     min-height: 1.2rem;
 }
 
-/* Uploaded Photo Thumbnail Preview */
+/* ── Uploaded Photo Thumbnail ─────────────────────────────────────────────── */
 .photo-preview-wrapper {
     display: flex;
     align-items: center;
@@ -98,7 +107,7 @@
     border: 1px solid color-mix(in srgb, var(--color-maroon) 20%, transparent);
 }
 
-/* Filter Buttons & Sort Controls Bar */
+/* ── Filter Buttons & Sort Controls Bar ──────────────────────────────────── */
 .controls-bar {
     background-color: var(--color-white);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 10%, transparent);
@@ -107,11 +116,13 @@
     box-shadow: var(--shadow-soft);
 }
 
+/* Filter pills – 44px touch target, visible focus */
 .filter-btn {
     background-color: var(--color-cream);
     color: var(--color-maroon);
     border: 2px solid var(--color-cream-dark);
     border-radius: 50rem;
+    min-height: 44px;
     padding: 0.4rem 1.1rem;
     font-weight: 600;
     font-size: 0.9rem;
@@ -126,6 +137,11 @@
     color: var(--color-white);
 }
 
+.filter-btn:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+}
+
 .sort-label {
     color: var(--color-maroon);
     white-space: nowrap;
@@ -138,14 +154,25 @@
     border-radius: var(--radius-md);
     font-weight: 500;
     min-width: 155px;
+    min-height: 44px;
 }
 
 .sort-select:focus {
     border-color: var(--color-orange);
-    box-shadow: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-orange) 25%, transparent);
 }
 
-/* Review Cards */
+/* Submit button – 44px touch target, focus ring */
+#submitReviewBtn {
+    min-height: 44px;
+}
+
+#submitReviewBtn:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+}
+
+/* ── Review Cards ────────────────────────────────────────────────────────── */
 .review-card {
     background-color: var(--color-white);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
@@ -160,32 +187,26 @@
     box-shadow: var(--shadow-card);
 }
 
-.review-img-wrapper {
-    background-color: var(--color-cream-dark);
-}
+.review-img-wrapper { background-color: var(--color-cream-dark); }
 
 .review-img {
     width: 100%;
     height: 185px;
     object-fit: cover;
     display: block;
+    background-color: var(--color-cream-dark);
 }
 
 .reviewer-name {
     font-family: var(--font-heading);
     color: var(--color-maroon);
     font-weight: 700;
+    word-break: break-word;
 }
 
-.review-date {
-    color: var(--color-text-muted);
-    font-size: 0.82rem;
-}
+.review-date { color: var(--color-text-muted); font-size: 0.82rem; }
 
-.review-text {
-    color: var(--color-text);
-    font-size: 0.94rem;
-}
+.review-text { color: var(--color-text); font-size: 0.94rem; }
 
 .dish-badge {
     display: inline-flex;
@@ -198,23 +219,45 @@
     padding: 0.3rem 0.8rem;
     font-size: 0.8rem;
     font-weight: 600;
+    /* wrap long dish names */
+    word-break: break-word;
 }
 
-/* Empty Filter Message */
+/* ── Empty State Message ─────────────────────────────────────────────────── */
 .empty-reviews-msg {
     color: var(--color-maroon);
     font-weight: 600;
     font-size: 1.05rem;
-    padding: 2.25rem;
+    padding: 2.25rem 1rem;
     border: 1px dashed color-mix(in srgb, var(--color-maroon) 35%, transparent);
     border-radius: var(--radius-lg);
     background-color: var(--color-white);
 }
 
-/* Bootstrap Success Toast */
+/* ── Bootstrap Success Toast ─────────────────────────────────────────────── */
 .flavour-toast {
     background-color: var(--color-maroon);
     color: var(--color-cream);
     border: 2px solid var(--color-orange);
     font-weight: 600;
+}
+
+/* ── Responsive breakpoints ─────────────────────────────────────────────── */
+@media (max-width: 575.98px) {
+    /* Review form fits at 360px */
+    .review-form-card { padding: 1.25rem; }
+
+    /* Controls bar: stack filters above sort at 360px */
+    .controls-bar { flex-direction: column; align-items: stretch; }
+
+    #ratingFilters { flex-direction: column; align-items: stretch; }
+    #ratingFilters .filter-btn { width: 100%; text-align: center; }
+
+    .sort-select { width: 100%; min-width: 0; }
+
+    /* Narrow star buttons still hit 44px */
+    .star-btn { min-width: 40px; }
+
+    /* Summary card compact on mobile */
+    .rating-summary-card { padding: 1.25rem 1rem; }
 }

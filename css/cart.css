@@ -1,13 +1,11 @@
 /* ==========================================================================
    The Flavour Lounge - Shopping Cart Page Styles
-   Reuses shared CSS variables from css/style.css
+   Reuses shared CSS variables from css/style.css (no hard-coded colours)
    ========================================================================== */
 
-.cart-subtitle {
-    max-width: 38rem;
-}
+.cart-subtitle { max-width: 38rem; }
 
-/* Cart Item Row Card */
+/* ── Cart Item Row Card ──────────────────────────────────────────────────── */
 .cart-item-row {
     background-color: var(--color-white);
     color: var(--color-text);
@@ -24,18 +22,22 @@
 }
 
 .cart-item-img {
-    width: 96px;
-    height: 76px;
+    width: 80px;
+    height: 64px;
     object-fit: cover;
     border-radius: var(--radius-md);
     background-color: var(--color-cream-dark);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 15%, transparent);
+    /* shrink gracefully on 360px */
+    flex-shrink: 0;
 }
 
 .cart-item-name {
     font-family: var(--font-heading);
     color: var(--color-maroon);
     font-weight: 700;
+    /* prevent long names causing overflow */
+    word-break: break-word;
 }
 
 .unit-price {
@@ -47,39 +49,48 @@
     color: var(--color-maroon);
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
 }
 
-/* Quantity Control (+/- buttons and number display) */
+/* ── Quantity Control (+/- buttons) ─────────────────────────────────────── */
 .qty-control {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     background-color: var(--color-cream);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 20%, transparent);
     border-radius: var(--radius-md);
-    padding: 0.25rem 0.5rem;
+    padding: 0.2rem 0.45rem;
 }
 
+/* min 44px touch target */
 .btn-qty {
     background-color: var(--color-orange);
     color: var(--color-white);
     border: none;
-    width: 30px;
-    height: 30px;
+    min-width: 36px;
+    min-height: 36px;
     border-radius: 6px;
     font-weight: 700;
+    font-size: 1.1rem;
     line-height: 1;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: background-color var(--transition-base);
+    cursor: pointer;
 }
 
 .btn-qty:hover,
 .btn-qty:focus-visible {
     background-color: var(--color-orange-hover);
     color: var(--color-white);
+}
+
+/* Explicit visible focus ring */
+.btn-qty:focus-visible {
+    outline: 3px solid var(--color-maroon);
+    outline-offset: 2px;
 }
 
 .qty-value {
@@ -89,7 +100,7 @@
     color: var(--color-text);
 }
 
-/* Inline quantity limit error message (min 1 / max 20) */
+/* Inline quantity limit error (aria-live="polite" is on the div in HTML) */
 .qty-error {
     color: var(--color-maroon);
     font-size: 0.8rem;
@@ -97,16 +108,18 @@
     min-height: 1.2rem;
 }
 
-/* Remove Item Button */
+/* Remove button – 44px min touch target */
 .btn-remove {
     background-color: transparent;
     color: var(--color-maroon);
     border: 1px solid var(--color-maroon);
     font-weight: 600;
     font-size: 0.86rem;
+    min-height: 44px;
     padding: 0.4rem 0.85rem;
     border-radius: 50rem;
     transition: all var(--transition-base);
+    white-space: nowrap;
 }
 
 .btn-remove:hover,
@@ -115,7 +128,12 @@
     color: var(--color-white);
 }
 
-/* Order Summary Card */
+.btn-remove:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+}
+
+/* ── Order Summary Card ──────────────────────────────────────────────────── */
 .cart-summary-card {
     background-color: var(--color-white);
     color: var(--color-text);
@@ -125,9 +143,7 @@
     box-shadow: var(--shadow-soft);
 }
 
-.summary-label {
-    color: var(--color-text-muted);
-}
+.summary-label { color: var(--color-text-muted); }
 
 .summary-discount-label,
 .summary-discount-value {
@@ -139,6 +155,7 @@
     border-color: color-mix(in srgb, var(--color-maroon) 15%, transparent);
 }
 
+/* aria-live region for cart totals */
 .summary-total {
     color: var(--color-maroon);
     font-family: var(--font-heading);
@@ -146,10 +163,8 @@
     font-size: 1.4rem;
 }
 
-/* Promo Code Input & Feedback Messages */
-.promo-label {
-    color: var(--color-maroon);
-}
+/* ── Promo Code Input ────────────────────────────────────────────────────── */
+.promo-label { color: var(--color-maroon); }
 
 .promo-input {
     background-color: var(--color-cream);
@@ -161,24 +176,34 @@
     background-color: var(--color-white);
     color: var(--color-text);
     border-color: var(--color-orange);
-    box-shadow: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-orange) 25%, transparent);
 }
 
+/* aria-live error/success region */
 .promo-message {
     font-size: 0.84rem;
     font-weight: 600;
     min-height: 1.25rem;
 }
 
-.promo-message.is-error {
-    color: var(--color-maroon);
+.promo-message.is-error  { color: var(--color-maroon); }
+.promo-message.is-success { color: var(--color-orange); }
+
+/* ── Primary & Outline Buttons – 44px min height ─────────────────────────── */
+.btn-flavour-primary,
+.btn-flavour-outline,
+.btn-flavour-maroon {
+    min-height: 44px;
 }
 
-.promo-message.is-success {
-    color: var(--color-orange);
+.btn-flavour-primary:focus-visible,
+.btn-flavour-outline:focus-visible,
+.btn-flavour-maroon:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
 }
 
-/* Disabled state for Proceed to Checkout when cart is empty */
+/* Disabled "Proceed to Checkout" state */
 .btn-flavour-primary.disabled,
 .btn-flavour-primary[aria-disabled="true"] {
     opacity: 0.5;
@@ -187,7 +212,7 @@
     box-shadow: none;
 }
 
-/* Empty Cart Card */
+/* ── Empty Cart Card ─────────────────────────────────────────────────────── */
 .empty-cart-box {
     background-color: var(--color-white);
     border: 1px dashed color-mix(in srgb, var(--color-maroon) 30%, transparent);
@@ -196,14 +221,25 @@
     box-shadow: var(--shadow-soft);
 }
 
-.empty-cart-title {
-    color: var(--color-maroon);
+.empty-cart-title  { color: var(--color-maroon); }
+.empty-cart-badge  { color: var(--color-orange); font-weight: 600; font-size: 0.9rem; }
+
+/* ── Responsive breakpoints ─────────────────────────────────────────────── */
+@media (max-width: 575.98px) {
+    /* Stack cart row content vertically at 360px */
+    .cart-item-row .row > div {
+        width: 100%;
+    }
+
+    /* Full-width quantity control and remove button on mobile */
+    .qty-control { width: 100%; justify-content: center; }
+    .btn-remove  { width: 100%; text-align: center; }
+
+    /* Order summary beneath items (already col-lg-4, stacks naturally) */
+    .cart-summary-card { padding: 1.25rem; }
 }
 
-.empty-cart-badge {
-    color: var(--color-orange);
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+@media (max-width: 991.98px) {
+    /* At 768px the summary card sits beneath items; give it breathing room */
+    .cart-summary-card { margin-top: 1rem; }
 }

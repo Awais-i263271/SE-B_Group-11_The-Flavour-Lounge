@@ -129,6 +129,12 @@ function addDealToCart(dealId) {
         return;
     }
 
+    // Guard: only call FlavourCart if it loaded successfully
+    if (typeof FlavourCart === "undefined") {
+        console.warn("FlavourCart helper not available — cart.js may have failed to load.");
+        return;
+    }
+
     // Shared item shape: { id, name, price, quantity, image }
     FlavourCart.addItem({
         id: selectedDeal.id,
@@ -203,7 +209,11 @@ function renderDeals(selectedCategory) {
 // Initialize page once DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
     renderDeals("All");
-    FlavourCart.updateCartBadge();
+
+    // Guard: sync cart badge only if the shared helper loaded
+    if (typeof FlavourCart !== "undefined") {
+        FlavourCart.updateCartBadge();
+    }
 
     const filterContainer = document.getElementById("categoryFilters");
     filterContainer.addEventListener("click", function (event) {
