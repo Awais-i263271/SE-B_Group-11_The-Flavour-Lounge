@@ -1,34 +1,40 @@
 /* ==========================================================================
-   The Flavour Lounge - Shared Stylesheet
+   The Flavour Lounge - Shared Stylesheet (Modern Dark Bistro Theme)
    Palette:
-     Maroon : #800000
-     Cream  : #FFF8E7
-     Orange : #FF6B00
+     Espresso : #181512 (Navbar & Footer)
+     Charcoal : #241F1C (Main Body & Cards)
+     Off-White: #FAF3E0 (Primary Text & Headings)
+     Orange   : #FF6B00 (Buttons & Call-to-Actions)
+     Gold     : #F59E0B (Secondary Accents & Icons)
    Typography:
      Headings : 'Playfair Display', Georgia, serif
      Body     : 'Poppins', system-ui, -apple-system, sans-serif
    ========================================================================== */
 
 :root {
-  --color-maroon: #800000;
-  --color-maroon-dark: #5c0000;
-  --color-maroon-light: #9e1b1b;
-  --color-cream: #FFF8E7;
-  --color-cream-dark: #f4e8ce;
+  --color-espresso: #181512;
+  --color-charcoal: #241F1C;
+  --color-offwhite: #FAF3E0;
+  --color-offwhite-muted: rgba(250, 243, 224, 0.76);
   --color-orange: #FF6B00;
-  --color-orange-hover: #e05d00;
-  --color-text: #2c1a1a;
-  --color-text-muted: #6b5252;
-  --color-white: #ffffff;
+  --color-orange-hover: #e55e00;
+  --color-gold: #F59E0B;
+  --color-border: rgba(250, 243, 224, 0.12);
+  --color-danger: #ff7b7b;
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
-  --shadow-soft: 0 10px 30px rgba(128, 0, 0, 0.08);
-  --shadow-card: 0 12px 32px rgba(44, 26, 26, 0.1);
+  --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 18px 42px rgba(0, 0, 0, 0.5);
   --radius-md: 0.75rem;
   --radius-lg: 1.25rem;
   --transition-base: 0.25s ease;
+
+  /* Bootstrap dark surface overrides */
+  --bs-body-bg: #241F1C;
+  --bs-body-color: #FAF3E0;
+  --bs-secondary-color: rgba(250, 243, 224, 0.76);
 }
 
 /* Base Layout & Typography */
@@ -38,8 +44,8 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream);
-  color: var(--color-text);
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
   line-height: 1.65;
   min-height: 100vh;
   display: flex;
@@ -48,53 +54,61 @@ body {
 
 main {
   flex: 1 0 auto;
+  background-color: var(--color-charcoal);
 }
 
 h1, h2, h3, h4, h5, h6,
 .font-display {
   font-family: var(--font-heading);
-  color: var(--color-maroon);
+  color: var(--color-offwhite);
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 
+.text-muted {
+  color: var(--color-offwhite-muted) !important;
+}
+
 a {
-  transition: color var(--transition-base), background-color var(--transition-base), border-color var(--transition-base);
+  transition: color var(--transition-base), background-color var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
 }
 
 /* Custom Utility Classes */
-.bg-maroon {
-  background-color: var(--color-maroon) !important;
+.bg-espresso {
+  background-color: var(--color-espresso) !important;
 }
 
-.bg-cream {
-  background-color: var(--color-cream) !important;
+.bg-charcoal {
+  background-color: var(--color-charcoal) !important;
 }
 
 .bg-cream-dark {
-  background-color: var(--color-cream-dark) !important;
+  background-color: var(--color-espresso) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35);
 }
 
+.text-offwhite {
+  color: var(--color-offwhite) !important;
+}
+
+.text-gold,
 .text-maroon {
-  color: var(--color-maroon) !important;
-}
-
-.text-cream {
-  color: var(--color-cream) !important;
+  color: var(--color-gold) !important;
 }
 
 .text-orange {
   color: var(--color-orange) !important;
 }
 
-/* Buttons */
+/* Buttons (Orange #FF6B00) */
 .btn-flavour-primary {
   background-color: var(--color-orange);
   border: 2px solid var(--color-orange);
-  color: var(--color-white);
+  color: var(--color-offwhite);
   font-weight: 600;
   padding: 0.7rem 1.65rem;
   border-radius: 50rem;
+  box-shadow: 0 8px 22px rgba(255, 107, 0, 0.25);
   transition: all var(--transition-base);
 }
 
@@ -102,9 +116,9 @@ a {
 .btn-flavour-primary:focus-visible {
   background-color: var(--color-orange-hover);
   border-color: var(--color-orange-hover);
-  color: var(--color-white);
+  color: var(--color-offwhite);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+  box-shadow: 0 10px 24px rgba(255, 107, 0, 0.4);
 }
 
 .btn-flavour-outline {
@@ -121,15 +135,15 @@ a {
 .btn-flavour-outline:focus-visible {
   background-color: var(--color-orange);
   border-color: var(--color-orange);
-  color: var(--color-white);
+  color: var(--color-offwhite);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.25);
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
 }
 
 .btn-flavour-maroon {
-  background-color: var(--color-maroon);
-  border: 2px solid var(--color-maroon);
-  color: var(--color-cream);
+  background-color: var(--color-orange);
+  border: 2px solid var(--color-orange);
+  color: var(--color-offwhite);
   font-weight: 600;
   padding: 0.65rem 1.5rem;
   border-radius: 50rem;
@@ -138,15 +152,16 @@ a {
 
 .btn-flavour-maroon:hover,
 .btn-flavour-maroon:focus-visible {
-  background-color: var(--color-maroon-dark);
-  border-color: var(--color-maroon-dark);
-  color: var(--color-white);
+  background-color: var(--color-orange-hover);
+  border-color: var(--color-orange-hover);
+  color: var(--color-offwhite);
 }
 
-/* Navbar */
+/* Navbar (Espresso #181512) */
 .navbar-flavour {
-  background-color: var(--color-maroon);
-  box-shadow: 0 4px 18px rgba(44, 0, 0, 0.22);
+  background-color: var(--color-espresso);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.18);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
   padding-top: 0.85rem;
   padding-bottom: 0.85rem;
 }
@@ -155,10 +170,15 @@ a {
   font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-cream);
+  color: var(--color-offwhite);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.navbar-flavour .navbar-brand:hover,
+.navbar-flavour .navbar-brand:focus-visible {
+  color: var(--color-offwhite);
 }
 
 .navbar-flavour .navbar-brand .brand-accent {
@@ -166,7 +186,7 @@ a {
 }
 
 .navbar-flavour .nav-link {
-  color: rgba(255, 248, 231, 0.88);
+  color: rgba(250, 243, 224, 0.88);
   font-weight: 500;
   font-size: 0.95rem;
   padding: 0.5rem 0.9rem;
@@ -190,8 +210,8 @@ a {
 }
 
 .navbar-flavour .navbar-toggler {
-  border-color: rgba(255, 248, 231, 0.4);
-  color: var(--color-cream);
+  border-color: rgba(250, 243, 224, 0.35);
+  color: var(--color-offwhite);
 }
 
 .navbar-flavour .navbar-toggler:focus {
@@ -199,24 +219,26 @@ a {
 }
 
 .navbar-flavour .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 248, 231, 0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(250, 243, 224, 0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .nav-cart-link {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background-color: rgba(255, 248, 231, 0.12);
-  border: 1px solid rgba(255, 248, 231, 0.25);
+  background-color: var(--color-orange);
+  border: 1px solid var(--color-orange);
   border-radius: 50rem;
   padding: 0.45rem 1rem !important;
-  color: var(--color-cream) !important;
+  color: var(--color-offwhite) !important;
+  font-weight: 600 !important;
 }
 
-.nav-cart-link:hover {
-  background-color: var(--color-orange);
-  border-color: var(--color-orange);
-  color: var(--color-white) !important;
+.nav-cart-link:hover,
+.nav-cart-link:focus-visible {
+  background-color: var(--color-orange-hover);
+  border-color: var(--color-orange-hover);
+  color: var(--color-offwhite) !important;
 }
 
 .nav-cart-link.active::after {
@@ -224,8 +246,8 @@ a {
 }
 
 .cart-badge {
-  background-color: var(--color-orange);
-  color: var(--color-white);
+  background-color: var(--color-espresso);
+  color: var(--color-gold);
   font-size: 0.75rem;
   font-weight: 700;
   min-width: 1.4rem;
@@ -237,18 +259,14 @@ a {
   justify-content: center;
 }
 
-.nav-cart-link:hover .cart-badge {
-  background-color: var(--color-maroon);
-}
-
-/* Hero Section */
+/* Hero Section (Charcoal #241F1C) */
 .hero-section {
-  background-color: var(--color-cream);
-  color: var(--color-text);
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
   position: relative;
   overflow: hidden;
   padding: 5.5rem 0;
-  border-bottom: 1px solid rgba(128, 0, 0, 0.08);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .hero-section::before {
@@ -256,18 +274,18 @@ a {
   position: absolute;
   top: -140px;
   right: -140px;
-  width: 440px;
-  height: 440px;
+  width: 460px;
+  height: 460px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 107, 0, 0.12) 0%, rgba(255, 107, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(255, 107, 0, 0.04) 45%, rgba(36, 31, 28, 0) 72%);
   pointer-events: none;
 }
 
 .hero-eyebrow {
   display: inline-block;
-  background-color: rgba(255, 107, 0, 0.12);
-  border: 1px solid rgba(255, 107, 0, 0.35);
-  color: var(--color-maroon);
+  background-color: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--color-gold);
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -278,7 +296,7 @@ a {
 
 .hero-title {
   font-family: var(--font-heading);
-  color: var(--color-maroon);
+  color: var(--color-offwhite);
   font-size: clamp(2.4rem, 5vw, 3.85rem);
   line-height: 1.15;
   margin-top: 1.25rem;
@@ -290,24 +308,24 @@ a {
 }
 
 .hero-subtitle {
-  color: var(--color-text);
+  color: var(--color-offwhite-muted);
   font-size: 1.08rem;
   max-width: 34rem;
   margin-bottom: 2rem;
 }
 
 .hero-showcase-card {
-  background-color: var(--color-white);
-  border: 1px solid rgba(128, 0, 0, 0.12);
+  background-color: var(--color-charcoal);
+  border: 1px solid rgba(245, 158, 11, 0.24);
   border-radius: var(--radius-lg);
   padding: 2rem;
-  color: var(--color-text);
+  color: var(--color-offwhite);
   box-shadow: var(--shadow-card);
 }
 
 .hero-stat-pill {
-  background-color: var(--color-cream);
-  border: 1px solid rgba(128, 0, 0, 0.1);
+  background-color: var(--color-espresso);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 1rem;
   text-align: center;
@@ -317,22 +335,23 @@ a {
   font-family: var(--font-heading);
   font-size: 1.6rem;
   font-weight: 700;
-  color: var(--color-orange);
+  color: var(--color-gold);
   display: block;
 }
 
 .hero-stat-label {
   font-size: 0.82rem;
-  color: var(--color-text-muted);
+  color: var(--color-offwhite-muted);
 }
 
-/* Sections & Cards */
+/* Sections & Cards (Charcoal #241F1C) */
 .section-padding {
   padding: 4.5rem 0;
+  background-color: var(--color-charcoal);
 }
 
 .section-eyebrow {
-  color: var(--color-orange);
+  color: var(--color-gold);
   font-weight: 600;
   font-size: 0.85rem;
   letter-spacing: 0.09em;
@@ -343,7 +362,7 @@ a {
 
 .section-heading {
   font-size: clamp(1.85rem, 3.2vw, 2.5rem);
-  color: var(--color-maroon);
+  color: var(--color-offwhite);
   margin-bottom: 0.75rem;
 }
 
@@ -357,27 +376,30 @@ a {
 
 .feature-card,
 .flavour-card {
-  background-color: var(--color-white);
-  border: 1px solid rgba(128, 0, 0, 0.1);
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 2rem 1.75rem;
+  color: var(--color-offwhite);
   box-shadow: var(--shadow-soft);
   height: 100%;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
 .feature-card:hover,
 .flavour-card:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-card);
+  border-color: rgba(245, 158, 11, 0.45);
 }
 
 .feature-icon {
   width: 3.25rem;
   height: 3.25rem;
   border-radius: 0.9rem;
-  background-color: rgba(255, 107, 0, 0.12);
-  color: var(--color-orange);
+  background-color: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--color-gold);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -386,15 +408,36 @@ a {
 }
 
 .cta-banner {
-  background-color: var(--color-cream-dark);
-  border-top: 1px solid rgba(128, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(128, 0, 0, 0.1);
+  background-color: var(--color-charcoal);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* Footer */
+/* Dark Form Controls */
+.form-control,
+.form-select {
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite);
+  border-color: var(--color-border);
+}
+
+.form-control::placeholder {
+  color: rgba(250, 243, 224, 0.48);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite);
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.25);
+}
+
+/* Footer (Espresso #181512) */
 .footer-flavour {
-  background-color: var(--color-maroon);
-  color: rgba(255, 248, 231, 0.9);
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite-muted);
+  border-top: 1px solid rgba(245, 158, 11, 0.18);
   padding-top: 3.5rem;
   padding-bottom: 2rem;
   margin-top: auto;
@@ -403,18 +446,18 @@ a {
 .footer-flavour h5,
 .footer-flavour .footer-brand {
   font-family: var(--font-heading);
-  color: var(--color-cream);
+  color: var(--color-offwhite);
 }
 
 .footer-flavour .footer-heading {
   font-family: var(--font-heading);
-  color: var(--color-orange);
+  color: var(--color-gold);
   font-size: 1.1rem;
   margin-bottom: 1rem;
 }
 
 .footer-flavour a {
-  color: rgba(255, 248, 231, 0.82);
+  color: rgba(250, 243, 224, 0.82);
   text-decoration: none;
 }
 
@@ -424,7 +467,7 @@ a {
 }
 
 .footer-divider {
-  border-color: rgba(255, 248, 231, 0.16);
+  border-color: rgba(250, 243, 224, 0.14);
   margin: 2rem 0 1.25rem;
 }
 
