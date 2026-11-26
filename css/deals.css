@@ -1,1 +1,238 @@
-/* Special Deals styles - Member 4 */
+/* ==========================================================
+   Modern Dark Bistro Theme - Special Deals Stylesheet
+   ========================================================== */
+
+/* Locked team color palette defined as CSS variables */
+:root {
+    --espresso-dark: #181512;      /* Navbar & Footer */
+    --deep-charcoal: #241F1C;      /* Main Background & Cards */
+    --tangerine-orange: #FF6B00;   /* Primary Buttons & Highlights */
+    --warm-off-white: #FAF3E0;     /* Text & Headings */
+    --saffron-gold: #F59E0B;       /* Accents, Icons & Prices */
+    --mint-green: #10B981;         /* Available / Fresh Tags */
+}
+
+/* Base page layout and typography */
+body {
+    background-color: var(--deep-charcoal);
+    color: var(--warm-off-white);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navbar styling (Espresso Dark) */
+.bistro-navbar {
+    background-color: var(--espresso-dark);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+}
+
+.brand-title {
+    color: var(--saffron-gold);
+    letter-spacing: 0.5px;
+}
+
+.brand-title:hover,
+.brand-title:focus {
+    color: var(--warm-off-white);
+}
+
+.bistro-navbar .nav-link {
+    color: var(--warm-off-white);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.bistro-navbar .nav-link:hover,
+.bistro-navbar .nav-link:focus,
+.bistro-navbar .nav-link.active {
+    color: var(--tangerine-orange);
+}
+
+.cart-badge {
+    background-color: var(--tangerine-orange);
+    color: var(--warm-off-white);
+}
+
+/* Page Heading & Spotlight Section */
+.spotlight-label {
+    color: var(--saffron-gold);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.page-heading {
+    color: var(--warm-off-white);
+}
+
+.hero-subtitle {
+    color: rgba(250, 243, 224, 0.82);
+    max-width: 650px;
+}
+
+/* Category Filter Buttons */
+.filter-btn {
+    background-color: var(--espresso-dark);
+    color: var(--warm-off-white);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 999px;
+    padding: 0.45rem 1.15rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover,
+.filter-btn:focus {
+    background-color: var(--tangerine-orange);
+    border-color: var(--tangerine-orange);
+    color: var(--warm-off-white);
+}
+
+.filter-btn.active {
+    background-color: var(--tangerine-orange);
+    border-color: var(--tangerine-orange);
+    color: var(--warm-off-white);
+}
+
+/* Order Confirmation Feedback Banner */
+.feedback-banner {
+    background-color: rgba(16, 185, 129, 0.14);
+    color: var(--mint-green);
+    border: 1px solid var(--mint-green);
+    max-width: 560px;
+    font-weight: 500;
+}
+
+/* Deal Cards (Deep Charcoal background with subtle border) */
+.deal-card {
+    background-color: var(--deep-charcoal);
+    color: var(--warm-off-white);
+    border: 1px solid rgba(250, 243, 224, 0.16);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.deal-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--saffron-gold);
+}
+
+.deal-img-wrapper {
+    position: relative;
+    background-color: var(--espresso-dark);
+}
+
+.deal-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Discount Percentage Badge (Tangerine Orange) */
+.discount-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--tangerine-orange);
+    color: var(--warm-off-white);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+}
+
+/* Category Tag (Saffron Gold) */
+.category-tag {
+    color: var(--saffron-gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+/* Available / Freshness Status Badge (Mint Green) */
+.status-badge {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: var(--mint-green);
+    border: 1px solid var(--mint-green);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+}
+
+.deal-title {
+    color: var(--warm-off-white);
+}
+
+.deal-items {
+    color: rgba(250, 243, 224, 0.8);
+    font-size: 0.94rem;
+}
+
+/* Price Display */
+.old-price {
+    color: rgba(250, 243, 224, 0.55);
+    text-decoration: line-through;
+    font-size: 0.95rem;
+}
+
+.new-price {
+    color: var(--saffron-gold);
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* Primary Order Button (Tangerine Orange) */
+.btn-order {
+    background-color: var(--tangerine-orange);
+    color: var(--warm-off-white);
+    border: none;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-order:hover,
+.btn-order:focus {
+    background-color: #e05e00;
+    color: var(--warm-off-white);
+}
+
+/* Footer styling (Espresso Dark) */
+.bistro-footer {
+    background-color: var(--espresso-dark);
+    border-top: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.footer-brand {
+    color: var(--saffron-gold);
+}
+
+.footer-text {
+    color: rgba(250, 243, 224, 0.75);
+}
+
+.footer-link {
+    color: var(--warm-off-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--tangerine-orange);
+}
