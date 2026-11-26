@@ -2,20 +2,20 @@
    Modern Dark Bistro Theme - Special Deals Stylesheet
    ========================================================== */
 
-/* Locked team color palette defined as CSS variables */
+/* Exact dark theme palette defined on :root and used everywhere */
 :root {
-    --espresso-dark: #181512;      /* Navbar & Footer */
-    --deep-charcoal: #241F1C;      /* Main Background & Cards */
-    --tangerine-orange: #FF6B00;   /* Primary Buttons & Highlights */
-    --warm-off-white: #FAF3E0;     /* Text & Headings */
-    --saffron-gold: #F59E0B;       /* Accents, Icons & Prices */
-    --mint-green: #10B981;         /* Available / Fresh Tags */
+    --bg-nav-footer: #181512;  /* Navbar and footer background */
+    --bg-main: #241F1C;        /* Page background and cards */
+    --accent-orange: #FF6B00;  /* Primary buttons, active filter pill, cart badge */
+    --text-main: #FAF3E0;      /* Headings and body text */
+    --accent-gold: #F59E0B;    /* Prices, star ratings, icons, "Chef's Spotlight" label */
+    --status-green: #10B981;   /* Available / Freshly Prepared badges */
 }
 
-/* Base page layout and typography */
+/* Base layout and page background */
 body {
-    background-color: var(--deep-charcoal);
-    color: var(--warm-off-white);
+    background-color: var(--bg-main);
+    color: var(--text-main);
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     display: flex;
@@ -26,26 +26,26 @@ main {
     flex: 1;
 }
 
-/* Navbar styling (Espresso Dark) */
+/* Navbar styling */
 .bistro-navbar {
-    background-color: var(--espresso-dark);
-    border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+    background-color: var(--bg-nav-footer);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
     padding-top: 0.85rem;
     padding-bottom: 0.85rem;
 }
 
 .brand-title {
-    color: var(--saffron-gold);
+    color: var(--accent-gold);
     letter-spacing: 0.5px;
 }
 
 .brand-title:hover,
 .brand-title:focus {
-    color: var(--warm-off-white);
+    color: var(--text-main);
 }
 
 .bistro-navbar .nav-link {
-    color: var(--warm-off-white);
+    color: var(--text-main);
     font-weight: 500;
     transition: color 0.2s ease;
 }
@@ -53,17 +53,18 @@ main {
 .bistro-navbar .nav-link:hover,
 .bistro-navbar .nav-link:focus,
 .bistro-navbar .nav-link.active {
-    color: var(--tangerine-orange);
+    color: var(--accent-orange);
 }
 
+/* Cart counter badge in navbar */
 .cart-badge {
-    background-color: var(--tangerine-orange);
-    color: var(--warm-off-white);
+    background-color: var(--accent-orange);
+    color: var(--text-main);
 }
 
-/* Page Heading & Spotlight Section */
+/* Page Heading & Chef's Spotlight Label */
 .spotlight-label {
-    color: var(--saffron-gold);
+    color: var(--accent-gold);
     font-weight: 600;
     font-size: 0.95rem;
     letter-spacing: 0.8px;
@@ -71,66 +72,52 @@ main {
 }
 
 .page-heading {
-    color: var(--warm-off-white);
+    color: var(--text-main);
 }
 
 .hero-subtitle {
-    color: rgba(250, 243, 224, 0.82);
+    color: var(--text-main);
+    opacity: 0.85;
     max-width: 650px;
 }
 
-/* Category Filter Buttons */
+/* Category Filter Pills */
 .filter-btn {
-    background-color: var(--espresso-dark);
-    color: var(--warm-off-white);
-    border: 1px solid rgba(245, 158, 11, 0.35);
+    background-color: var(--bg-nav-footer);
+    color: var(--text-main);
+    border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
     border-radius: 999px;
     padding: 0.45rem 1.15rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .filter-btn:hover,
-.filter-btn:focus {
-    background-color: var(--tangerine-orange);
-    border-color: var(--tangerine-orange);
-    color: var(--warm-off-white);
-}
-
+.filter-btn:focus,
 .filter-btn.active {
-    background-color: var(--tangerine-orange);
-    border-color: var(--tangerine-orange);
-    color: var(--warm-off-white);
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: var(--text-main);
 }
 
-/* Order Confirmation Feedback Banner */
-.feedback-banner {
-    background-color: rgba(16, 185, 129, 0.14);
-    color: var(--mint-green);
-    border: 1px solid var(--mint-green);
-    max-width: 560px;
-    font-weight: 500;
-}
-
-/* Deal Cards (Deep Charcoal background with subtle border) */
+/* Deal Cards */
 .deal-card {
-    background-color: var(--deep-charcoal);
-    color: var(--warm-off-white);
-    border: 1px solid rgba(250, 243, 224, 0.16);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    border: 1px solid color-mix(in srgb, var(--text-main) 18%, transparent);
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
 .deal-card:hover {
     transform: translateY(-5px);
-    border-color: var(--saffron-gold);
+    border-color: var(--accent-gold);
 }
 
 .deal-img-wrapper {
     position: relative;
-    background-color: var(--espresso-dark);
+    background-color: var(--bg-nav-footer);
 }
 
 .deal-img {
@@ -140,33 +127,39 @@ main {
     display: block;
 }
 
-/* Discount Percentage Badge (Tangerine Orange) */
+/* Discount Percentage Badge */
 .discount-badge {
     position: absolute;
     top: 12px;
     right: 12px;
-    background-color: var(--tangerine-orange);
-    color: var(--warm-off-white);
+    background-color: var(--accent-orange);
+    color: var(--text-main);
     font-weight: 700;
     font-size: 0.85rem;
-    padding: 0.35rem 0.7rem;
+    padding: 0.35rem 0.75rem;
     border-radius: 999px;
 }
 
-/* Category Tag (Saffron Gold) */
+/* Category & Star Rating (Saffron Gold) */
 .category-tag {
-    color: var(--saffron-gold);
-    font-size: 0.8rem;
+    color: var(--accent-gold);
+    font-size: 0.82rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.5px;
 }
 
-/* Available / Freshness Status Badge (Mint Green) */
+.star-rating {
+    color: var(--accent-gold);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Available / Freshly Prepared Status Badge (Mint Green) */
 .status-badge {
-    background-color: rgba(16, 185, 129, 0.15);
-    color: var(--mint-green);
-    border: 1px solid var(--mint-green);
+    background-color: color-mix(in srgb, var(--status-green) 16%, transparent);
+    color: var(--status-green);
+    border: 1px solid var(--status-green);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.25rem 0.6rem;
@@ -174,65 +167,87 @@ main {
 }
 
 .deal-title {
-    color: var(--warm-off-white);
+    color: var(--text-main);
 }
 
 .deal-items {
-    color: rgba(250, 243, 224, 0.8);
+    color: var(--text-main);
+    opacity: 0.82;
     font-size: 0.94rem;
 }
 
 /* Price Display */
 .old-price {
-    color: rgba(250, 243, 224, 0.55);
+    color: var(--text-main);
+    opacity: 0.55;
     text-decoration: line-through;
     font-size: 0.95rem;
 }
 
 .new-price {
-    color: var(--saffron-gold);
+    color: var(--accent-gold);
     font-size: 1.3rem;
     font-weight: 700;
 }
 
-/* Primary Order Button (Tangerine Orange) */
+/* Primary "Add to Cart" Button */
 .btn-order {
-    background-color: var(--tangerine-orange);
-    color: var(--warm-off-white);
+    background-color: var(--accent-orange);
+    color: var(--text-main);
     border: none;
     font-weight: 600;
     padding: 0.6rem 1rem;
     border-radius: 8px;
-    transition: background-color 0.2s ease;
+    transition: filter 0.2s ease;
 }
 
 .btn-order:hover,
 .btn-order:focus {
-    background-color: #e05e00;
-    color: var(--warm-off-white);
+    background-color: var(--accent-orange);
+    color: var(--text-main);
+    filter: brightness(0.9);
 }
 
-/* Footer styling (Espresso Dark) */
+/* Empty Filter Message */
+.empty-deals-msg {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    padding: 2rem;
+    border: 1px dashed color-mix(in srgb, var(--accent-gold) 45%, transparent);
+    border-radius: 12px;
+    background-color: var(--bg-nav-footer);
+}
+
+/* Bootstrap Toast Notification */
+.bistro-toast {
+    background-color: var(--bg-nav-footer);
+    color: var(--status-green);
+    border: 1px solid var(--status-green);
+    font-weight: 600;
+}
+
+/* Footer styling */
 .bistro-footer {
-    background-color: var(--espresso-dark);
-    border-top: 1px solid rgba(245, 158, 11, 0.25);
+    background-color: var(--bg-nav-footer);
+    border-top: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
 }
 
 .footer-brand {
-    color: var(--saffron-gold);
+    color: var(--accent-gold);
 }
 
 .footer-text {
-    color: rgba(250, 243, 224, 0.75);
+    color: var(--text-main);
+    opacity: 0.78;
 }
 
 .footer-link {
-    color: var(--warm-off-white);
+    color: var(--text-main);
     text-decoration: none;
     font-size: 0.9rem;
     transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-    color: var(--tangerine-orange);
+    color: var(--accent-orange);
 }
