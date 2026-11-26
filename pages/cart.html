@@ -5,44 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart | The Flavour Lounge</title>
 
-    <!-- Bootstrap 5 CSS via CDN -->
+    <!-- Google Fonts: Playfair Display & Poppins (shared with index.html) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS & Icons via CDN -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
         crossorigin="anonymous"
     >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <!-- Custom CSS for the Shopping Cart page -->
+    <!-- Shared Theme Stylesheet & Page Stylesheet -->
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/cart.css">
 </head>
 <body>
 
-    <!-- Semantic Header wrapping the Bootstrap Navigation Bar (same as special-deals.html) -->
-    <header class="site-header sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-dark bistro-navbar" aria-label="Main Navigation">
+    <!-- Shared Responsive Bootstrap 5 Navbar (consistent with index.html) -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
             <div class="container">
-                <!-- Restaurant Brand Name linking back to Home -->
-                <a class="navbar-brand fw-bold brand-title" href="../index.html">
-                    The Flavour Lounge
+                <a class="navbar-brand" href="../index.html">
+                    <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+                    <span>The Flavour <span class="brand-accent">Lounge</span></span>
                 </a>
 
-                <!-- Mobile Hamburger Toggle Button -->
                 <button
                     class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#mainNavbar"
-                    aria-controls="mainNavbar"
+                    data-bs-target="#flavourNavbar"
+                    aria-controls="flavourNavbar"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Navigation Links using relative paths -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <div class="collapse navbar-collapse" id="flavourNavbar">
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
                         <li class="nav-item">
                             <a class="nav-link" href="../index.html">Home</a>
                         </li>
@@ -56,8 +61,16 @@
                             <a class="nav-link" href="reviews.html">Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="cart.html">
-                                Cart <span id="cartCount" class="badge rounded-pill cart-badge ms-1">0</span>
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="nav-link nav-cart-link active" aria-current="page" href="cart.html" aria-label="View Cart">
+                                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                                <span>Cart</span>
+                                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
                             </a>
                         </li>
                     </ul>
@@ -67,52 +80,157 @@
     </header>
 
     <!-- Semantic Main Content Area -->
-    <main class="py-5">
+    <main class="section-padding">
         <div class="container">
 
             <!-- Page Heading Section -->
             <section class="text-center mb-5">
-                <span class="spotlight-label d-inline-block mb-2">
-                    &#9733; Order Summary
+                <span class="section-eyebrow">
+                    <i class="bi bi-bag-check me-1" aria-hidden="true"></i>Review &amp; Checkout
                 </span>
-                <h1 class="display-5 fw-bold page-heading mb-2">
+                <h1 class="section-heading display-5 mb-2">
                     Your Cart
                 </h1>
-                <p class="lead mx-auto hero-subtitle mb-0">
-                    Review your selected dishes and deals, adjust quantities, or remove items before placing your order.
+                <div class="section-divider"></div>
+                <p class="text-muted mx-auto cart-subtitle mb-0">
+                    Review your selected dishes and deals, apply a promo code, or adjust quantities before checkout.
                 </p>
             </section>
 
-            <!-- Cart Items Container (populated dynamically by js/cart.js) -->
-            <section aria-label="Shopping Cart Items">
-                <div id="cartContainer">
-                    <!-- Cart rows or empty-cart message will be injected here by JavaScript -->
+            <!-- Cart Layout: Items on the Left, Order Summary on the Right -->
+            <section aria-label="Shopping Cart and Order Summary">
+                <div class="row g-4 align-items-start">
+
+                    <!-- Cart Items Container (populated dynamically by js/cart.js) -->
+                    <div class="col-lg-8">
+                        <div id="cartContainer">
+                            <!-- Cart rows or empty-cart message will be injected here by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Order Summary Card -->
+                    <div class="col-lg-4">
+                        <aside class="cart-summary-card" aria-label="Order Summary">
+                            <h2 class="h4 mb-3">Order Summary</h2>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="summary-label">Subtotal</span>
+                                <span id="summarySubtotal" class="fw-semibold">Rs. 0</span>
+                            </div>
+
+                            <!-- Discount row is only shown when a valid promo code is applied -->
+                            <div id="discountRow" class="d-flex justify-content-between mb-2 d-none">
+                                <span class="summary-discount-label">
+                                    Discount (<span id="appliedPromoLabel"></span>)
+                                </span>
+                                <span id="summaryDiscount" class="summary-discount-value">- Rs. 0</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="summary-label">Delivery Fee</span>
+                                <span id="summaryDelivery" class="fw-semibold">Rs. 0</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-3">
+                                <span class="summary-label">Tax (5%)</span>
+                                <span id="summaryTax" class="fw-semibold">Rs. 0</span>
+                            </div>
+
+                            <hr class="summary-divider">
+
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <span class="fw-bold">Total</span>
+                                <span id="summaryTotal" class="summary-total">Rs. 0</span>
+                            </div>
+
+                            <!-- Promo Code Form -->
+                            <form id="promoForm" class="mb-4" novalidate>
+                                <label for="promoInput" class="form-label small fw-semibold promo-label">
+                                    Promo Code
+                                </label>
+                                <div class="input-group">
+                                    <input
+                                        type="text"
+                                        id="promoInput"
+                                        class="form-control promo-input"
+                                        placeholder="FLAVOUR10 or WELCOME100"
+                                        aria-describedby="promoMessage"
+                                    >
+                                    <button type="submit" id="applyPromoBtn" class="btn btn-flavour-maroon rounded-end">
+                                        Apply
+                                    </button>
+                                </div>
+                                <div id="promoMessage" class="promo-message mt-2" role="status" aria-live="polite"></div>
+                            </form>
+
+                            <!-- Proceed to Checkout Button -->
+                            <div class="d-grid">
+                                <a
+                                    id="checkoutBtn"
+                                    href="checkout.html"
+                                    class="btn btn-flavour-primary text-center"
+                                >
+                                    Proceed to Checkout
+                                </a>
+                            </div>
+                        </aside>
+                    </div>
+
                 </div>
             </section>
 
         </div>
     </main>
 
-    <!-- Semantic Footer (same as special-deals.html) -->
-    <footer class="bistro-footer py-4 mt-5">
+    <!-- Shared Footer (consistent with index.html) -->
+    <footer class="footer-flavour">
         <div class="container">
-            <div class="row align-items-center gy-3">
-                <div class="col-md-6 text-center text-md-start">
-                    <h2 class="h5 fw-bold mb-1 footer-brand">The Flavour Lounge</h2>
-                    <p class="mb-0 small footer-text">
-                        Authentic Pakistani Cuisine &bull; Freshly Prepared Daily
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="footer-brand h4 mb-3">
+                        <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+                    </h5>
+                    <p class="small mb-3">
+                        An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+                        delivery.
                     </p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <ul class="list-inline mb-1">
-                        <li class="list-inline-item"><a class="footer-link" href="../index.html">Home</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="menu.html">Menu</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="special-deals.html">Deals</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="reviews.html">Reviews</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="cart.html">Cart</a></li>
+
+                <div class="col-sm-6 col-lg-2">
+                    <h6 class="footer-heading">Explore</h6>
+                    <ul class="list-unstyled small d-grid gap-2">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="special-deals.html">Special Deals</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                        <li><a href="cart.html">Order Cart</a></li>
                     </ul>
-                    <p class="mb-0 small footer-text">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
                 </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <h6 class="footer-heading">Opening Hours</h6>
+                    <ul class="list-unstyled small d-grid gap-2 mb-0">
+                        <li>Mon – Thu: 12:00 PM – 10:30 PM</li>
+                        <li>Fri – Sat: 12:00 PM – 11:30 PM</li>
+                        <li>Sunday: 1:00 PM – 10:00 PM</li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3">
+                    <h6 class="footer-heading">Visit &amp; Contact</h6>
+                    <ul class="list-unstyled small d-grid gap-2 mb-0">
+                        <li><i class="bi bi-geo-alt text-orange me-2" aria-hidden="true"></i>42 Heritage Avenue, Downtown</li>
+                        <li><i class="bi bi-telephone text-orange me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+                        <li><i class="bi bi-envelope text-orange me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-2">
+                <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+                <p class="mb-0 opacity-75">SE-B Group 11 Culinary Web Project</p>
             </div>
         </div>
     </footer>
@@ -124,7 +242,8 @@
         crossorigin="anonymous"
     ></script>
 
-    <!-- Custom JavaScript for Shopping Cart -->
+    <!-- Shared Cart Helper (must load first) and Cart Page Logic -->
     <script src="../js/cart.js"></script>
+    <script src="../js/cart-page.js"></script>
 </body>
 </html>

@@ -1,122 +1,51 @@
-/* ==========================================================
-   Modern Dark Bistro Theme - Shopping Cart Stylesheet
-   ========================================================== */
+/* ==========================================================================
+   The Flavour Lounge - Shopping Cart Page Styles
+   Reuses shared CSS variables from css/style.css
+   ========================================================================== */
 
-/* Exact dark theme palette defined on :root and used everywhere */
-:root {
-    --bg-nav-footer: #181512;  /* Navbar and footer background */
-    --bg-main: #241F1C;        /* Page background and cards */
-    --accent-orange: #FF6B00;  /* Primary buttons, cart badge */
-    --text-main: #FAF3E0;      /* Headings and body text */
-    --accent-gold: #F59E0B;    /* Prices, icons, highlights */
-    --status-green: #10B981;   /* Positive / available tags */
-}
-
-/* Base layout and page background */
-body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
-}
-
-/* Navbar styling */
-.bistro-navbar {
-    background-color: var(--bg-nav-footer);
-    border-bottom: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
-}
-
-.brand-title {
-    color: var(--accent-gold);
-    letter-spacing: 0.5px;
-}
-
-.brand-title:hover,
-.brand-title:focus {
-    color: var(--text-main);
-}
-
-.bistro-navbar .nav-link {
-    color: var(--text-main);
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.bistro-navbar .nav-link:hover,
-.bistro-navbar .nav-link:focus,
-.bistro-navbar .nav-link.active {
-    color: var(--accent-orange);
-}
-
-/* Cart counter badge in navbar */
-.cart-badge {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-}
-
-/* Page Heading & Subtitle */
-.spotlight-label {
-    color: var(--accent-gold);
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-}
-
-.page-heading {
-    color: var(--text-main);
-}
-
-.hero-subtitle {
-    color: var(--text-main);
-    opacity: 0.85;
-    max-width: 650px;
+.cart-subtitle {
+    max-width: 38rem;
 }
 
 /* Cart Item Row Card */
 .cart-item-row {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    border: 1px solid color-mix(in srgb, var(--text-main) 18%, transparent);
-    border-radius: 14px;
-    padding: 1rem 1.25rem;
-    transition: border-color 0.2s ease;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.25rem;
+    box-shadow: var(--shadow-soft);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
 .cart-item-row:hover {
-    border-color: var(--accent-gold);
+    border-color: var(--color-orange);
+    box-shadow: var(--shadow-card);
 }
 
 .cart-item-img {
     width: 96px;
     height: 76px;
     object-fit: cover;
-    border-radius: 10px;
-    background-color: var(--bg-nav-footer);
-    border: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
+    border-radius: var(--radius-md);
+    background-color: var(--color-cream-dark);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 15%, transparent);
 }
 
 .cart-item-name {
-    color: var(--text-main);
+    font-family: var(--font-heading);
+    color: var(--color-maroon);
     font-weight: 700;
 }
 
 .unit-price {
-    color: var(--text-main);
-    opacity: 0.8;
-    font-size: 0.92rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
 }
 
 .line-total {
-    color: var(--accent-gold);
+    color: var(--color-maroon);
+    font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.15rem;
 }
@@ -126,15 +55,15 @@ main {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background-color: var(--bg-nav-footer);
-    border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
-    border-radius: 8px;
+    background-color: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 20%, transparent);
+    border-radius: var(--radius-md);
     padding: 0.25rem 0.5rem;
 }
 
 .btn-qty {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
+    background-color: var(--color-orange);
+    color: var(--color-white);
     border: none;
     width: 30px;
     height: 30px;
@@ -144,27 +73,26 @@ main {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: filter 0.2s ease;
+    transition: background-color var(--transition-base);
 }
 
 .btn-qty:hover,
-.btn-qty:focus {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-    filter: brightness(0.9);
+.btn-qty:focus-visible {
+    background-color: var(--color-orange-hover);
+    color: var(--color-white);
 }
 
 .qty-value {
     min-width: 26px;
     text-align: center;
     font-weight: 600;
-    color: var(--text-main);
+    color: var(--color-text);
 }
 
 /* Inline quantity limit error message (min 1 / max 20) */
 .qty-error {
-    color: var(--accent-orange);
-    font-size: 0.82rem;
+    color: var(--color-maroon);
+    font-size: 0.8rem;
     font-weight: 600;
     min-height: 1.2rem;
 }
@@ -172,116 +100,110 @@ main {
 /* Remove Item Button */
 .btn-remove {
     background-color: transparent;
-    color: var(--accent-orange);
-    border: 1px solid var(--accent-orange);
+    color: var(--color-maroon);
+    border: 1px solid var(--color-maroon);
     font-weight: 600;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
     padding: 0.4rem 0.85rem;
-    border-radius: 8px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 50rem;
+    transition: all var(--transition-base);
 }
 
 .btn-remove:hover,
-.btn-remove:focus {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
+.btn-remove:focus-visible {
+    background-color: var(--color-maroon);
+    color: var(--color-white);
 }
 
-/* Cart Summary Card */
+/* Order Summary Card */
 .cart-summary-card {
-    background-color: var(--bg-nav-footer);
-    border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
-    border-radius: 14px;
-    padding: 1.5rem;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-soft);
 }
 
 .summary-label {
-    color: var(--text-main);
-    opacity: 0.85;
+    color: var(--color-text-muted);
+}
+
+.summary-discount-label,
+.summary-discount-value {
+    color: var(--color-orange);
+    font-weight: 600;
+}
+
+.summary-divider {
+    border-color: color-mix(in srgb, var(--color-maroon) 15%, transparent);
 }
 
 .summary-total {
-    color: var(--accent-gold);
+    color: var(--color-maroon);
+    font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
 }
 
-/* Primary & Secondary CTA Buttons */
-.btn-bistro-primary {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-    border: none;
+/* Promo Code Input & Feedback Messages */
+.promo-label {
+    color: var(--color-maroon);
+}
+
+.promo-input {
+    background-color: var(--color-cream);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 25%, transparent);
+}
+
+.promo-input:focus {
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border-color: var(--color-orange);
+    box-shadow: none;
+}
+
+.promo-message {
+    font-size: 0.84rem;
     font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: filter 0.2s ease;
+    min-height: 1.25rem;
 }
 
-.btn-bistro-primary:hover,
-.btn-bistro-primary:focus {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-    filter: brightness(0.9);
+.promo-message.is-error {
+    color: var(--color-maroon);
 }
 
-.btn-bistro-outline {
-    background-color: transparent;
-    color: var(--accent-gold);
-    border: 1px solid var(--accent-gold);
-    font-weight: 600;
-    padding: 0.65rem 1.4rem;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease;
+.promo-message.is-success {
+    color: var(--color-orange);
 }
 
-.btn-bistro-outline:hover,
-.btn-bistro-outline:focus {
-    background-color: var(--accent-gold);
-    color: var(--bg-nav-footer);
+/* Disabled state for Proceed to Checkout when cart is empty */
+.btn-flavour-primary.disabled,
+.btn-flavour-primary[aria-disabled="true"] {
+    opacity: 0.5;
+    pointer-events: none;
+    transform: none;
+    box-shadow: none;
 }
 
 /* Empty Cart Card */
 .empty-cart-box {
-    background-color: var(--bg-nav-footer);
-    border: 1px dashed color-mix(in srgb, var(--accent-gold) 45%, transparent);
-    border-radius: 14px;
+    background-color: var(--color-white);
+    border: 1px dashed color-mix(in srgb, var(--color-maroon) 30%, transparent);
+    border-radius: var(--radius-lg);
     padding: 3rem 1.5rem;
+    box-shadow: var(--shadow-soft);
 }
 
 .empty-cart-title {
-    color: var(--text-main);
+    color: var(--color-maroon);
 }
 
 .empty-cart-badge {
-    color: var(--status-green);
+    color: var(--color-orange);
     font-weight: 600;
     font-size: 0.9rem;
-}
-
-/* Footer styling */
-.bistro-footer {
-    background-color: var(--bg-nav-footer);
-    border-top: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
-}
-
-.footer-brand {
-    color: var(--accent-gold);
-}
-
-.footer-text {
-    color: var(--text-main);
-    opacity: 0.78;
-}
-
-.footer-link {
-    color: var(--text-main);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
-}
-
-.footer-link:hover {
-    color: var(--accent-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }

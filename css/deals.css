@@ -1,123 +1,50 @@
-/* ==========================================================
-   Modern Dark Bistro Theme - Special Deals Stylesheet
-   ========================================================== */
+/* ==========================================================================
+   The Flavour Lounge - Special Deals Page Styles
+   Reuses shared CSS variables from css/style.css
+   ========================================================================== */
 
-/* Exact dark theme palette defined on :root and used everywhere */
-:root {
-    --bg-nav-footer: #181512;  /* Navbar and footer background */
-    --bg-main: #241F1C;        /* Page background and cards */
-    --accent-orange: #FF6B00;  /* Primary buttons, active filter pill, cart badge */
-    --text-main: #FAF3E0;      /* Headings and body text */
-    --accent-gold: #F59E0B;    /* Prices, star ratings, icons, "Chef's Spotlight" label */
-    --status-green: #10B981;   /* Available / Freshly Prepared badges */
-}
-
-/* Base layout and page background */
-body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-main {
-    flex: 1;
-}
-
-/* Navbar styling */
-.bistro-navbar {
-    background-color: var(--bg-nav-footer);
-    border-bottom: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
-}
-
-.brand-title {
-    color: var(--accent-gold);
-    letter-spacing: 0.5px;
-}
-
-.brand-title:hover,
-.brand-title:focus {
-    color: var(--text-main);
-}
-
-.bistro-navbar .nav-link {
-    color: var(--text-main);
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.bistro-navbar .nav-link:hover,
-.bistro-navbar .nav-link:focus,
-.bistro-navbar .nav-link.active {
-    color: var(--accent-orange);
-}
-
-/* Cart counter badge in navbar */
-.cart-badge {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-}
-
-/* Page Heading & Chef's Spotlight Label */
-.spotlight-label {
-    color: var(--accent-gold);
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-}
-
-.page-heading {
-    color: var(--text-main);
-}
-
-.hero-subtitle {
-    color: var(--text-main);
-    opacity: 0.85;
-    max-width: 650px;
+.deals-subtitle {
+    max-width: 38rem;
 }
 
 /* Category Filter Pills */
 .filter-btn {
-    background-color: var(--bg-nav-footer);
-    color: var(--text-main);
-    border: 1px solid color-mix(in srgb, var(--accent-gold) 35%, transparent);
-    border-radius: 999px;
-    padding: 0.45rem 1.15rem;
-    font-weight: 500;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    background-color: var(--color-white);
+    color: var(--color-maroon);
+    border: 2px solid var(--color-cream-dark);
+    border-radius: 50rem;
+    padding: 0.45rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all var(--transition-base);
 }
 
 .filter-btn:hover,
-.filter-btn:focus,
+.filter-btn:focus-visible,
 .filter-btn.active {
-    background-color: var(--accent-orange);
-    border-color: var(--accent-orange);
-    color: var(--text-main);
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+    color: var(--color-white);
 }
 
-/* Deal Cards */
+/* Deal Cards extending shared .flavour-card look */
 .deal-card {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    border: 1px solid color-mix(in srgb, var(--text-main) 18%, transparent);
-    border-radius: 14px;
+    background-color: var(--color-white);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: transform 0.25s ease, border-color 0.25s ease;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
 }
 
 .deal-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-gold);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
 }
 
 .deal-img-wrapper {
     position: relative;
-    background-color: var(--bg-nav-footer);
+    background-color: var(--color-cream-dark);
 }
 
 .deal-img {
@@ -132,122 +59,78 @@ main {
     position: absolute;
     top: 12px;
     right: 12px;
-    background-color: var(--accent-orange);
-    color: var(--text-main);
+    background-color: var(--color-orange);
+    color: var(--color-white);
     font-weight: 700;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     padding: 0.35rem 0.75rem;
-    border-radius: 999px;
+    border-radius: 50rem;
 }
 
-/* Category & Star Rating (Saffron Gold) */
+/* Category Label & Star Rating */
 .category-tag {
-    color: var(--accent-gold);
+    color: var(--color-orange);
     font-size: 0.82rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
 }
 
 .star-rating {
-    color: var(--accent-gold);
-    font-size: 0.85rem;
+    color: var(--color-orange);
+    font-size: 0.88rem;
     font-weight: 600;
 }
 
-/* Available / Freshly Prepared Status Badge (Mint Green) */
+/* Availability Badge */
 .status-badge {
-    background-color: color-mix(in srgb, var(--status-green) 16%, transparent);
-    color: var(--status-green);
-    border: 1px solid var(--status-green);
+    background-color: var(--color-cream);
+    color: var(--color-maroon);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 20%, transparent);
     font-size: 0.75rem;
     font-weight: 600;
-    padding: 0.25rem 0.6rem;
-    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+    border-radius: 50rem;
 }
 
 .deal-title {
-    color: var(--text-main);
+    color: var(--color-maroon);
 }
 
 .deal-items {
-    color: var(--text-main);
-    opacity: 0.82;
+    color: var(--color-text-muted);
     font-size: 0.94rem;
 }
 
 /* Price Display */
 .old-price {
-    color: var(--text-main);
-    opacity: 0.55;
+    color: var(--color-text-muted);
     text-decoration: line-through;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 }
 
 .new-price {
-    color: var(--accent-gold);
-    font-size: 1.3rem;
+    color: var(--color-maroon);
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
     font-weight: 700;
-}
-
-/* Primary "Add to Cart" Button */
-.btn-order {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-    border: none;
-    font-weight: 600;
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    transition: filter 0.2s ease;
-}
-
-.btn-order:hover,
-.btn-order:focus {
-    background-color: var(--accent-orange);
-    color: var(--text-main);
-    filter: brightness(0.9);
 }
 
 /* Empty Filter Message */
 .empty-deals-msg {
-    color: var(--text-main);
-    font-size: 1.1rem;
-    padding: 2rem;
-    border: 1px dashed color-mix(in srgb, var(--accent-gold) 45%, transparent);
-    border-radius: 12px;
-    background-color: var(--bg-nav-footer);
+    color: var(--color-maroon);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 2.25rem;
+    border: 1px dashed color-mix(in srgb, var(--color-maroon) 35%, transparent);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
 }
 
 /* Bootstrap Toast Notification */
-.bistro-toast {
-    background-color: var(--bg-nav-footer);
-    color: var(--status-green);
-    border: 1px solid var(--status-green);
+.flavour-toast {
+    background-color: var(--color-maroon);
+    color: var(--color-cream);
+    border: 2px solid var(--color-orange);
     font-weight: 600;
-}
-
-/* Footer styling */
-.bistro-footer {
-    background-color: var(--bg-nav-footer);
-    border-top: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
-}
-
-.footer-brand {
-    color: var(--accent-gold);
-}
-
-.footer-text {
-    color: var(--text-main);
-    opacity: 0.78;
-}
-
-.footer-link {
-    color: var(--text-main);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s ease;
-}
-
-.footer-link:hover {
-    color: var(--accent-orange);
 }

@@ -5,44 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Special Deals | The Flavour Lounge</title>
 
-    <!-- Bootstrap 5 CSS via CDN -->
+    <!-- Google Fonts: Playfair Display & Poppins (shared with index.html) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS & Icons via CDN -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
         crossorigin="anonymous"
     >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <!-- Custom CSS for the Special Deals page -->
+    <!-- Shared Theme Stylesheet & Page Stylesheet -->
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/deals.css">
 </head>
 <body>
 
-    <!-- Semantic Header wrapping the Bootstrap Navigation Bar -->
-    <header class="site-header sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-dark bistro-navbar" aria-label="Main Navigation">
+    <!-- Shared Responsive Bootstrap 5 Navbar (consistent with index.html) -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
             <div class="container">
-                <!-- Restaurant Brand Name linking back to Home -->
-                <a class="navbar-brand fw-bold brand-title" href="../index.html">
-                    The Flavour Lounge
+                <a class="navbar-brand" href="../index.html">
+                    <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+                    <span>The Flavour <span class="brand-accent">Lounge</span></span>
                 </a>
 
-                <!-- Mobile Hamburger Toggle Button -->
                 <button
                     class="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#mainNavbar"
-                    aria-controls="mainNavbar"
+                    data-bs-target="#flavourNavbar"
+                    aria-controls="flavourNavbar"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Navigation Links using relative paths -->
-                <div class="collapse navbar-collapse" id="mainNavbar">
-                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <div class="collapse navbar-collapse" id="flavourNavbar">
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
                         <li class="nav-item">
                             <a class="nav-link" href="../index.html">Home</a>
                         </li>
@@ -56,8 +61,16 @@
                             <a class="nav-link" href="reviews.html">Reviews</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cart.html">
-                                Cart <span id="cartCount" class="badge rounded-pill cart-badge ms-1">0</span>
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                        <li class="nav-item ms-lg-2">
+                            <a class="nav-link nav-cart-link" href="cart.html" aria-label="View Cart">
+                                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                                <span>Cart</span>
+                                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
                             </a>
                         </li>
                     </ul>
@@ -67,19 +80,20 @@
     </header>
 
     <!-- Semantic Main Content Area -->
-    <main class="py-5">
+    <main class="section-padding">
         <div class="container">
 
             <!-- Page Heading Section -->
-            <section class="text-center mb-5 deals-hero">
-                <span class="spotlight-label d-inline-block mb-2">
-                    &#9733; Chef's Spotlight
+            <section class="text-center mb-5">
+                <span class="section-eyebrow">
+                    <i class="bi bi-stars me-1" aria-hidden="true"></i>Chef's Spotlight
                 </span>
-                <h1 class="display-5 fw-bold page-heading mb-3">
+                <h1 class="section-heading display-5 mb-2">
                     Chef's Combos &amp; Discounts
                 </h1>
-                <p class="lead mx-auto hero-subtitle">
-                    Authentic Pakistani platters, aromatic biryanis, and sizzling charcoal BBQ combos at special dine-in and takeaway prices.
+                <div class="section-divider"></div>
+                <p class="text-muted mx-auto deals-subtitle mb-0">
+                    Handcrafted Pakistani platters, aromatic biryanis, and sizzling charcoal BBQ combos at special dine-in and takeaway prices.
                 </p>
             </section>
 
@@ -106,46 +120,76 @@
 
     <!-- Bootstrap Toast Container for "Added to cart" notifications -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="cartToast" class="toast bistro-toast" role="status" aria-live="polite" aria-atomic="true">
+        <div id="cartToast" class="toast flavour-toast" role="status" aria-live="polite" aria-atomic="true">
             <div class="toast-body d-flex justify-content-between align-items-center gap-3">
-                <span>&#10003; Added to cart</span>
+                <span><i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>Added to cart</span>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>
 
-    <!-- Semantic Footer -->
-    <footer class="bistro-footer py-4 mt-5">
+    <!-- Shared Footer (consistent with index.html) -->
+    <footer class="footer-flavour">
         <div class="container">
-            <div class="row align-items-center gy-3">
-                <div class="col-md-6 text-center text-md-start">
-                    <h2 class="h5 fw-bold mb-1 footer-brand">The Flavour Lounge</h2>
-                    <p class="mb-0 small footer-text">
-                        Authentic Pakistani Cuisine &bull; Freshly Prepared Daily
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="footer-brand h4 mb-3">
+                        <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+                    </h5>
+                    <p class="small mb-3">
+                        An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+                        delivery.
                     </p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <ul class="list-inline mb-1">
-                        <li class="list-inline-item"><a class="footer-link" href="../index.html">Home</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="menu.html">Menu</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="special-deals.html">Deals</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="reviews.html">Reviews</a></li>
-                        <li class="list-inline-item"><a class="footer-link" href="cart.html">Cart</a></li>
+
+                <div class="col-sm-6 col-lg-2">
+                    <h6 class="footer-heading">Explore</h6>
+                    <ul class="list-unstyled small d-grid gap-2">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="special-deals.html">Special Deals</a></li>
+                        <li><a href="reviews.html">Reviews</a></li>
+                        <li><a href="cart.html">Order Cart</a></li>
                     </ul>
-                    <p class="mb-0 small footer-text">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
                 </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <h6 class="footer-heading">Opening Hours</h6>
+                    <ul class="list-unstyled small d-grid gap-2 mb-0">
+                        <li>Mon – Thu: 12:00 PM – 10:30 PM</li>
+                        <li>Fri – Sat: 12:00 PM – 11:30 PM</li>
+                        <li>Sunday: 1:00 PM – 10:00 PM</li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3">
+                    <h6 class="footer-heading">Visit &amp; Contact</h6>
+                    <ul class="list-unstyled small d-grid gap-2 mb-0">
+                        <li><i class="bi bi-geo-alt text-orange me-2" aria-hidden="true"></i>42 Heritage Avenue, Downtown</li>
+                        <li><i class="bi bi-telephone text-orange me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+                        <li><i class="bi bi-envelope text-orange me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="footer-divider">
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-2">
+                <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+                <p class="mb-0 opacity-75">SE-B Group 11 Culinary Web Project</p>
             </div>
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS Bundle via CDN (required for navbar toggle and toast) -->
+    <!-- Bootstrap 5 JS Bundle via CDN -->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
     ></script>
 
-    <!-- Custom JavaScript for Special Deals -->
+    <!-- Shared Cart Helper (must load first) and Special Deals Logic -->
+    <script src="../js/cart.js"></script>
     <script src="../js/deals.js"></script>
 </body>
 </html>
