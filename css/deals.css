@@ -1,0 +1,136 @@
+/* ==========================================================================
+   The Flavour Lounge - Special Deals Page Styles
+   Reuses shared CSS variables from css/style.css
+   ========================================================================== */
+
+.deals-subtitle {
+    max-width: 38rem;
+}
+
+/* Category Filter Pills */
+.filter-btn {
+    background-color: var(--color-white);
+    color: var(--color-maroon);
+    border: 2px solid var(--color-cream-dark);
+    border-radius: 50rem;
+    padding: 0.45rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all var(--transition-base);
+}
+
+.filter-btn:hover,
+.filter-btn:focus-visible,
+.filter-btn.active {
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+    color: var(--color-white);
+}
+
+/* Deal Cards extending shared .flavour-card look */
+.deal-card {
+    background-color: var(--color-white);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.deal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+}
+
+.deal-img-wrapper {
+    position: relative;
+    background-color: var(--color-cream-dark);
+}
+
+.deal-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Discount Percentage Badge */
+.discount-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50rem;
+}
+
+/* Category Label & Star Rating */
+.category-tag {
+    color: var(--color-orange);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.star-rating {
+    color: var(--color-orange);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+/* Availability Badge */
+.status-badge {
+    background-color: var(--color-cream);
+    color: var(--color-maroon);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 20%, transparent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 50rem;
+}
+
+.deal-title {
+    color: var(--color-maroon);
+}
+
+.deal-items {
+    color: var(--color-text-muted);
+    font-size: 0.94rem;
+}
+
+/* Price Display */
+.old-price {
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+    font-size: 0.92rem;
+}
+
+.new-price {
+    color: var(--color-maroon);
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+/* Empty Filter Message */
+.empty-deals-msg {
+    color: var(--color-maroon);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 2.25rem;
+    border: 1px dashed color-mix(in srgb, var(--color-maroon) 35%, transparent);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-white);
+}
+
+/* Bootstrap Toast Notification */
+.flavour-toast {
+    background-color: var(--color-maroon);
+    color: var(--color-cream);
+    border: 2px solid var(--color-orange);
+    font-weight: 600;
+}
