@@ -125,6 +125,19 @@ function updateOrderSummary(cart) {
     const checkoutBtn = document.getElementById("checkoutBtn");
     const promoInput = document.getElementById("promoInput");
 
+    // Guard: if FlavourCart failed to load, show zeros and disable checkout
+    if (typeof FlavourCart === "undefined") {
+        if (subtotalElement) subtotalElement.textContent = "Rs. 0";
+        if (deliveryElement) deliveryElement.textContent = "Rs. 0";
+        if (taxElement) taxElement.textContent = "Rs. 0";
+        if (totalElement) totalElement.textContent = "Rs. 0";
+        if (checkoutBtn) {
+            checkoutBtn.classList.add("disabled");
+            checkoutBtn.setAttribute("aria-disabled", "true");
+        }
+        return;
+    }
+
     // Calculate subtotal using the shared FlavourCart helper
     const subtotal = FlavourCart.getTotalPrice(cart);
     const isEmpty = cart.length === 0;
@@ -226,6 +239,29 @@ function deleteCartItem(itemId) {
 // Render all cart rows (or empty cart state), Order Summary, and navbar badge
 function renderCart() {
     const cartContainer = document.getElementById("cartContainer");
+
+    // Guard: if FlavourCart helper is unavailable, show empty cart gracefully
+    if (typeof FlavourCart === "undefined") {
+        console.warn("FlavourCart helper not available — cart.js may have failed to load.");
+        if (cartContainer) {
+            cartContainer.innerHTML = `
+                <div class="empty-cart-box text-center">
+                    <p class="empty-cart-badge mb-2">&#9733; Ready When You Are</p>
+                    <h2 class="h3 fw-bold empty-cart-title mb-3">Your cart is empty</h2>
+                    <p class="text-muted mx-auto mb-4">
+                        Explore our freshly prepared Pakistani dishes and chef's combo deals to start your order.
+                    </p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="menu.html" class="btn btn-flavour-primary">Browse Menu</a>
+                        <a href="special-deals.html" class="btn btn-flavour-outline">Browse Deals</a>
+                    </div>
+                </div>
+            `;
+        }
+        updateOrderSummary([]);
+        return;
+    }
+
     const cart = FlavourCart.getCart();
 
     // Keep navbar badge and Order Summary in sync
@@ -323,6 +359,12 @@ function renderCart() {
 function handlePromoSubmit(event) {
     event.preventDefault();
 
+    // Guard against missing FlavourCart
+    if (typeof FlavourCart === "undefined") {
+        setPromoMessage("Cart not available. Please reload the page.", "error");
+        return;
+    }
+
     const promoInput = document.getElementById("promoInput");
     const rawCode = promoInput.value.trim().toUpperCase();
     const cart = FlavourCart.getCart();
@@ -342,11 +384,29 @@ function handlePromoSubmit(event) {
 
 // Initialize cart page once the DOM is loaded
 document.addEventListener("DOMContentLoaded", function () {
-    renderCart();
+    // Wrap full init in try/catch so a corrupted cart never crashes the page
+    try {
+        renderCart();
 
-    const restoredPromo = getSavedPromo();
-    if (restoredPromo && FlavourCart.getCart().length > 0) {
-        setPromoMessage("Promo " + restoredPromo.code + " applied.", "success");
+        const restoredPromo = getSavedPromo();
+        if (restoredPromo && typeof FlavourCart !== "undefined" && FlavourCart.getCart().length > 0) {
+            setPromoMessage("Promo " + restoredPromo.code + " applied.", "success");
+        }
+    } catch (err) {
+        console.warn("Cart init error:", err);
+        // Render empty cart as a safe fallback
+        const cartContainer = document.getElementById("cartContainer");
+        if (cartContainer) {
+            cartContainer.innerHTML = `
+                <div class="empty-cart-box text-center">
+                    <h2 class="h3 fw-bold empty-cart-title mb-3">Your cart is empty</h2>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="menu.html" class="btn btn-flavour-primary">Browse Menu</a>
+                        <a href="special-deals.html" class="btn btn-flavour-outline">Browse Deals</a>
+                    </div>
+                </div>
+            `;
+        }
     }
 
     const cartContainer = document.getElementById("cartContainer");

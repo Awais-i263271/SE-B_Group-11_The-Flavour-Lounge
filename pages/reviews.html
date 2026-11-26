@@ -80,7 +80,7 @@
     </header>
 
     <!-- Semantic Main Content Area -->
-    <main class="section-padding">
+    <main id="main-content" class="section-padding">
         <div class="container">
 
             <!-- Page Heading Section -->
@@ -106,10 +106,11 @@
                             <span class="text-muted small">/ 5.0</span>
                         </div>
                         <div class="text-sm-start">
-                            <div id="avgRatingStars" class="fs-5 mb-1" aria-label="Average customer rating">
+                            <!-- aria-live so screen readers announce the updated rating after a new review is submitted -->
+                            <div id="avgRatingStars" class="fs-5 mb-1" aria-live="polite" aria-label="Average customer rating">
                                 <!-- Stars rendered dynamically by js/reviews.js -->
                             </div>
-                            <p id="totalReviewsCount" class="mb-0 small text-muted fw-medium">
+                            <p id="totalReviewsCount" class="mb-0 small text-muted fw-medium" aria-live="polite">
                                 0 Reviews
                             </p>
                         </div>

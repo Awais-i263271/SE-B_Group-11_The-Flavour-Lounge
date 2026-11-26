@@ -101,10 +101,16 @@ function getStoredReviews() {
 }
 
 // Save a new user review to localStorage key "flavourLoungeReviews"
+// Wrapped in try/catch so a full or unavailable localStorage doesn't crash the page
 function saveUserReview(newReview) {
-    const existing = getStoredReviews();
-    existing.unshift(newReview);
-    localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(existing));
+    try {
+        const existing = getStoredReviews();
+        existing.unshift(newReview);
+        localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(existing));
+    } catch (err) {
+        // localStorage quota exceeded or unavailable — review is shown in the session but not persisted
+        console.warn("Could not save review to localStorage:", err);
+    }
 }
 
 // Merge stored user reviews with seed reviews and sort newest first by default

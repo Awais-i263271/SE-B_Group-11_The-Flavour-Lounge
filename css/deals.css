@@ -1,18 +1,20 @@
 /* ==========================================================================
    The Flavour Lounge - Special Deals Page Styles
-   Reuses shared CSS variables from css/style.css
+   Reuses shared CSS variables from css/style.css (no hard-coded colours)
    ========================================================================== */
 
-.deals-subtitle {
-    max-width: 38rem;
-}
+/* ── Responsive helpers ─────────────────────────────────────────────────── */
+/* Prevent any child from causing horizontal scroll at 360 px */
+.deals-subtitle { max-width: 38rem; }
 
-/* Category Filter Pills */
+/* ── Category Filter Pills ───────────────────────────────────────────────── */
 .filter-btn {
     background-color: var(--color-white);
     color: var(--color-maroon);
     border: 2px solid var(--color-cream-dark);
     border-radius: 50rem;
+    /* min 44px touch target height */
+    min-height: 44px;
     padding: 0.45rem 1.2rem;
     font-weight: 600;
     font-size: 0.92rem;
@@ -27,7 +29,13 @@
     color: var(--color-white);
 }
 
-/* Deal Cards extending shared .flavour-card look */
+/* Explicit visible focus ring for keyboard users */
+.filter-btn:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+}
+
+/* ── Deal Cards ──────────────────────────────────────────────────────────── */
 .deal-card {
     background-color: var(--color-white);
     border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
@@ -52,6 +60,8 @@
     height: 200px;
     object-fit: cover;
     display: block;
+    /* fallback background while SVG loads */
+    background-color: var(--color-cream-dark);
 }
 
 /* Discount Percentage Badge */
@@ -93,9 +103,7 @@
     border-radius: 50rem;
 }
 
-.deal-title {
-    color: var(--color-maroon);
-}
+.deal-title { color: var(--color-maroon); }
 
 .deal-items {
     color: var(--color-text-muted);
@@ -116,21 +124,51 @@
     font-weight: 700;
 }
 
+/* "Add to Cart" button – 44px min touch target, visible focus */
+.btn-add-deal {
+    min-height: 44px;
+}
+
+.btn-add-deal:focus-visible,
+.btn-flavour-primary:focus-visible,
+.btn-flavour-outline:focus-visible,
+.btn-flavour-maroon:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+}
+
 /* Empty Filter Message */
 .empty-deals-msg {
     color: var(--color-maroon);
     font-weight: 600;
     font-size: 1.05rem;
-    padding: 2.25rem;
+    padding: 2.25rem 1rem;
     border: 1px dashed color-mix(in srgb, var(--color-maroon) 35%, transparent);
     border-radius: var(--radius-lg);
     background-color: var(--color-white);
 }
 
-/* Bootstrap Toast Notification */
+/* Bootstrap Toast */
 .flavour-toast {
     background-color: var(--color-maroon);
     color: var(--color-cream);
     border: 2px solid var(--color-orange);
     font-weight: 600;
+}
+
+/* ── Responsive breakpoints ─────────────────────────────────────────────── */
+@media (max-width: 575.98px) {
+    /* At 360 px, filter pills wrap and each is full-width for easy tapping */
+    #categoryFilters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #categoryFilters .filter-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Keep image height from overflow on tiny screens */
+    .deal-img { height: 170px; }
 }
