@@ -1,17 +1,16 @@
 /* ==========================================================================
-   The Flavour Lounge - Special Deals Page Styles
-   Dark Bistro Theme — all colours from css/style.css CSS variables
-   Palette: Espresso #181512 | Charcoal #241F1C | Off-White #FAF3E0
-            Gold #F59E0B | Orange #FF6B00
+   The Flavour Lounge - Special Deals Page Styles (Modern Dark Bistro Theme)
+   Reuses shared CSS variables from css/style.css
    ========================================================================== */
 
+/* ── Responsive helpers ─────────────────────────────────────────────────── */
 .deals-subtitle { max-width: 38rem; }
 
 /* ── Category Filter Pills ───────────────────────────────────────────────── */
 .filter-btn {
-    background-color: var(--color-charcoal-elevated);
-    color: var(--color-offwhite-muted);
-    border: 2px solid rgba(250, 243, 224, 0.14);
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
     border-radius: 50rem;
     min-height: 44px;
     padding: 0.45rem 1.2rem;
@@ -35,13 +34,13 @@
 
 /* ── Deal Cards ──────────────────────────────────────────────────────────── */
 .deal-card {
-    background-color: var(--color-charcoal-elevated);
-    border: 1px solid rgba(250, 243, 224, 0.14);
+    background-color: var(--color-charcoal);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-soft);
     transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-    color: var(--color-offwhite);
 }
 
 .deal-card:hover {
@@ -78,7 +77,7 @@
 
 /* Category Label & Star Rating */
 .category-tag {
-    color: var(--color-orange);
+    color: var(--color-gold);
     font-size: 0.82rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -93,20 +92,16 @@
 
 /* Availability Badge */
 .status-badge {
-    background-color: rgba(245, 158, 11, 0.12);
+    background-color: var(--color-espresso);
     color: var(--color-gold);
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    border: 1px solid rgba(245, 158, 11, 0.35);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 0.25rem 0.65rem;
     border-radius: 50rem;
 }
 
-.deal-title {
-    color: var(--color-offwhite);
-    font-family: var(--font-heading);
-    font-weight: 700;
-}
+.deal-title { color: var(--color-offwhite); }
 
 .deal-items {
     color: var(--color-offwhite-muted);
@@ -134,20 +129,21 @@
 
 .btn-add-deal:focus-visible,
 .btn-flavour-primary:focus-visible,
-.btn-flavour-outline:focus-visible {
+.btn-flavour-outline:focus-visible,
+.btn-flavour-maroon:focus-visible {
     outline: 3px solid var(--color-gold);
     outline-offset: 3px;
 }
 
 /* Empty Filter Message */
 .empty-deals-msg {
-    color: var(--color-offwhite-muted);
+    color: var(--color-offwhite);
     font-weight: 600;
     font-size: 1.05rem;
     padding: 2.25rem 1rem;
-    border: 1px dashed rgba(250, 243, 224, 0.22);
+    border: 1px dashed rgba(245, 158, 11, 0.35);
     border-radius: var(--radius-lg);
-    background-color: var(--color-charcoal-elevated);
+    background-color: var(--color-charcoal);
 }
 
 /* Bootstrap Toast */

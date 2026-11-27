@@ -2,10 +2,10 @@
    The Flavour Lounge - Shared Stylesheet (Modern Dark Bistro Theme)
    Palette:
      Espresso : #181512 (Navbar & Footer)
-     Charcoal : #241F1C (Main Body & Feature Cards)
+     Charcoal : #241F1C (Main Body & Cards)
      Off-White: #FAF3E0 (Primary Text & Headings)
      Orange   : #FF6B00 (Buttons & Call-to-Actions)
-     Gold     : #F59E0B (Secondary Text, Accents & Icons)
+     Gold     : #F59E0B (Secondary Accents & Icons)
    Typography:
      Headings : 'Playfair Display', Georgia, serif
      Body     : 'Poppins', system-ui, -apple-system, sans-serif
@@ -14,25 +14,24 @@
 :root {
   --color-espresso: #181512;
   --color-charcoal: #241F1C;
-  --color-charcoal-elevated: #2b2521;
   --color-offwhite: #FAF3E0;
   --color-offwhite-muted: rgba(250, 243, 224, 0.76);
   --color-orange: #FF6B00;
   --color-orange-hover: #e55e00;
   --color-gold: #F59E0B;
-  --color-border-subtle: rgba(250, 243, 224, 0.11);
-  --color-white: #ffffff;
+  --color-border: rgba(250, 243, 224, 0.12);
+  --color-danger: #ff7b7b;
 
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 
   --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.35);
   --shadow-card: 0 18px 42px rgba(0, 0, 0, 0.5);
-  --radius-md: 0.85rem;
+  --radius-md: 0.75rem;
   --radius-lg: 1.25rem;
   --transition-base: 0.25s ease;
 
-  /* Bootstrap dark surface overrides for readability */
+  /* Bootstrap dark surface overrides */
   --bs-body-bg: #241F1C;
   --bs-body-color: #FAF3E0;
   --bs-secondary-color: rgba(250, 243, 224, 0.76);
@@ -66,10 +65,6 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: -0.01em;
 }
 
-p, li, span {
-  color: inherit;
-}
-
 .text-muted {
   color: var(--color-offwhite-muted) !important;
 }
@@ -87,11 +82,17 @@ a {
   background-color: var(--color-charcoal) !important;
 }
 
+.bg-cream-dark {
+  background-color: var(--color-espresso) !important;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
 .text-offwhite {
   color: var(--color-offwhite) !important;
 }
 
-.text-gold {
+.text-gold,
+.text-maroon {
   color: var(--color-gold) !important;
 }
 
@@ -99,7 +100,7 @@ a {
   color: var(--color-orange) !important;
 }
 
-/* Buttons (Orange #FF6B00 CTAs) */
+/* Buttons (Orange #FF6B00) */
 .btn-flavour-primary {
   background-color: var(--color-orange);
   border: 2px solid var(--color-orange);
@@ -115,9 +116,9 @@ a {
 .btn-flavour-primary:focus-visible {
   background-color: var(--color-orange-hover);
   border-color: var(--color-orange-hover);
-  color: var(--color-white);
+  color: var(--color-offwhite);
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(255, 107, 0, 0.4);
+  box-shadow: 0 10px 24px rgba(255, 107, 0, 0.4);
 }
 
 .btn-flavour-outline {
@@ -134,18 +135,35 @@ a {
 .btn-flavour-outline:focus-visible {
   background-color: var(--color-orange);
   border-color: var(--color-orange);
-  color: var(--color-white);
+  color: var(--color-offwhite);
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(255, 107, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+}
+
+.btn-flavour-maroon {
+  background-color: var(--color-orange);
+  border: 2px solid var(--color-orange);
+  color: var(--color-offwhite);
+  font-weight: 600;
+  padding: 0.65rem 1.5rem;
+  border-radius: 50rem;
+  transition: all var(--transition-base);
+}
+
+.btn-flavour-maroon:hover,
+.btn-flavour-maroon:focus-visible {
+  background-color: var(--color-orange-hover);
+  border-color: var(--color-orange-hover);
+  color: var(--color-offwhite);
 }
 
 /* Navbar (Espresso #181512) */
 .navbar-flavour {
   background-color: var(--color-espresso);
-  border-bottom: 1px solid rgba(245, 158, 11, 0.16);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.18);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
-  padding-top: 0.9rem;
-  padding-bottom: 0.9rem;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
 }
 
 .navbar-flavour .navbar-brand {
@@ -164,12 +182,17 @@ a {
   color: var(--color-offwhite);
 }
 
+.navbar-flavour .navbar-brand:hover,
+.navbar-flavour .navbar-brand:focus-visible {
+  color: var(--color-offwhite);
+}
+
 .navbar-flavour .navbar-brand .brand-accent {
   color: var(--color-orange);
 }
 
 .navbar-flavour .nav-link {
-  color: rgba(250, 243, 224, 0.86);
+  color: rgba(250, 243, 224, 0.88);
   font-weight: 500;
   font-size: 0.95rem;
   padding: 0.5rem 0.9rem;
@@ -212,7 +235,7 @@ a {
   background-color: var(--color-orange);
   border: 1px solid var(--color-orange);
   border-radius: 50rem;
-  padding: 0.45rem 1.05rem !important;
+  padding: 0.45rem 1rem !important;
   color: var(--color-offwhite) !important;
   font-weight: 600 !important;
 }
@@ -221,7 +244,7 @@ a {
 .nav-cart-link:focus-visible {
   background-color: var(--color-orange-hover);
   border-color: var(--color-orange-hover);
-  color: var(--color-white) !important;
+  color: var(--color-offwhite) !important;
 }
 
 .nav-cart-link.active::after {
@@ -248,26 +271,24 @@ a {
   color: var(--color-offwhite);
   position: relative;
   overflow: hidden;
-  padding: 5rem 0;
-  border-bottom: 1px solid var(--color-border-subtle);
+  padding: 5.5rem 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .hero-section::before {
   content: '';
   position: absolute;
-  top: -150px;
-  right: -130px;
-  width: 480px;
-  height: 480px;
+  top: -140px;
+  right: -140px;
+  width: 460px;
+  height: 460px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, rgba(255, 107, 0, 0.04) 45%, rgba(36, 31, 28, 0) 72%);
   pointer-events: none;
 }
 
 .hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+  display: inline-block;
   background-color: rgba(245, 158, 11, 0.12);
   border: 1px solid rgba(245, 158, 11, 0.4);
   color: var(--color-gold);
@@ -282,7 +303,7 @@ a {
 .hero-title {
   font-family: var(--font-heading);
   color: var(--color-offwhite);
-  font-size: clamp(2.45rem, 5vw, 3.85rem);
+  font-size: clamp(2.4rem, 5vw, 3.85rem);
   line-height: 1.15;
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
@@ -294,7 +315,7 @@ a {
 
 .hero-subtitle {
   color: var(--color-offwhite-muted);
-  font-size: 1.06rem;
+  font-size: 1.08rem;
   max-width: 34rem;
   margin-bottom: 2rem;
 }
@@ -302,9 +323,9 @@ a {
 /* Hero Photo & Spotlight Card */
 .hero-showcase-card {
   background-color: var(--color-charcoal);
-  border: 1px solid rgba(245, 158, 11, 0.22);
+  border: 1px solid rgba(245, 158, 11, 0.24);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  padding: 2rem;
   color: var(--color-offwhite);
   box-shadow: var(--shadow-card);
 }
@@ -355,7 +376,7 @@ a {
 
 .hero-stat-pill {
   background-color: var(--color-espresso);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: 0.85rem 0.65rem;
   text-align: center;
@@ -370,11 +391,11 @@ a {
 }
 
 .hero-stat-label {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--color-offwhite-muted);
 }
 
-/* Sections & Feature Cards (Charcoal #241F1C) */
+/* Sections & Cards (Charcoal #241F1C) */
 .section-padding {
   padding: 4.5rem 0;
   background-color: var(--color-charcoal);
@@ -407,13 +428,12 @@ a {
 .feature-card,
 .flavour-card {
   background-color: var(--color-charcoal);
-  border: 1px solid var(--color-border-subtle);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  padding: 2rem 1.75rem;
+  color: var(--color-offwhite);
   box-shadow: var(--shadow-soft);
   height: 100%;
-  display: flex;
-  flex-direction: column;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
 }
 
@@ -424,43 +444,10 @@ a {
   border-color: rgba(245, 158, 11, 0.45);
 }
 
-.feature-img-wrap {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background-color: var(--color-espresso);
-}
-
-.feature-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.45s ease;
-}
-
-.feature-card:hover .feature-img {
-  transform: scale(1.06);
-}
-
-.feature-img-scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(24, 21, 18, 0) 45%, rgba(36, 31, 28, 0.82) 100%);
-  pointer-events: none;
-}
-
-.feature-card-body {
-  padding: 1.5rem 1.75rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-}
-
 .feature-icon {
-  width: 2.85rem;
-  height: 2.85rem;
-  border-radius: 0.8rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.9rem;
   background-color: rgba(245, 158, 11, 0.14);
   border: 1px solid rgba(245, 158, 11, 0.3);
   color: var(--color-gold);
@@ -488,15 +475,35 @@ a {
 
 .cta-banner {
   background-color: var(--color-charcoal);
-  border-top: 1px solid var(--color-border-subtle);
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Dark Form Controls */
+.form-control,
+.form-select {
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite);
+  border-color: var(--color-border);
+}
+
+.form-control::placeholder {
+  color: rgba(250, 243, 224, 0.48);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite);
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.25);
 }
 
 /* Footer (Espresso #181512) */
 .footer-flavour {
   background-color: var(--color-espresso);
   color: var(--color-offwhite-muted);
-  border-top: 1px solid rgba(245, 158, 11, 0.16);
+  border-top: 1px solid rgba(245, 158, 11, 0.18);
   padding-top: 3.5rem;
   padding-bottom: 2rem;
   margin-top: auto;

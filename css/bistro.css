@@ -1,0 +1,809 @@
+/* ==========================================================================
+   The Flavour Lounge - Modern Dark Bistro Stylesheet
+   Applies to: pages/menu.html, pages/desi.html, pages/chinese.html
+
+   Finalized Modern Dark Bistro Colour Palette (Fixed):
+     Espresso Dark    (#181512) -> Navbar & Footer backgrounds
+     Deep Charcoal    (#241F1C) -> Main page background, food cards & sections
+     Tangerine Orange (#FF6B00) -> Primary buttons & highlights
+     Warm Off-White   (#FAF3E0) -> Main headings, food names & body text
+     Saffron Gold     (#F59E0B) -> Food prices, icons, star ratings & highlights
+     Mint Green       (#10B981) -> Available, Freshly Prepared & Order Confirmed
+   ========================================================================== */
+
+:root {
+  --color-espresso: #181512;
+  --color-charcoal: #241F1C;
+  --color-orange: #FF6B00;
+  --color-offwhite: #FAF3E0;
+  --color-gold: #F59E0B;
+  --color-mint: #10B981;
+
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --border-subtle: rgba(250, 243, 224, 0.14);
+  --border-orange: rgba(255, 107, 0, 0.55);
+  --shadow-card: 0 12px 28px rgba(24, 21, 18, 0.55);
+  --shadow-hover: 0 16px 36px rgba(24, 21, 18, 0.78);
+  --radius-md: 0.75rem;
+  --radius-lg: 1.15rem;
+  --transition-base: 0.25s ease;
+}
+
+/* Base Layout & Typography */
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  font-family: var(--font-heading);
+  color: var(--color-offwhite);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+a {
+  transition: color var(--transition-base), background-color var(--transition-base), border-color var(--transition-base);
+}
+
+/* Accessible Focus Outlines for Keyboard Navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Skip to main content link for keyboard users */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background-color: var(--color-orange);
+  color: var(--color-espresso);
+  font-weight: 700;
+  padding: 0.65rem 1.25rem;
+  z-index: 2000;
+  border-radius: 0 0 var(--radius-md) 0;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Palette Helper Classes */
+.text-offwhite {
+  color: var(--color-offwhite) !important;
+}
+
+.text-offwhite-muted {
+  color: rgba(250, 243, 224, 0.78) !important;
+}
+
+.text-gold {
+  color: var(--color-gold) !important;
+}
+
+.text-orange {
+  color: var(--color-orange) !important;
+}
+
+.text-mint {
+  color: var(--color-mint) !important;
+}
+
+/* ==========================================================================
+   Navbar (#181512 Espresso Dark)
+   ========================================================================== */
+.navbar-bistro {
+  background-color: var(--color-espresso);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 6px 20px rgba(24, 21, 18, 0.65);
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+.navbar-bistro .navbar-brand {
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-offwhite);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar-bistro .navbar-brand .brand-accent {
+  color: var(--color-orange);
+}
+
+.navbar-bistro .navbar-brand .brand-icon {
+  color: var(--color-gold);
+}
+
+.navbar-bistro .nav-link {
+  color: rgba(250, 243, 224, 0.85);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.85rem;
+  position: relative;
+}
+
+.navbar-bistro .nav-link:hover,
+.navbar-bistro .nav-link:focus-visible,
+.navbar-bistro .nav-link.active {
+  color: var(--color-orange);
+}
+
+.navbar-bistro .nav-link.active::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-orange);
+  border-radius: 2px;
+  margin-top: 2px;
+}
+
+.navbar-bistro .navbar-toggler {
+  border-color: rgba(250, 243, 224, 0.35);
+  color: var(--color-offwhite);
+}
+
+.navbar-bistro .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(250, 243, 224, 0.95)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.nav-cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: rgba(250, 243, 224, 0.08);
+  border: 1px solid rgba(250, 243, 224, 0.24);
+  border-radius: 50rem;
+  padding: 0.45rem 1rem !important;
+  color: var(--color-offwhite) !important;
+}
+
+.nav-cart-link:hover,
+.nav-cart-link:focus-visible {
+  background-color: var(--color-orange);
+  border-color: var(--color-orange);
+  color: var(--color-espresso) !important;
+}
+
+.nav-cart-link.active::after {
+  display: none;
+}
+
+.cart-badge {
+  background-color: var(--color-orange);
+  color: var(--color-espresso);
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.45rem;
+  height: 1.45rem;
+  padding: 0 0.4rem;
+  border-radius: 50rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-cart-link:hover .cart-badge {
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite);
+}
+
+/* ==========================================================================
+   Buttons (#FF6B00 Tangerine Orange Primary)
+   ========================================================================== */
+.btn-bistro-primary {
+  background-color: var(--color-orange);
+  border: 2px solid var(--color-orange);
+  color: var(--color-espresso);
+  font-weight: 700;
+  padding: 0.62rem 1.45rem;
+  border-radius: 50rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+}
+
+.btn-bistro-primary:hover,
+.btn-bistro-primary:focus-visible {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-espresso);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 107, 0, 0.3);
+}
+
+.btn-bistro-primary.is-confirmed {
+  background-color: var(--color-mint);
+  border-color: var(--color-mint);
+  color: var(--color-espresso);
+}
+
+.btn-bistro-outline {
+  background-color: transparent;
+  border: 2px solid var(--color-orange);
+  color: var(--color-offwhite);
+  font-weight: 600;
+  padding: 0.62rem 1.45rem;
+  border-radius: 50rem;
+  transition: transform var(--transition-base), background-color var(--transition-base), color var(--transition-base);
+}
+
+.btn-bistro-outline:hover,
+.btn-bistro-outline:focus-visible {
+  background-color: var(--color-orange);
+  border-color: var(--color-orange);
+  color: var(--color-espresso);
+  transform: translateY(-2px);
+}
+
+/* Category Filter Buttons */
+.filter-btn {
+  background-color: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  color: var(--color-offwhite);
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: 50rem;
+  transition: all var(--transition-base);
+}
+
+.filter-btn:hover,
+.filter-btn:focus-visible {
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+}
+
+.filter-btn.active {
+  background-color: var(--color-orange);
+  border-color: var(--color-orange);
+  color: var(--color-espresso);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Page Hero & Section Headers
+   ========================================================================== */
+.bistro-hero {
+  background-color: var(--color-espresso);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 4rem 0 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bistro-hero-compact {
+  padding: 2.1rem 0 1.85rem;
+}
+
+.bistro-hero-compact .bistro-hero-title {
+  font-size: clamp(1.85rem, 3.4vw, 2.65rem);
+  margin-top: 0.65rem;
+}
+
+.bistro-hero-compact .bistro-hero-subtitle {
+  font-size: 0.98rem;
+}
+
+.bistro-hero::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 0, 0.14) 0%, rgba(255, 107, 0, 0) 70%);
+  pointer-events: none;
+}
+
+.bistro-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: rgba(255, 107, 0, 0.14);
+  border: 1px solid var(--border-orange);
+  color: var(--color-gold);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.38rem 0.95rem;
+  border-radius: 50rem;
+}
+
+.bistro-hero-title {
+  font-size: clamp(2.1rem, 4.4vw, 3.35rem);
+  line-height: 1.15;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bistro-hero-title span {
+  color: var(--color-orange);
+}
+
+.bistro-hero-subtitle {
+  color: rgba(250, 243, 224, 0.84);
+  font-size: 1.05rem;
+  max-width: 40rem;
+}
+
+.bistro-breadcrumb {
+  font-size: 0.88rem;
+  margin-bottom: 0.75rem;
+}
+
+.bistro-breadcrumb a {
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+.bistro-breadcrumb a:hover {
+  color: var(--color-orange);
+  text-decoration: underline;
+}
+
+.section-padding {
+  padding: 4rem 0;
+}
+
+.section-eyebrow {
+  color: var(--color-gold);
+  font-weight: 600;
+  font-size: 0.84rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+}
+
+.section-heading {
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  color: var(--color-offwhite);
+  margin-bottom: 0.65rem;
+}
+
+.section-divider {
+  width: 64px;
+  height: 3px;
+  background-color: var(--color-orange);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+}
+
+.section-divider-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   Cards: Category Cards & Food Dish Cards (#241F1C Deep Charcoal)
+   ========================================================================== */
+.bistro-card {
+  position: relative;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.bistro-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-orange);
+}
+
+.bistro-card:focus-within {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-color: var(--color-orange);
+}
+
+/* Full-width Featured Chinese Category Box (about twice the height of Desi boxes) */
+.bistro-featured-box {
+  min-height: 460px;
+}
+
+.bistro-featured-img {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.bistro-card:hover .bistro-featured-img {
+  transform: scale(1.04);
+}
+
+.bistro-empty-state {
+  background-color: var(--color-espresso);
+  border: 1px dashed var(--border-orange);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--color-offwhite);
+}
+
+.bistro-card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-espresso);
+}
+
+.bistro-card-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.bistro-card:hover .bistro-card-img {
+  transform: scale(1.04);
+}
+
+.category-card-img {
+  height: 270px;
+}
+
+.bistro-card-body {
+  padding: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.dish-title {
+  font-size: 1.2rem;
+  color: var(--color-offwhite);
+  margin-bottom: 0.4rem;
+}
+
+.dish-description {
+  color: rgba(250, 243, 224, 0.78);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  flex: 1 1 auto;
+}
+
+.dish-price {
+  font-family: var(--font-heading);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--color-gold);
+}
+
+.dish-rating {
+  color: var(--color-gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* Mint Green (#10B981) Status Badges */
+.badge-mint {
+  background-color: var(--color-mint);
+  color: var(--color-espresso);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.7rem;
+  border-radius: 50rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.badge-mint-floating {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  box-shadow: 0 4px 12px rgba(24, 21, 18, 0.45);
+}
+
+.badge-category-tag {
+  background-color: rgba(24, 21, 18, 0.86);
+  color: var(--color-gold);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.28rem 0.65rem;
+  border-radius: 50rem;
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+}
+
+/* Feature / Info Strip Cards */
+.bistro-info-panel {
+  background-color: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.bistro-icon-box {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.85rem;
+  background-color: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: var(--color-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+}
+
+/* Filter Toolbar */
+.filter-toolbar {
+  background-color: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.15rem 1.35rem;
+}
+
+/* Search Input in Dark Bistro */
+.bistro-search-input {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-subtle);
+  color: var(--color-offwhite);
+  border-radius: 50rem;
+  padding: 0.55rem 1rem 0.55rem 2.5rem;
+}
+
+.bistro-search-input::placeholder {
+  color: rgba(250, 243, 224, 0.55);
+}
+
+.bistro-search-input:focus {
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.25);
+}
+
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap-icon {
+  position: absolute;
+  left: 0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold);
+  pointer-events: none;
+}
+
+/* Order Confirmed Toast Notification (#10B981 Mint Green) */
+.bistro-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background-color: var(--color-espresso);
+  color: var(--color-offwhite);
+  border: 2px solid var(--color-mint);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  box-shadow: var(--shadow-hover);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  z-index: 1080;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.bistro-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Footer (#181512 Espresso Dark)
+   ========================================================================== */
+.footer-bistro {
+  background-color: var(--color-espresso);
+  border-top: 1px solid var(--border-subtle);
+  color: rgba(250, 243, 224, 0.86);
+  padding-top: 3.5rem;
+  padding-bottom: 2rem;
+  margin-top: auto;
+}
+
+.footer-bistro .footer-brand {
+  font-family: var(--font-heading);
+  color: var(--color-offwhite);
+}
+
+.footer-bistro .footer-heading {
+  font-family: var(--font-heading);
+  color: var(--color-gold);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-bistro a {
+  color: rgba(250, 243, 224, 0.8);
+  text-decoration: none;
+}
+
+.footer-bistro a:hover,
+.footer-bistro a:focus-visible {
+  color: var(--color-orange);
+}
+
+.footer-divider {
+  border-color: var(--border-subtle);
+  margin: 2rem 0 1.25rem;
+}
+
+/* ==========================================================================
+   Menu Category Showcase Cards (Enlarged, Centered Category Headings)
+   ========================================================================== */
+.category-showcase-card {
+  position: relative;
+  min-height: 360px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  background-color: var(--color-espresso);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.category-showcase-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-orange);
+}
+
+.category-showcase-card:focus-within {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-color: var(--color-orange);
+}
+
+.category-showcase-featured {
+  min-height: 440px;
+}
+
+.category-showcase-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.category-showcase-card:hover .category-showcase-img {
+  transform: scale(1.06);
+}
+
+.category-showcase-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(24, 21, 18, 0.48) 0%,
+    rgba(24, 21, 18, 0.78) 52%,
+    rgba(24, 21, 18, 0.9) 100%
+  );
+  z-index: 1;
+}
+
+.category-showcase-content {
+  position: relative;
+  z-index: 2;
+  padding: 2.25rem 2rem;
+  max-width: 34rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-showcase-featured .category-showcase-content {
+  max-width: 44rem;
+  padding: 2.75rem 2.25rem;
+}
+
+.category-showcase-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.95rem, 3vw, 2.65rem);
+  color: var(--color-offwhite);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 4px 16px rgba(24, 21, 18, 0.85);
+}
+
+.category-showcase-featured .category-showcase-title {
+  font-size: clamp(2.2rem, 3.8vw, 3.15rem);
+}
+
+.category-showcase-desc {
+  color: rgba(250, 243, 224, 0.9);
+  font-size: 0.98rem;
+  margin-bottom: 1.35rem;
+}
+
+.category-showcase-card .badge-mint-floating {
+  z-index: 2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+  .navbar-bistro .nav-link.active::after {
+    display: none;
+  }
+
+  .nav-cart-link {
+    margin-top: 0.5rem;
+    width: fit-content;
+  }
+
+  .bistro-hero {
+    padding: 3rem 0 2.75rem;
+  }
+
+  .bistro-hero-compact {
+    padding: 1.75rem 0 1.55rem;
+  }
+
+  .category-showcase-card {
+    min-height: 310px;
+  }
+
+  .category-showcase-featured {
+    min-height: 370px;
+  }
+}
