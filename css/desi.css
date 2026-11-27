@@ -1,0 +1,84 @@
+/* ==========================================================================
+   The Flavour Lounge - Desi Cuisine Page Stylesheet (css/desi.css)
+   Extends css/bistro.css with styles specific to pages/desi-cuisine.html
+   using the exact Modern Dark Bistro palette:
+     #181512 (Espresso Dark), #241F1C (Deep Charcoal), #FF6B00 (Tangerine Orange),
+     #FAF3E0 (Warm Off-White), #F59E0B (Saffron Gold), #10B981 (Mint Green)
+   ========================================================================== */
+
+/* Keep anchored sections (#biryani, #karahi) clear of the sticky navbar */
+.desi-section[id] {
+  scroll-margin-top: 5.75rem;
+}
+
+/* Search & Filter Toolbar */
+.desi-controls-bar {
+  background-color: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.35rem;
+}
+
+/* Search input dark styling */
+.desi-search-box {
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-subtle);
+  color: var(--color-offwhite);
+  border-radius: 50rem;
+  padding: 0.55rem 1rem 0.55rem 2.55rem;
+}
+
+.desi-search-box::placeholder {
+  color: rgba(250, 243, 224, 0.55);
+}
+
+.desi-search-box:focus {
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.25);
+}
+
+/* Empty search state ("No dishes found") */
+.desi-no-results {
+  background-color: var(--color-espresso);
+  border: 1px dashed var(--border-orange);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+/* Smart Naan Recommendation Bootstrap Modal */
+.bistro-modal .modal-content {
+  background-color: var(--color-charcoal);
+  color: var(--color-offwhite);
+  border: 1px solid var(--border-orange);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-hover);
+}
+
+.bistro-modal .modal-header,
+.bistro-modal .modal-footer {
+  background-color: var(--color-espresso);
+  border-color: var(--border-subtle);
+}
+
+.bistro-modal .btn-close {
+  filter: invert(1) sepia(1) saturate(0) brightness(1.8);
+}
+
+.btn-bistro-secondary {
+  background-color: transparent;
+  border: 2px solid var(--border-subtle);
+  color: var(--color-offwhite);
+  font-weight: 600;
+  padding: 0.55rem 1.35rem;
+  border-radius: 50rem;
+  transition: border-color var(--transition-base), color var(--transition-base);
+}
+
+.btn-bistro-secondary:hover,
+.btn-bistro-secondary:focus-visible {
+  border-color: var(--color-offwhite);
+  color: var(--color-offwhite);
+}
