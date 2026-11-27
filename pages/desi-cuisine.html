@@ -194,10 +194,192 @@
     </section>
   </main>
 
-  <!-- Placeholder Customizer Toast -->
+  <!-- Cart Confirmation Toast -->
   <div id="cart-toast" class="bistro-toast" role="status" aria-live="polite">
     <i class="bi bi-check-circle-fill text-mint fs-5" aria-hidden="true"></i>
-    <span id="cart-toast-message">Customizer opened!</span>
+    <span id="cart-toast-message">Added to cart successfully!</span>
+  </div>
+
+  <!-- Biryani & Karahi Plate Customizer Bootstrap Modal -->
+  <div
+    class="modal fade bistro-modal customizer-modal"
+    id="plateCustomizerModal"
+    tabindex="-1"
+    aria-labelledby="customizerModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5 mb-0" id="customizerModalTitle">
+            <i class="bi bi-sliders text-gold me-2" aria-hidden="true"></i>Customize Your Plate
+          </h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body p-4">
+          <!-- Dish Summary Header -->
+          <div class="customizer-dish-summary d-flex align-items-center gap-3 mb-4">
+            <img
+              id="customizer-dish-image"
+              src="../images/Karachi Biryani.png"
+              alt="Selected dish preview"
+              class="customizer-dish-thumb"
+            >
+            <div class="flex-grow-1 min-w-0">
+              <span id="customizer-dish-category" class="customizer-category-pill mb-1">Biryani Bazaar</span>
+              <h3 id="customizer-dish-name" class="h4 mb-1 text-offwhite">Dish Name</h3>
+              <p class="mb-0 small text-offwhite-muted">
+                Base Price: <strong id="customizer-base-price" class="text-gold">Rs. 0</strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- Validation Error Banner -->
+          <div
+            id="customizer-error"
+            class="customizer-error-alert d-none mb-4"
+            role="alert"
+            aria-live="assertive"
+          >
+            <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>
+            <span id="customizer-error-text">Please select the given options first.</span>
+          </div>
+
+          <!-- Question 1: Spice-o-Meter -->
+          <fieldset class="customizer-fieldset mb-4">
+            <legend class="customizer-question-label">
+              <span>1. Spice-o-Meter</span>
+              <span class="customizer-required-tag">Required</span>
+            </legend>
+            <div class="row g-2" role="radiogroup" aria-label="Spice-o-Meter">
+              <div class="col-4">
+                <input type="radio" class="customizer-radio-input" name="customizerSpice" id="spice-mild" value="mild">
+                <label class="customizer-option-label" for="spice-mild">
+                  <span class="customizer-option-icon text-mint" aria-hidden="true">
+                    <i class="bi bi-fire"></i>
+                  </span>
+                  <span class="customizer-option-title">Mild</span>
+                  <span class="customizer-option-sub">Gentle warmth</span>
+                </label>
+              </div>
+              <div class="col-4">
+                <input type="radio" class="customizer-radio-input" name="customizerSpice" id="spice-medium" value="medium">
+                <label class="customizer-option-label" for="spice-medium">
+                  <span class="customizer-option-icon text-gold" aria-hidden="true">
+                    <i class="bi bi-fire"></i><i class="bi bi-fire"></i>
+                  </span>
+                  <span class="customizer-option-title">Medium</span>
+                  <span class="customizer-option-sub">Balanced kick</span>
+                </label>
+              </div>
+              <div class="col-4">
+                <input type="radio" class="customizer-radio-input" name="customizerSpice" id="spice-spicy" value="spicy">
+                <label class="customizer-option-label" for="spice-spicy">
+                  <span class="customizer-option-icon text-orange" aria-hidden="true">
+                    <i class="bi bi-fire"></i><i class="bi bi-fire"></i><i class="bi bi-fire"></i>
+                  </span>
+                  <span class="customizer-option-title">Spicy</span>
+                  <span class="customizer-option-sub">Extra fiery</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Question 2: Portion Size -->
+          <fieldset class="customizer-fieldset mb-4">
+            <legend class="customizer-question-label">
+              <span>2. Portion Size — Select your portion</span>
+              <span class="customizer-required-tag">Required</span>
+            </legend>
+            <div class="row g-2" role="radiogroup" aria-label="Select your portion">
+              <div class="col-4">
+                <input type="radio" class="customizer-radio-input" name="customizerPortion" id="portion-half" value="half">
+                <label class="customizer-option-label" for="portion-half">
+                  <span class="customizer-option-title">Half</span>
+                  <span id="portion-half-price" class="customizer-option-price">Rs. 0</span>
+                </label>
+              </div>
+              <div class="col-4">
+                <input type="radio" class="customizer-radio-input" name="customizerPortion" id="portion-full" value="full">
+                <label class="customizer-option-label" for="portion-full">
+                  <span class="customizer-option-title">Full</span>
+                  <span id="portion-full-price" class="customizer-option-price">Rs. 0</span>
+                </label>
+              </div>
+              <div class="col-4">
+                <input type="radio" class="customizer-radio-input" name="customizerPortion" id="portion-family" value="family">
+                <label class="customizer-option-label" for="portion-family">
+                  <span class="customizer-option-title">Family</span>
+                  <span id="portion-family-price" class="customizer-option-price">Rs. 0</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Question 3: Aaloo Option (Biryani Only) -->
+          <fieldset id="customizer-aloo-section" class="customizer-fieldset mb-0">
+            <legend class="customizer-question-label">
+              <span>3. Aaloo Option — Do you want Aloo in your Biryani?</span>
+              <span class="customizer-required-tag">Required</span>
+            </legend>
+            <div class="row g-2" role="radiogroup" aria-label="Do you want Aloo in your Biryani?">
+              <div class="col-6">
+                <input type="radio" class="customizer-radio-input" name="customizerAloo" id="aloo-yes" value="yes">
+                <label class="customizer-option-label" for="aloo-yes">
+                  <span class="customizer-option-title">Yes, sure</span>
+                  <span class="customizer-option-price">+Rs. 50</span>
+                </label>
+              </div>
+              <div class="col-6">
+                <input type="radio" class="customizer-radio-input" name="customizerAloo" id="aloo-no" value="no">
+                <label class="customizer-option-label" for="aloo-no">
+                  <span class="customizer-option-title">No, thanks</span>
+                  <span class="customizer-option-sub">No extra charge</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="modal-footer customizer-footer d-flex flex-wrap justify-content-between align-items-center gap-3">
+          <!-- Quantity Stepper -->
+          <div class="d-flex align-items-center gap-2">
+            <span class="small text-offwhite-muted me-1">Qty:</span>
+            <div class="customizer-qty-control" role="group" aria-label="Item quantity">
+              <button
+                type="button"
+                id="customizer-qty-minus"
+                class="customizer-qty-btn"
+                aria-label="Decrease quantity"
+              >
+                <i class="bi bi-dash" aria-hidden="true"></i>
+              </button>
+              <span id="customizer-qty-value" class="customizer-qty-value" aria-live="polite">1</span>
+              <button
+                type="button"
+                id="customizer-qty-plus"
+                class="customizer-qty-btn"
+                aria-label="Increase quantity"
+              >
+                <i class="bi bi-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Adjusted Price & Add to Cart Button -->
+          <div class="d-flex align-items-center gap-3 ms-auto">
+            <div class="text-end">
+              <span class="d-block small text-offwhite-muted">Total Price</span>
+              <strong id="customizer-total-price" class="customizer-total-price">Rs. 0</strong>
+            </div>
+            <button type="button" id="customizer-add-to-cart-btn" class="btn btn-bistro-primary">
+              <i class="bi bi-bag-plus me-2" aria-hidden="true"></i>Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Smart Naan Recommendation Bootstrap Modal -->

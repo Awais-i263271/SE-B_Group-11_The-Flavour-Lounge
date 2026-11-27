@@ -196,10 +196,35 @@ const karahiDishes = [
 let currentFilter = 'all';
 let currentSearchText = '';
 
-// Timer & modal tracking variables for the smart Naan popup
+// Timer & modal tracking variables for the smart Naan popup & Plate Customizer
 let toastHideTimer = null;
 let naanPopupTimer = null;
 let naanModalInstance = null;
+let customizerModalInstance = null;
+
+// Portion pricing multipliers & Biryani Aloo add-on price
+const PORTION_CONFIG = {
+  half: { label: 'Half', multiplier: 0.7 },
+  full: { label: 'Full', multiplier: 1.0 },
+  family: { label: 'Family', multiplier: 2.0 }
+};
+
+const SPICE_LABELS = {
+  mild: 'Mild',
+  medium: 'Medium',
+  spicy: 'Spicy'
+};
+
+const ALOO_EXTRA_PRICE = 50;
+
+// Active state of the currently open Plate Customizer modal
+const customizerState = {
+  dish: null,
+  spice: null,
+  portion: null,
+  aloo: null,
+  quantity: 1
+};
 
 /**
  * Swap a broken dish image with a valid local fallback image so cards never collapse.
@@ -464,14 +489,301 @@ function findDesiDishById(dishId) {
 }
 
 /**
- * Placeholder function called when the user clicks "Customize Your Plate".
- * Will be expanded next to open the plate customizer modal and add the dish to the cart.
+ * Calculate the adjusted Rupee price for a given portion key ("half", "full", or "family").
+ * Rounds to the nearest 10 Rs for clean PKR pricing; defaults to basePrice before selection.
+ * @param {number} basePrice - Base dish price in PKR.
+ * @param {string | null} portionKey - Selected portion key or null.
+ * @returns {number} Portion price in PKR.
+ */
+function getPortionPrice(basePrice, portionKey) {
+  if (!portionKey || !PORTION_CONFIG[portionKey]) {
+    return basePrice;
+  }
+  return Math.round((basePrice * PORTION_CONFIG[portionKey].multiplier) / 10) * 10;
+}
+
+/**
+ * Compute the single-plate price including portion adjustment and optional Biryani Aloo (+Rs. 50).
+ * @returns {number} Unit price in PKR.
+ */
+function calculateCustomizerUnitPrice() {
+  if (!customizerState.dish) {
+    return 0;
+  }
+  let unitPrice = getPortionPrice(customizerState.dish.price, customizerState.portion);
+  if (customizerState.dish.category === 'biryani' && customizerState.aloo === 'yes') {
+    unitPrice += ALOO_EXTRA_PRICE;
+  }
+  return unitPrice;
+}
+
+/**
+ * Compute the live total price (unit price multiplied by selected quantity).
+ * @returns {number} Total price in PKR.
+ */
+function calculateCustomizerTotalPrice() {
+  return calculateCustomizerUnitPrice() * customizerState.quantity;
+}
+
+/**
+ * Show or hide the inline customizer validation error message.
+ * @param {boolean} show - True to display the error alert, false to hide it.
+ * @param {string} [message] - Optional error text override.
+ */
+function toggleCustomizerError(show, message) {
+  const errorBox = document.getElementById('customizer-error');
+  const errorText = document.getElementById('customizer-error-text');
+  if (!errorBox) {
+    return;
+  }
+  if (show) {
+    if (errorText && message) {
+      errorText.textContent = message;
+    }
+    errorBox.classList.remove('d-none');
+  } else {
+    errorBox.classList.add('d-none');
+  }
+}
+
+/**
+ * Refresh the quantity counter, minus button state, and live adjusted total price in the modal.
+ */
+function updateCustomizerSummaryUI() {
+  const qtyValueEl = document.getElementById('customizer-qty-value');
+  const qtyMinusBtn = document.getElementById('customizer-qty-minus');
+  const totalPriceEl = document.getElementById('customizer-total-price');
+
+  if (qtyValueEl) {
+    qtyValueEl.textContent = String(customizerState.quantity);
+  }
+  if (qtyMinusBtn) {
+    qtyMinusBtn.disabled = customizerState.quantity <= 1;
+  }
+  if (totalPriceEl) {
+    totalPriceEl.textContent = formatRupees(calculateCustomizerTotalPrice());
+  }
+}
+
+/**
+ * Check whether every required customization option has been selected for the active dish.
+ * Biryani requires Spice-o-Meter, Portion Size, and Aloo option; Karahi requires Spice and Portion.
+ * @returns {boolean} True when all required options are chosen.
+ */
+function validateCustomizerSelections() {
+  if (!customizerState.dish) {
+    return false;
+  }
+  if (!customizerState.spice || !customizerState.portion) {
+    return false;
+  }
+  if (customizerState.dish.category === 'biryani' && !customizerState.aloo) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Clear all radio inputs inside the customizer modal so no option is pre-selected on open.
+ */
+function resetCustomizerInputs() {
+  const modalEl = document.getElementById('plateCustomizerModal');
+  if (!modalEl) {
+    return;
+  }
+  const radioInputs = modalEl.querySelectorAll('input[type="radio"]');
+  for (let i = 0; i < radioInputs.length; i++) {
+    radioInputs[i].checked = false;
+  }
+}
+
+/**
+ * Open the Biryani & Karahi Plate Customizer modal for the clicked dish.
+ * Populates dish details, portion prices, shows/hides the Biryani Aloo question, and resets state.
  * @param {string} dishId - The id of the dish the user wants to customize.
  */
 function openCustomizer(dishId) {
   const dish = findDesiDishById(dishId);
-  const dishName = dish ? dish.name : dishId;
-  showDesiToast('Plate customizer coming soon for ' + dishName + '!');
+  if (!dish) {
+    return;
+  }
+
+  customizerState.dish = dish;
+  customizerState.spice = null;
+  customizerState.portion = null;
+  customizerState.aloo = null;
+  customizerState.quantity = 1;
+
+  const isBiryani = dish.category === 'biryani';
+  const dishImageEl = document.getElementById('customizer-dish-image');
+  const dishCategoryEl = document.getElementById('customizer-dish-category');
+  const dishNameEl = document.getElementById('customizer-dish-name');
+  const basePriceEl = document.getElementById('customizer-base-price');
+  const alooSectionEl = document.getElementById('customizer-aloo-section');
+
+  if (dishImageEl) {
+    dishImageEl.src = dish.image;
+    dishImageEl.alt = dish.alt;
+    dishImageEl.onerror = function () {
+      handleDesiImageError(this);
+    };
+  }
+  if (dishCategoryEl) {
+    dishCategoryEl.textContent = isBiryani ? 'Biryani Bazaar' : 'Karahi Kingdom';
+  }
+  if (dishNameEl) {
+    dishNameEl.textContent = dish.name;
+  }
+  if (basePriceEl) {
+    basePriceEl.textContent = formatRupees(dish.price);
+  }
+
+  // Update Half / Full / Family price previews for this dish
+  const halfPriceEl = document.getElementById('portion-half-price');
+  const fullPriceEl = document.getElementById('portion-full-price');
+  const familyPriceEl = document.getElementById('portion-family-price');
+
+  if (halfPriceEl) {
+    halfPriceEl.textContent = formatRupees(getPortionPrice(dish.price, 'half'));
+  }
+  if (fullPriceEl) {
+    fullPriceEl.textContent = formatRupees(getPortionPrice(dish.price, 'full'));
+  }
+  if (familyPriceEl) {
+    familyPriceEl.textContent = formatRupees(getPortionPrice(dish.price, 'family'));
+  }
+
+  // Show the Aloo question only for Biryani dishes
+  if (alooSectionEl) {
+    if (isBiryani) {
+      alooSectionEl.classList.remove('d-none');
+    } else {
+      alooSectionEl.classList.add('d-none');
+    }
+  }
+
+  resetCustomizerInputs();
+  toggleCustomizerError(false);
+  updateCustomizerSummaryUI();
+
+  if (customizerModalInstance) {
+    customizerModalInstance.show();
+  }
+}
+
+/**
+ * Validate selections, add the customized dish to FlavourCart, close the popup,
+ * and show a confirmation toast ("Added to cart successfully!").
+ */
+function handleCustomizerAddToCart() {
+  if (!customizerState.dish) {
+    return;
+  }
+
+  if (!validateCustomizerSelections()) {
+    toggleCustomizerError(true, 'Please select the given options first.');
+    return;
+  }
+
+  toggleCustomizerError(false);
+
+  const dish = customizerState.dish;
+  const isBiryani = dish.category === 'biryani';
+  const portionLabel = PORTION_CONFIG[customizerState.portion].label;
+  const spiceLabel = SPICE_LABELS[customizerState.spice];
+  const optionParts = [portionLabel, spiceLabel];
+
+  if (isBiryani) {
+    optionParts.push(customizerState.aloo === 'yes' ? 'With Aloo' : 'No Aloo');
+  }
+
+  const cartItemId =
+    dish.id +
+    '__' +
+    customizerState.spice +
+    '__' +
+    customizerState.portion +
+    (isBiryani ? '__aloo-' + customizerState.aloo : '');
+
+  onDesiDishAddedToCart({
+    id: cartItemId,
+    name: dish.name + ' (' + optionParts.join(', ') + ')',
+    price: calculateCustomizerUnitPrice(),
+    quantity: customizerState.quantity,
+    image: dish.image,
+    category: dish.category
+  });
+
+  if (customizerModalInstance) {
+    customizerModalInstance.hide();
+  }
+
+  showDesiToast(dish.name + ' added to cart successfully!');
+}
+
+/**
+ * Attach change listeners to a named radio group in the customizer modal.
+ * @param {HTMLElement} modalEl - Root modal element.
+ * @param {string} inputName - Radio group name attribute.
+ * @param {'spice'|'portion'|'aloo'} stateKey - Target property in customizerState.
+ * @param {boolean} updatesPrice - Whether changing this option affects the price display.
+ */
+function bindCustomizerRadioGroup(modalEl, inputName, stateKey, updatesPrice) {
+  const radios = modalEl.querySelectorAll('input[name="' + inputName + '"]');
+  for (let i = 0; i < radios.length; i++) {
+    radios[i].addEventListener('change', function () {
+      customizerState[stateKey] = this.value;
+      if (updatesPrice) {
+        updateCustomizerSummaryUI();
+      }
+      if (validateCustomizerSelections()) {
+        toggleCustomizerError(false);
+      }
+    });
+  }
+}
+
+/**
+ * Wire up the Plate Customizer Bootstrap modal, option radio listeners,
+ * quantity stepper (+/-), and Add to Cart validation button.
+ */
+function initPlateCustomizer() {
+  const modalEl = document.getElementById('plateCustomizerModal');
+  if (!modalEl) {
+    return;
+  }
+
+  if (window.bootstrap && window.bootstrap.Modal) {
+    customizerModalInstance = new window.bootstrap.Modal(modalEl);
+  }
+
+  bindCustomizerRadioGroup(modalEl, 'customizerSpice', 'spice', false);
+  bindCustomizerRadioGroup(modalEl, 'customizerPortion', 'portion', true);
+  bindCustomizerRadioGroup(modalEl, 'customizerAloo', 'aloo', true);
+
+  const qtyMinusBtn = document.getElementById('customizer-qty-minus');
+  const qtyPlusBtn = document.getElementById('customizer-qty-plus');
+  const addToCartBtn = document.getElementById('customizer-add-to-cart-btn');
+
+  if (qtyMinusBtn) {
+    qtyMinusBtn.addEventListener('click', function () {
+      if (customizerState.quantity > 1) {
+        customizerState.quantity--;
+        updateCustomizerSummaryUI();
+      }
+    });
+  }
+
+  if (qtyPlusBtn) {
+    qtyPlusBtn.addEventListener('click', function () {
+      customizerState.quantity++;
+      updateCustomizerSummaryUI();
+    });
+  }
+
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener('click', handleCustomizerAddToCart);
+  }
 }
 
 /* ==========================================================================
@@ -786,7 +1098,8 @@ function initDesiPage() {
     });
   }
 
-  // Initialize smart Naan suggestion modal and cart watchers
+  // Initialize Plate Customizer modal & Smart Naan suggestion modal
+  initPlateCustomizer();
   initSmartNaanPopup();
 
   // If the page opened with a #hash (like desi-cuisine.html#karahi), scroll smoothly after rendering

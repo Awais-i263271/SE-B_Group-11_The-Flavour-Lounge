@@ -82,3 +82,186 @@
   border-color: var(--color-offwhite);
   color: var(--color-offwhite);
 }
+
+/* ==========================================================================
+   Plate Customizer Modal (Biryani & Karahi)
+   ========================================================================== */
+.customizer-dish-summary {
+  background-color: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1rem;
+}
+
+.customizer-dish-thumb {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-orange);
+  flex-shrink: 0;
+}
+
+.customizer-category-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background-color: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 50rem;
+  padding: 0.18rem 0.65rem;
+}
+
+.customizer-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.customizer-question-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-offwhite);
+  margin-bottom: 0.7rem;
+}
+
+.customizer-required-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-orange);
+  background-color: rgba(255, 107, 0, 0.12);
+  border: 1px solid rgba(255, 107, 0, 0.35);
+  border-radius: 50rem;
+  padding: 0.15rem 0.55rem;
+  white-space: nowrap;
+}
+
+.customizer-radio-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.customizer-option-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.2rem;
+  width: 100%;
+  height: 100%;
+  min-height: 72px;
+  padding: 0.7rem 0.55rem;
+  background-color: var(--color-espresso);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--color-offwhite);
+  cursor: pointer;
+  transition: border-color var(--transition-base), background-color var(--transition-base), transform var(--transition-base);
+}
+
+.customizer-option-label:hover {
+  border-color: var(--color-orange);
+  transform: translateY(-2px);
+}
+
+.customizer-radio-input:focus-visible + .customizer-option-label {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+.customizer-radio-input:checked + .customizer-option-label {
+  background-color: rgba(255, 107, 0, 0.18);
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 1px var(--color-orange);
+}
+
+.customizer-option-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.customizer-option-title {
+  font-weight: 600;
+  font-size: 0.94rem;
+  color: var(--color-offwhite);
+}
+
+.customizer-option-sub {
+  font-size: 0.75rem;
+  color: rgba(250, 243, 224, 0.7);
+}
+
+.customizer-option-price {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-gold);
+}
+
+.customizer-error-alert {
+  display: flex;
+  align-items: center;
+  background-color: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.7);
+  color: #fecaca;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.customizer-qty-control {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-charcoal);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50rem;
+  padding: 0.2rem;
+}
+
+.customizer-qty-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 0;
+  background-color: rgba(250, 243, 224, 0.08);
+  color: var(--color-offwhite);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.customizer-qty-btn:hover:not(:disabled) {
+  background-color: var(--color-orange);
+  color: var(--color-espresso);
+}
+
+.customizer-qty-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.customizer-qty-value {
+  min-width: 2.2rem;
+  text-align: center;
+  font-weight: 700;
+  color: var(--color-offwhite);
+}
+
+.customizer-total-price {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--color-gold);
+  line-height: 1.1;
+}
