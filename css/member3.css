@@ -633,3 +633,45 @@ h1, h2, h3, h4, h5, h6,
     padding: 1.5rem;
   }
 }
+
+
+
+
+/* Menu Search Bar */
+.m3-search-wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto 24px;
+}
+
+.m3-search-wrapper .input-group {
+  width: 100%;
+}
+
+.m3-search-wrapper .input-group-text {
+  background-color: #181512;
+  color: #F59E0B;
+  border: 1px solid rgba(250, 243, 224, 0.2);
+  padding: 12px 16px;
+}
+
+.m3-search-wrapper .form-control {
+  background-color: #181512;
+  color: #FAF3E0;
+  border: 1px solid rgba(250, 243, 224, 0.2);
+  padding: 12px;
+  width: 100%;
+}
+
+.m3-search-wrapper .form-control::placeholder {
+  color: rgba(250, 243, 224, 0.55);
+}
+
+.m3-search-wrapper .form-control:focus {
+  background-color: #181512;
+  color: #FAF3E0;
+  border-color: #FF6B00;
+  box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.2);
+}
+
+
