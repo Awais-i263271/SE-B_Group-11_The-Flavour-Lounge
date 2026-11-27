@@ -3,21 +3,9 @@
 // Uses the shared window.FlavourCart helper from js/cart.js
 // ==========================================================
 
-// Generate a lightweight local SVG dish image matching the group Maroon/Cream/Orange palette
-function createDishImage(title, category) {
-    const safeTitle = title.replace(/&/g, "and");
-    const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="600" height="320" viewBox="0 0 600 320">
-            <rect width="600" height="320" fill="#800000"/>
-            <circle cx="300" cy="140" r="76" fill="#FFF8E7" stroke="#FF6B00" stroke-width="4"/>
-            <circle cx="300" cy="140" r="56" fill="none" stroke="#800000" stroke-width="2" stroke-dasharray="6 5"/>
-            <text x="300" y="136" text-anchor="middle" fill="#800000" font-family="Georgia, serif" font-size="18" font-weight="bold">${category.toUpperCase()}</text>
-            <text x="300" y="160" text-anchor="middle" fill="#FF6B00" font-family="Poppins, sans-serif" font-size="12" font-weight="bold">The Flavour Lounge</text>
-            <text x="300" y="272" text-anchor="middle" fill="#FFF8E7" font-family="Georgia, serif" font-size="18" font-weight="bold">${safeTitle}</text>
-        </svg>
-    `;
-    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
-}
+// Fallback placeholder used by onerror when a deal image fails to load.
+// Points to the first deal image; swap for a dedicated placeholder if one exists.
+const DEAL_IMG_PLACEHOLDER = "../images/deals/karachi-biryani-feast.jpg";
 
 // Array of 6 realistic Pakistani restaurant deals
 const deals = [
@@ -30,7 +18,9 @@ const deals = [
         category: "Biryani",
         badge: "Freshly Prepared",
         rating: "4.9",
-        image: createDishImage("Karachi Chicken Dum Biryani Feast", "Biryani"),
+        image: "../images/deals/karachi-biryani-feast.jpg",
+        imgWidth: 600,
+        imgHeight: 320,
         alt: "Steaming Karachi Chicken Dum Biryani served with Shami Kababs and Mint Raita"
     },
     {
@@ -42,7 +32,9 @@ const deals = [
         category: "BBQ",
         badge: "Available",
         rating: "4.8",
-        image: createDishImage("Seekh Kabab & Malai Boti Platter", "BBQ"),
+        image: "../images/deals/seekh-kabab-malai-boti.jpg",
+        imgWidth: 600,
+        imgHeight: 320,
         alt: "Grilled Seekh Kabab and Chicken Malai Boti BBQ platter with Garlic Naans"
     },
     {
@@ -54,7 +46,9 @@ const deals = [
         category: "Combos",
         badge: "Available",
         rating: "4.9",
-        image: createDishImage("Lahori Family Karahi Combo", "Combos"),
+        image: "../images/deals/lahori-karahi-combo.jpg",
+        imgWidth: 600,
+        imgHeight: 320,
         alt: "Traditional Lahori Chicken Karahi combo with Roghni Naans and salad"
     },
     {
@@ -66,7 +60,9 @@ const deals = [
         category: "Biryani",
         badge: "Freshly Prepared",
         rating: "4.7",
-        image: createDishImage("Shahi Mutton Sindhi Biryani Deal", "Biryani"),
+        image: "../images/deals/mutton-sindhi-biryani.jpg",
+        imgWidth: 600,
+        imgHeight: 320,
         alt: "Shahi Mutton Sindhi Biryani garnished with fried onions and fresh coriander"
     },
     {
@@ -78,7 +74,9 @@ const deals = [
         category: "BBQ",
         badge: "Freshly Prepared",
         rating: "4.8",
-        image: createDishImage("Charcoal Tikka & Paratha Duo", "BBQ"),
+        image: "../images/deals/tikka-paratha-duo.jpg",
+        imgWidth: 600,
+        imgHeight: 320,
         alt: "Charcoal grilled Chicken Tikka pieces served with crispy Tandoori Parathas"
     },
     {
@@ -90,7 +88,9 @@ const deals = [
         category: "Drinks",
         badge: "Available",
         rating: "4.9",
-        image: createDishImage("Mint Margarita & Kashmiri Chai Pair", "Drinks"),
+        image: "../images/deals/mint-margarita-kashmiri-chai.jpg",
+        imgWidth: 600,
+        imgHeight: 320,
         alt: "Refreshing Mint Lemonade pitcher alongside cups of Kashmiri Pink Chai"
     }
 ];
@@ -176,7 +176,15 @@ function renderDeals(selectedCategory) {
         col.innerHTML = `
             <article class="card deal-card h-100">
                 <div class="deal-img-wrapper">
-                    <img src="${deal.image}" class="deal-img" alt="${deal.alt}">
+                    <img
+                        src="${deal.image}"
+                        class="deal-img"
+                        alt="${deal.alt}"
+                        width="${deal.imgWidth}"
+                        height="${deal.imgHeight}"
+                        loading="lazy"
+                        onerror="this.onerror=null;this.src='${DEAL_IMG_PLACEHOLDER}';"
+                    >
                     <span class="discount-badge">${discountPercent}% OFF</span>
                 </div>
                 <div class="card-body d-flex flex-column p-4">
