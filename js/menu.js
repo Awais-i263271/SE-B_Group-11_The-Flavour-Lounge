@@ -149,8 +149,72 @@ function renderEmptyMessage(container, messageText) {
 }
 
 /**
- * Render the 4 equal-sized boxes in "The Desi Darbar" section from desiCategories.
- * Responsive grid: 4 across on desktop (col-lg-3), 2 on tablet (col-md-6), 1 on mobile (col-12).
+ * Build an enlarged category showcase card with full-bleed food image, dark overlay,
+ * centered large heading in the middle of the box, and stretched Explore link.
+ * Used for both Desi Darbar (2 per row) and the full-width Chinese box at the end.
+ * @param {Object} category - Category object { name, description, image, alt, link }.
+ * @param {Object} [options] - Optional configuration { featured: boolean, badgeText: string, eyebrowText: string }.
+ * @returns {HTMLElement} Rendered category showcase article element.
+ */
+function createCategoryShowcaseCard(category, options) {
+  const opts = options || {};
+  const isFeatured = Boolean(opts.featured);
+
+  const card = document.createElement('article');
+  card.className = isFeatured
+    ? 'category-showcase-card category-showcase-featured'
+    : 'category-showcase-card';
+
+  const img = createSafeImage(category.image, category.alt, 'category-showcase-img');
+
+  const overlay = document.createElement('div');
+  overlay.className = 'category-showcase-overlay';
+  overlay.setAttribute('aria-hidden', 'true');
+
+  const badge = document.createElement('span');
+  badge.className = 'badge-mint badge-mint-floating';
+  badge.innerHTML = isFeatured
+    ? '<i class="bi bi-check-circle-fill" aria-hidden="true"></i>' + (opts.badgeText || 'Freshly Prepared')
+    : (opts.badgeText || 'Available');
+
+  const content = document.createElement('div');
+  content.className = 'category-showcase-content';
+
+  if (opts.eyebrowText) {
+    const eyebrow = document.createElement('span');
+    eyebrow.className = 'section-eyebrow mb-2';
+    eyebrow.textContent = opts.eyebrowText;
+    content.appendChild(eyebrow);
+  }
+
+  const title = document.createElement(isFeatured ? 'h2' : 'h3');
+  title.className = 'category-showcase-title';
+  title.textContent = category.name;
+
+  const desc = document.createElement('p');
+  desc.className = 'category-showcase-desc';
+  desc.textContent = category.description;
+
+  const exploreLink = document.createElement('a');
+  exploreLink.href = category.link;
+  exploreLink.className = 'btn btn-bistro-primary stretched-link';
+  exploreLink.innerHTML = 'Explore <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>';
+
+  content.appendChild(title);
+  content.appendChild(desc);
+  content.appendChild(exploreLink);
+
+  card.appendChild(img);
+  card.appendChild(overlay);
+  card.appendChild(badge);
+  card.appendChild(content);
+
+  return card;
+}
+
+/**
+ * Render the 4 enlarged boxes in "The Desi Darbar" section from desiCategories.
+ * Responsive grid: 2 across on tablet/desktop (col-md-6), 1 on mobile (col-12).
  */
 function renderDesiDarbar() {
   const grid = document.getElementById('desi-darbar-grid');
@@ -168,57 +232,24 @@ function renderDesiDarbar() {
   for (let i = 0; i < desiCategories.length; i++) {
     const category = desiCategories[i];
 
-    // Column sizing: 1 across on mobile, 2 on tablet, 4 on desktop
+    // Column sizing: 1 across on mobile, 2 across per row on tablet and desktop
     const col = document.createElement('div');
-    col.className = 'col-12 col-md-6 col-lg-3';
+    col.className = 'col-12 col-md-6';
 
-    const card = document.createElement('article');
-    card.className = 'bistro-card';
+    const card = createCategoryShowcaseCard(category, {
+      featured: false,
+      badgeText: 'Available',
+      eyebrowText: 'Desi Category'
+    });
 
-    // Image wrapper with Mint Green badge
-    const imgWrap = document.createElement('div');
-    imgWrap.className = 'bistro-card-img-wrap';
-    const img = createSafeImage(category.image, category.alt, 'bistro-card-img');
-
-    const badge = document.createElement('span');
-    badge.className = 'badge-mint badge-mint-floating';
-    badge.textContent = 'Available';
-
-    imgWrap.appendChild(img);
-    imgWrap.appendChild(badge);
-
-    // Card body with title, one-line description, and Explore link
-    const body = document.createElement('div');
-    body.className = 'bistro-card-body';
-
-    const title = document.createElement('h3');
-    title.className = 'dish-title';
-    title.textContent = category.name;
-
-    const desc = document.createElement('p');
-    desc.className = 'dish-description';
-    desc.textContent = category.description;
-
-    // Real <a> link with stretched-link so the whole card and button are keyboard/click accessible
-    const exploreLink = document.createElement('a');
-    exploreLink.href = category.link;
-    exploreLink.className = 'btn btn-bistro-primary btn-sm align-self-start stretched-link';
-    exploreLink.innerHTML = 'Explore <i class="bi bi-arrow-right ms-1" aria-hidden="true"></i>';
-
-    body.appendChild(title);
-    body.appendChild(desc);
-    body.appendChild(exploreLink);
-
-    card.appendChild(imgWrap);
-    card.appendChild(body);
     col.appendChild(card);
     grid.appendChild(col);
   }
 }
 
 /**
- * Render the single full-width "Chinese Dragon's Chicken" box from chineseCategory.
- * Stays full width on all screen sizes and is roughly double the height of the Desi boxes.
+ * Render the single full-width "Chinese Dragon's Chicken" box at the end of categories.
+ * Enlarged full-width showcase box with centered heading in the middle of the box.
  */
 function renderChineseFeatureBox() {
   const container = document.getElementById('chinese-feature-container');
@@ -233,58 +264,12 @@ function renderChineseFeatureBox() {
     return;
   }
 
-  const card = document.createElement('article');
-  card.className = 'bistro-card bistro-featured-box';
+  const card = createCategoryShowcaseCard(chineseCategory, {
+    featured: true,
+    badgeText: 'Freshly Prepared',
+    eyebrowText: 'Full Wok & Noodle Collection'
+  });
 
-  const row = document.createElement('div');
-  row.className = 'row g-0 h-100';
-
-  // Left half: Large featured food image
-  const imgCol = document.createElement('div');
-  imgCol.className = 'col-12 col-lg-6 bistro-card-img-wrap';
-
-  const img = createSafeImage(chineseCategory.image, chineseCategory.alt, 'bistro-featured-img');
-
-  const badge = document.createElement('span');
-  badge.className = 'badge-mint badge-mint-floating';
-  badge.innerHTML = '<i class="bi bi-check-circle-fill" aria-hidden="true"></i>Freshly Prepared';
-
-  imgCol.appendChild(img);
-  imgCol.appendChild(badge);
-
-  // Right half: Larger heading, longer description, and Explore <a> button
-  const textCol = document.createElement('div');
-  textCol.className = 'col-12 col-lg-6 d-flex';
-
-  const body = document.createElement('div');
-  body.className = 'bistro-card-body justify-content-center p-4 p-lg-5';
-
-  const eyebrow = document.createElement('span');
-  eyebrow.className = 'section-eyebrow';
-  eyebrow.textContent = 'Full Wok & Noodle Collection';
-
-  const heading = document.createElement('h2');
-  heading.className = 'display-6 mb-3';
-  heading.textContent = chineseCategory.name;
-
-  const desc = document.createElement('p');
-  desc.className = 'text-offwhite-muted fs-6 mb-4';
-  desc.textContent = chineseCategory.description;
-
-  const exploreBtn = document.createElement('a');
-  exploreBtn.href = chineseCategory.link;
-  exploreBtn.className = 'btn btn-bistro-primary align-self-start stretched-link';
-  exploreBtn.innerHTML = 'Explore <i class="bi bi-arrow-right ms-2" aria-hidden="true"></i>';
-
-  body.appendChild(eyebrow);
-  body.appendChild(heading);
-  body.appendChild(desc);
-  body.appendChild(exploreBtn);
-
-  textCol.appendChild(body);
-  row.appendChild(imgCol);
-  row.appendChild(textCol);
-  card.appendChild(row);
   container.appendChild(card);
 }
 
@@ -361,6 +346,32 @@ function renderMostLovedDishes() {
 }
 
 /**
+ * Smoothly scroll to a category section (#desi-darbar or #chinese-dragon)
+ * while leaving room for the sticky navigation bar.
+ * @param {string} hashValue - Target section hash starting with "#".
+ */
+function scrollToMenuSection(hashValue) {
+  if (!hashValue || hashValue.charAt(0) !== '#') {
+    return;
+  }
+
+  const targetSection = document.querySelector(hashValue);
+  if (!targetSection) {
+    return;
+  }
+
+  const navbar = document.querySelector('.navbar-bistro');
+  const navbarHeight = navbar ? navbar.offsetHeight : 0;
+  const sectionTop = targetSection.getBoundingClientRect().top + window.scrollY;
+  const scrollTarget = Math.max(0, sectionTop - navbarHeight - 16);
+
+  window.scrollTo({
+    top: scrollTarget,
+    behavior: 'smooth'
+  });
+}
+
+/**
  * Initialize the Categories page once the HTML DOM is ready.
  * Calls each render function to build the page sections from JavaScript data.
  */
@@ -368,6 +379,17 @@ function initMenuPage() {
   renderDesiDarbar();
   renderChineseFeatureBox();
   renderMostLovedDishes();
+
+  const jumpLinks = document.querySelectorAll('.menu-jump-btn[href^="#"]');
+  for (let i = 0; i < jumpLinks.length; i++) {
+    jumpLinks[i].addEventListener('click', function (event) {
+      const targetHash = this.getAttribute('href');
+      if (targetHash && targetHash.charAt(0) === '#') {
+        event.preventDefault();
+        scrollToMenuSection(targetHash);
+      }
+    });
+  }
 }
 
 // Run page setup when the DOM has finished loading

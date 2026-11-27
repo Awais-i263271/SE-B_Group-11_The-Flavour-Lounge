@@ -299,6 +299,19 @@ select:focus-visible {
   overflow: hidden;
 }
 
+.bistro-hero-compact {
+  padding: 2.1rem 0 1.85rem;
+}
+
+.bistro-hero-compact .bistro-hero-title {
+  font-size: clamp(1.85rem, 3.4vw, 2.65rem);
+  margin-top: 0.65rem;
+}
+
+.bistro-hero-compact .bistro-hero-subtitle {
+  font-size: 0.98rem;
+}
+
 .bistro-hero::before {
   content: '';
   position: absolute;
@@ -668,6 +681,105 @@ select:focus-visible {
   margin: 2rem 0 1.25rem;
 }
 
+/* ==========================================================================
+   Menu Category Showcase Cards (Enlarged, Centered Category Headings)
+   ========================================================================== */
+.category-showcase-card {
+  position: relative;
+  min-height: 360px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  background-color: var(--color-espresso);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.category-showcase-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-orange);
+}
+
+.category-showcase-card:focus-within {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-color: var(--color-orange);
+}
+
+.category-showcase-featured {
+  min-height: 440px;
+}
+
+.category-showcase-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.category-showcase-card:hover .category-showcase-img {
+  transform: scale(1.06);
+}
+
+.category-showcase-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(24, 21, 18, 0.48) 0%,
+    rgba(24, 21, 18, 0.78) 52%,
+    rgba(24, 21, 18, 0.9) 100%
+  );
+  z-index: 1;
+}
+
+.category-showcase-content {
+  position: relative;
+  z-index: 2;
+  padding: 2.25rem 2rem;
+  max-width: 34rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-showcase-featured .category-showcase-content {
+  max-width: 44rem;
+  padding: 2.75rem 2.25rem;
+}
+
+.category-showcase-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.95rem, 3vw, 2.65rem);
+  color: var(--color-offwhite);
+  margin-bottom: 0.75rem;
+  text-shadow: 0 4px 16px rgba(24, 21, 18, 0.85);
+}
+
+.category-showcase-featured .category-showcase-title {
+  font-size: clamp(2.2rem, 3.8vw, 3.15rem);
+}
+
+.category-showcase-desc {
+  color: rgba(250, 243, 224, 0.9);
+  font-size: 0.98rem;
+  margin-bottom: 1.35rem;
+}
+
+.category-showcase-card .badge-mint-floating {
+  z-index: 2;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 991.98px) {
   .navbar-bistro .nav-link.active::after {
@@ -681,5 +793,17 @@ select:focus-visible {
 
   .bistro-hero {
     padding: 3rem 0 2.75rem;
+  }
+
+  .bistro-hero-compact {
+    padding: 1.75rem 0 1.55rem;
+  }
+
+  .category-showcase-card {
+    min-height: 310px;
+  }
+
+  .category-showcase-featured {
+    min-height: 370px;
   }
 }
