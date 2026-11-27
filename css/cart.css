@@ -1,15 +1,15 @@
 /* ==========================================================================
-   The Flavour Lounge - Shopping Cart Page Styles (Modern Dark Bistro Theme)
-   Reuses shared CSS variables from css/style.css
+   The Flavour Lounge - Shopping Cart Page Styles
+   Reuses shared CSS variables from css/style.css (no hard-coded colours)
    ========================================================================== */
 
 .cart-subtitle { max-width: 38rem; }
 
 /* ── Cart Item Row Card ──────────────────────────────────────────────────── */
 .cart-item-row {
-    background-color: var(--color-charcoal);
-    color: var(--color-offwhite);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
     border-radius: var(--radius-lg);
     padding: 1.1rem 1.25rem;
     box-shadow: var(--shadow-soft);
@@ -17,7 +17,7 @@
 }
 
 .cart-item-row:hover {
-    border-color: var(--color-orange);
+    border-color: rgba(245, 158, 11, 0.45);
     box-shadow: var(--shadow-card);
 }
 
@@ -26,14 +26,15 @@
     height: 64px;
     object-fit: cover;
     border-radius: var(--radius-md);
-    background-color: var(--color-espresso);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-cream-dark);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 15%, transparent);
+    /* shrink gracefully on 360px */
     flex-shrink: 0;
 }
 
 .cart-item-name {
     font-family: var(--font-heading);
-    color: var(--color-offwhite);
+    color: var(--color-maroon);
     font-weight: 700;
     word-break: break-word;
 }
@@ -44,7 +45,7 @@
 }
 
 .line-total {
-    color: var(--color-gold);
+    color: var(--color-maroon);
     font-family: var(--font-heading);
     font-weight: 700;
     font-size: 1.1rem;
@@ -55,8 +56,8 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background-color: var(--color-espresso);
-    border: 1px solid var(--color-border);
+    background-color: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 20%, transparent);
     border-radius: var(--radius-md);
     padding: 0.2rem 0.45rem;
 }
@@ -98,7 +99,7 @@
 
 /* Inline quantity limit error (aria-live="polite" is on the div in HTML) */
 .qty-error {
-    color: var(--color-gold);
+    color: var(--color-maroon);
     font-size: 0.8rem;
     font-weight: 600;
     min-height: 1.2rem;
@@ -107,8 +108,8 @@
 /* Remove button – 44px min touch target */
 .btn-remove {
     background-color: transparent;
-    color: var(--color-orange);
-    border: 1px solid var(--color-orange);
+    color: var(--color-maroon);
+    border: 1px solid var(--color-maroon);
     font-weight: 600;
     font-size: 0.86rem;
     min-height: 44px;
@@ -120,8 +121,8 @@
 
 .btn-remove:hover,
 .btn-remove:focus-visible {
-    background-color: var(--color-orange);
-    color: var(--color-offwhite);
+    background-color: var(--color-maroon);
+    color: var(--color-white);
 }
 
 .btn-remove:focus-visible {
@@ -131,9 +132,9 @@
 
 /* ── Order Summary Card ──────────────────────────────────────────────────── */
 .cart-summary-card {
-    background-color: var(--color-charcoal);
-    color: var(--color-offwhite);
-    border: 1px solid rgba(245, 158, 11, 0.25);
+    background-color: var(--color-white);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 12%, transparent);
     border-radius: var(--radius-lg);
     padding: 1.75rem;
     box-shadow: var(--shadow-soft);
@@ -148,7 +149,7 @@
 }
 
 .summary-divider {
-    border-color: var(--color-border);
+    border-color: color-mix(in srgb, var(--color-maroon) 15%, transparent);
 }
 
 /* aria-live region for cart totals */
@@ -160,23 +161,20 @@
 }
 
 /* ── Promo Code Input ────────────────────────────────────────────────────── */
-.promo-label { color: var(--color-gold); }
+.promo-label { color: var(--color-maroon); }
 
 .promo-input {
-    background-color: var(--color-espresso);
-    color: var(--color-offwhite);
-    border: 1px solid var(--color-border);
-}
-
-.promo-input::placeholder {
-    color: rgba(250, 243, 224, 0.48);
+    background-color: var(--color-cream);
+    color: var(--color-text);
+    border: 1px solid color-mix(in srgb, var(--color-maroon) 25%, transparent);
 }
 
 .promo-input:focus {
-    background-color: var(--color-espresso);
-    color: var(--color-offwhite);
+    background-color: var(--color-white);
+    color: var(--color-text);
     border-color: var(--color-orange);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-orange) 25%, transparent);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.25);
+    outline: none;
 }
 
 /* aria-live error/success region */
@@ -186,27 +184,26 @@
     min-height: 1.25rem;
 }
 
-.promo-message.is-error  { color: var(--color-danger); }
-.promo-message.is-success { color: var(--color-gold); }
+.promo-message.is-error  { color: var(--color-maroon); }
+.promo-message.is-success { color: var(--color-orange); }
 
 /* ── Primary & Outline Buttons – 44px min height ─────────────────────────── */
 .btn-flavour-primary,
-.btn-flavour-outline,
-.btn-flavour-maroon {
+.btn-flavour-outline {
     min-height: 44px;
 }
 
 .btn-flavour-primary:focus-visible,
 .btn-flavour-outline:focus-visible,
 .btn-flavour-maroon:focus-visible {
-    outline: 3px solid var(--color-gold);
+    outline: 3px solid var(--color-orange);
     outline-offset: 3px;
 }
 
 /* Disabled "Proceed to Checkout" state */
 .btn-flavour-primary.disabled,
 .btn-flavour-primary[aria-disabled="true"] {
-    opacity: 0.5;
+    opacity: 0.4;
     pointer-events: none;
     transform: none;
     box-shadow: none;
@@ -214,16 +211,15 @@
 
 /* ── Empty Cart Card ─────────────────────────────────────────────────────── */
 .empty-cart-box {
-    background-color: var(--color-charcoal);
-    color: var(--color-offwhite);
-    border: 1px dashed rgba(245, 158, 11, 0.35);
+    background-color: var(--color-white);
+    border: 1px dashed color-mix(in srgb, var(--color-maroon) 30%, transparent);
     border-radius: var(--radius-lg);
     padding: 3rem 1.5rem;
     box-shadow: var(--shadow-soft);
 }
 
-.empty-cart-title  { color: var(--color-offwhite); }
-.empty-cart-badge  { color: var(--color-gold); font-weight: 600; font-size: 0.9rem; }
+.empty-cart-title  { color: var(--color-maroon); }
+.empty-cart-badge  { color: var(--color-orange); font-weight: 600; font-size: 0.9rem; }
 
 /* ── Responsive breakpoints ─────────────────────────────────────────────── */
 @media (max-width: 575.98px) {

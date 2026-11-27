@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn the story, culinary philosophy, and passionate team behind The Flavour Lounge — your doorstep destination for handcrafted food.">
+  <title>About Us | The Flavour Lounge</title>
+
+  <!-- Google Fonts: Playfair Display & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Shared Theme Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* ── About Page Local Styles ─────────────────────────────────────────── */
+
+    /* Hero / Intro */
+    .about-hero {
+      background-color: var(--color-charcoal);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 5rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: -100px;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 107, 0, 0.1) 0%, rgba(36, 31, 28, 0) 70%);
+      pointer-events: none;
+    }
+
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      right: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.09) 0%, rgba(36, 31, 28, 0) 70%);
+      pointer-events: none;
+    }
+
+    .about-hero-img-wrap {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      background-color: var(--color-espresso);
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .about-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.08) 0%, rgba(24, 21, 18, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    .about-founded-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: var(--color-gold);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.42rem 1rem;
+      border-radius: 50rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .about-stat {
+      background-color: var(--color-espresso);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1.4rem;
+      text-align: center;
+      min-width: 110px;
+      flex: 1 1 auto;
+    }
+
+    .about-stat-value {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--color-gold);
+      display: block;
+      line-height: 1;
+    }
+
+    .about-stat-label {
+      font-size: 0.78rem;
+      color: var(--color-offwhite-muted);
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    /* ── Philosophy Cards ─────────────────────────────────────────────────── */
+    .philosophy-section {
+      background-color: var(--color-espresso);
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .philosophy-card {
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.75rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .philosophy-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+
+    .philosophy-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.85rem;
+      background-color: rgba(245, 158, 11, 0.13);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--color-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .philosophy-card h3 {
+      color: var(--color-offwhite);
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .philosophy-card p {
+      color: var(--color-offwhite-muted);
+      font-size: 0.95rem;
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    /* ── Chef Cards ───────────────────────────────────────────────────────── */
+    .chefs-section {
+      background-color: var(--color-charcoal);
+      padding: 4.5rem 0;
+    }
+
+    .chef-card {
+      background-color: var(--color-charcoal-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    }
+
+    .chef-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-card);
+      border-color: rgba(255, 107, 0, 0.4);
+    }
+
+    .chef-img-wrap {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background-color: var(--color-espresso);
+    }
+
+    .chef-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .chef-card:hover .chef-img {
+      transform: scale(1.05);
+    }
+
+    .chef-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(24, 21, 18, 0) 40%, rgba(24, 21, 18, 0.9) 100%);
+      pointer-events: none;
+    }
+
+    .chef-role-badge {
+      position: absolute;
+      bottom: 0.9rem;
+      left: 1rem;
+      background-color: var(--color-orange);
+      color: var(--color-offwhite);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50rem;
+    }
+
+    .chef-body {
+      padding: 1.4rem 1.5rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .chef-name {
+      font-family: var(--font-heading);
+      color: var(--color-gold);
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .chef-specialty {
+      color: var(--color-orange);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.85rem;
+    }
+
+    .chef-bio {
+      color: var(--color-offwhite-muted);
+      font-size: 0.91rem;
+      line-height: 1.65;
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .chef-socials {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 1.1rem;
+    }
+
+    .chef-social-link {
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 50%;
+      background-color: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--color-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all var(--transition-base);
+    }
+
+    .chef-social-link:hover {
+      background-color: var(--color-orange);
+      border-color: var(--color-orange);
+      color: var(--color-offwhite);
+      transform: translateY(-2px);
+    }
+
+    /* Chef placeholder when no photo */
+    .chef-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-espresso) 0%, var(--color-charcoal) 100%);
+      font-size: 4rem;
+      color: rgba(245, 158, 11, 0.3);
+    }
+
+    /* ── CTA Banner ───────────────────────────────────────────────────────── */
+    .about-cta {
+      background-color: var(--color-espresso);
+      border-top: 1px solid var(--color-border-subtle);
+      padding: 4rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-cta::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -60px;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 107, 0, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navbar (Espresso #181512) — About active ──────────────────────── -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+          <span>The Flavour <span class="brand-accent">Lounge</span></span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flavourNavbar"
+          aria-controls="flavourNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="flavourNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="special-deals.html">Deals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reviews.html">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="nav-link nav-cart-link" href="cart.html" aria-label="View Cart">
+                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                <span>Cart</span>
+                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         SECTION 1 · Our Story Hero / Intro
+         ════════════════════════════════════════════════════════════════════ -->
+    <section class="about-hero" aria-labelledby="story-heading">
+      <div class="container position-relative">
+        <div class="row align-items-center g-5">
+
+          <!-- Left: Text -->
+          <div class="col-lg-6">
+            <span class="about-founded-pill">
+              <i class="bi bi-award-fill" aria-hidden="true"></i>
+              Est. 2019 · Downtown Heritage Kitchen
+            </span>
+
+            <h1 class="hero-title" id="story-heading">
+              Our Story —<br>
+              <span>Born From Passion,</span><br>
+              Plated With Purpose
+            </h1>
+
+            <p class="hero-subtitle mb-3">
+              The Flavour Lounge began as a single kitchen stall on Heritage Avenue, run by two
+              food-obsessed friends who believed great cooking deserved better packaging —
+              not plastic trays, but craft, care, and community.
+            </p>
+            <p style="color: var(--color-offwhite-muted); font-size: 1.0rem; max-width: 32rem;">
+              From saffron-steeped curries slow-cooked since dawn to hand-stretched naans fresh
+              off the stone, every dish we deliver carries the same love our founders put into
+              that first roadside plate. We are not a restaurant — we are your kitchen away
+              from home.
+            </p>
+
+            <!-- Stats row -->
+            <div class="about-stat-row">
+              <div class="about-stat">
+                <span class="about-stat-value">2019</span>
+                <span class="about-stat-label">Founded</span>
+              </div>
+              <div class="about-stat">
+                <span class="about-stat-value">40+</span>
+                <span class="about-stat-label">Craft Dishes</span>
+              </div>
+              <div class="about-stat">
+                <span class="about-stat-value">12k+</span>
+                <span class="about-stat-label">Happy Orders</span>
+              </div>
+              <div class="about-stat">
+                <span class="about-stat-value">4.9★</span>
+                <span class="about-stat-label">Avg Rating</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Image -->
+          <div class="col-lg-6">
+            <div class="about-hero-img-wrap">
+              <img
+                src="../images/hero-platter.jpg"
+                alt="Chefs plating a saffron-infused mixed grill platter in The Flavour Lounge kitchen"
+                class="about-hero-img"
+                onerror="this.style.display='none'; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;min-height:320px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#181512,#241F1C);font-size:5rem;color:rgba(245,158,11,0.25)\'><i class=\'bi bi-fire\'></i></div>'"
+              >
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         SECTION 2 · Culinary Philosophy & Quality — 3-Card Grid
+         ════════════════════════════════════════════════════════════════════ -->
+    <section class="philosophy-section" aria-labelledby="philosophy-heading">
+      <div class="container">
+
+        <div class="text-center mb-5">
+          <span class="section-eyebrow">What We Stand For</span>
+          <h2 class="section-heading" id="philosophy-heading">Culinary Philosophy &amp; Quality</h2>
+          <div class="section-divider"></div>
+          <p class="text-muted mx-auto" style="max-width: 38rem;">
+            Every decision — from sourcing ingredients to sealing a delivery box —
+            is guided by three unbreakable commitments.
+          </p>
+        </div>
+
+        <div class="row g-4">
+
+          <!-- Card 1: Ingredients -->
+          <div class="col-md-4">
+            <article class="philosophy-card">
+              <div class="philosophy-icon">
+                <i class="bi bi-leaf" aria-hidden="true"></i>
+              </div>
+              <h3>Farm-Fresh Ingredients</h3>
+              <p>
+                We source vegetables, spices, and proteins daily from trusted local
+                suppliers. No frozen shortcuts — only seasonal produce that arrives
+                fresh each morning and finds its way into your meal by afternoon.
+              </p>
+              <div class="mt-3 pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+                <span style="color: var(--color-gold); font-size: 0.82rem; font-weight: 600;">
+                  <i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i>
+                  Local · Seasonal · Zero Preservatives
+                </span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 2: Craft -->
+          <div class="col-md-4">
+            <article class="philosophy-card">
+              <div class="philosophy-icon">
+                <i class="bi bi-fire" aria-hidden="true"></i>
+              </div>
+              <h3>Slow-Cooked Craft</h3>
+              <p>
+                Great flavour cannot be rushed. Our signature curries simmer for
+                four to six hours; our chargrills are wood-fired at high heat for
+                that unmistakable smoky depth. We follow old recipes and refuse to
+                take shortcuts.
+              </p>
+              <div class="mt-3 pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+                <span style="color: var(--color-gold); font-size: 0.82rem; font-weight: 600;">
+                  <i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i>
+                  Handcrafted · Slow-Simmered · Wood-Fired
+                </span>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 3: Delivery -->
+          <div class="col-md-4">
+            <article class="philosophy-card">
+              <div class="philosophy-icon">
+                <i class="bi bi-box-seam" aria-hidden="true"></i>
+              </div>
+              <h3>Doorstep Freshness</h3>
+              <p>
+                We pack every order in heat-sealed, eco-friendly containers that
+                lock in steam and aroma. Our 30-minute average delivery window means
+                your food arrives piping hot and restaurant-quality — every single
+                time.
+              </p>
+              <div class="mt-3 pt-3" style="border-top: 1px solid var(--color-border-subtle);">
+                <span style="color: var(--color-gold); font-size: 0.82rem; font-weight: 600;">
+                  <i class="bi bi-check-circle-fill me-1" aria-hidden="true"></i>
+                  Eco-Packed · 30-Min Avg · Piping Hot
+                </span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         SECTION 3 · Meet Our Chefs — 3 Chef Cards
+         ════════════════════════════════════════════════════════════════════ -->
+    <section class="chefs-section" aria-labelledby="chefs-heading">
+      <div class="container">
+
+        <div class="text-center mb-5">
+          <span class="section-eyebrow">The People Behind The Plate</span>
+          <h2 class="section-heading" id="chefs-heading">Meet Our Chefs</h2>
+          <div class="section-divider"></div>
+          <p class="text-muted mx-auto" style="max-width: 38rem;">
+            Three culinary talents, one shared obsession — making every delivery
+            taste like it came straight from a loved one's kitchen.
+          </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+
+          <!-- Chef 1 -->
+          <div class="col-sm-6 col-lg-4">
+            <article class="chef-card">
+              <div class="chef-img-wrap">
+                <img
+                  src="../images/chef-aryan.jpg"
+                  alt="Chef Aryan Malik — Head Chef & Co-Founder"
+                  class="chef-img"
+                  onerror="this.style.display='none'; this.closest('.chef-img-wrap').innerHTML='<div class=\'chef-placeholder\'><i class=\'bi bi-person-circle\'></i></div><span class=\'chef-role-badge\'>Head Chef &amp; Co-Founder</span>'"
+                >
+                <div class="chef-img-overlay"></div>
+                <span class="chef-role-badge">Head Chef &amp; Co-Founder</span>
+              </div>
+              <div class="chef-body">
+                <p class="chef-name">Aryan Malik</p>
+                <p class="chef-specialty">Slow-Cooked Curries &amp; Biryanis</p>
+                <p class="chef-bio">
+                  With over 12 years in Lahore's finest kitchens, Chef Aryan built
+                  The Flavour Lounge around one belief: a good curry needs time,
+                  not shortcuts. His saffron lamb dum biryani is the dish that
+                  launched a thousand orders.
+                </p>
+                <div class="chef-socials">
+                  <a href="#" class="chef-social-link" aria-label="Chef Aryan on Instagram">
+                    <i class="bi bi-instagram" aria-hidden="true"></i>
+                  </a>
+                  <a href="#" class="chef-social-link" aria-label="Chef Aryan on LinkedIn">
+                    <i class="bi bi-linkedin" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Chef 2 -->
+          <div class="col-sm-6 col-lg-4">
+            <article class="chef-card">
+              <div class="chef-img-wrap">
+                <img
+                  src="../images/chef-sana.jpg"
+                  alt="Chef Sana Raza — Pastry & Desserts Chef"
+                  class="chef-img"
+                  onerror="this.style.display='none'; this.closest('.chef-img-wrap').innerHTML='<div class=\'chef-placeholder\'><i class=\'bi bi-person-circle\'></i></div><span class=\'chef-role-badge\'>Pastry &amp; Desserts Chef</span>'"
+                >
+                <div class="chef-img-overlay"></div>
+                <span class="chef-role-badge">Pastry &amp; Desserts Chef</span>
+              </div>
+              <div class="chef-body">
+                <p class="chef-name">Sana Raza</p>
+                <p class="chef-specialty">Artisan Desserts &amp; Mocktails</p>
+                <p class="chef-bio">
+                  Trained in classical French patisserie and deeply rooted in
+                  desi mithai tradition, Chef Sana crafts desserts that bridge
+                  two worlds. Her rose-and-pistachio kheer and mango shrikhand
+                  tart are regulars on the most-loved list.
+                </p>
+                <div class="chef-socials">
+                  <a href="#" class="chef-social-link" aria-label="Chef Sana on Instagram">
+                    <i class="bi bi-instagram" aria-hidden="true"></i>
+                  </a>
+                  <a href="#" class="chef-social-link" aria-label="Chef Sana on LinkedIn">
+                    <i class="bi bi-linkedin" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Chef 3 -->
+          <div class="col-sm-6 col-lg-4">
+            <article class="chef-card">
+              <div class="chef-img-wrap">
+                <img
+                  src="../images/chef-omar.jpg"
+                  alt="Chef Omar Farooq — Grill & BBQ Specialist"
+                  class="chef-img"
+                  onerror="this.style.display='none'; this.closest('.chef-img-wrap').innerHTML='<div class=\'chef-placeholder\'><i class=\'bi bi-person-circle\'></i></div><span class=\'chef-role-badge\'>Grill &amp; BBQ Specialist</span>'"
+                >
+                <div class="chef-img-overlay"></div>
+                <span class="chef-role-badge">Grill &amp; BBQ Specialist</span>
+              </div>
+              <div class="chef-body">
+                <p class="chef-name">Omar Farooq</p>
+                <p class="chef-specialty">Wood-Fired Grills &amp; Kebabs</p>
+                <p class="chef-bio">
+                  Chef Omar mastered the art of fire-cooking in Karachi's
+                  legendary BBQ lanes before joining The Flavour Lounge.
+                  His chargrilled seekh kebabs and smoked boti are built on
+                  patience, the right wood, and a perfect marinade timed to
+                  the hour.
+                </p>
+                <div class="chef-socials">
+                  <a href="#" class="chef-social-link" aria-label="Chef Omar on Instagram">
+                    <i class="bi bi-instagram" aria-hidden="true"></i>
+                  </a>
+                  <a href="#" class="chef-social-link" aria-label="Chef Omar on LinkedIn">
+                    <i class="bi bi-linkedin" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════════════════
+         SECTION 4 · Visit or Order Now — CTA Banner
+         ════════════════════════════════════════════════════════════════════ -->
+    <section class="about-cta" aria-labelledby="cta-heading">
+      <div class="container position-relative">
+        <div class="row align-items-center g-4">
+
+          <div class="col-lg-7">
+            <span class="section-eyebrow mb-2 d-block">Ready For Your Next Meal?</span>
+            <h2 class="section-heading mb-2" id="cta-heading">
+              Visit Us or Order <span style="color: var(--color-orange);">From Home</span>
+            </h2>
+            <p class="text-muted mb-0" style="max-width: 36rem;">
+              Browse our full menu and add your favourites straight to the cart,
+              or reach out for bulk orders, event catering, and collaborations.
+              We deliver across the city — 7 days a week, until 11 PM.
+            </p>
+
+            <!-- Mini info row -->
+            <div class="d-flex flex-wrap gap-3 mt-3">
+              <span style="color: var(--color-offwhite-muted); font-size: 0.88rem;">
+                <i class="bi bi-geo-alt text-gold me-1" aria-hidden="true"></i>
+                42 Heritage Avenue, Downtown
+              </span>
+              <span style="color: var(--color-offwhite-muted); font-size: 0.88rem;">
+                <i class="bi bi-clock text-gold me-1" aria-hidden="true"></i>
+                12 PM – 11 PM Daily
+              </span>
+              <span style="color: var(--color-offwhite-muted); font-size: 0.88rem;">
+                <i class="bi bi-telephone text-gold me-1" aria-hidden="true"></i>
+                +92 300 000 0000
+              </span>
+            </div>
+          </div>
+
+          <div class="col-lg-5 d-flex flex-wrap gap-3 justify-content-lg-end">
+            <a href="menu.html" class="btn btn-flavour-primary">
+              <i class="bi bi-journal-text me-2" aria-hidden="true"></i>Explore Menu
+            </a>
+            <a href="contact.html" class="btn btn-flavour-outline">
+              <i class="bi bi-envelope me-2" aria-hidden="true"></i>Contact Us
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer (Espresso #181512) ──────────────────────────────────────── -->
+  <footer class="footer-flavour">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="footer-brand h4 mb-3">
+            <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+          </h5>
+          <p class="small mb-3">
+            An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+            delivery.
+          </p>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <h6 class="footer-heading">Explore</h6>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="special-deals.html">Deals</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Order Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <h6 class="footer-heading">Opening Hours</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li>Mon – Thu: 12:00 PM – 10:30 PM</li>
+            <li>Fri – Sat: 12:00 PM – 11:30 PM</li>
+            <li>Sunday: 1:00 PM – 10:00 PM</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6 class="footer-heading">Visit &amp; Contact</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li><i class="bi bi-geo-alt text-gold me-2" aria-hidden="true"></i>42 Heritage Avenue, Downtown</li>
+            <li><i class="bi bi-telephone text-gold me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+            <li><i class="bi bi-envelope text-gold me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-3">
+        <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+        <nav class="footer-socials" aria-label="Social Media Links">
+          <a href="#" class="footer-social-link" aria-label="Follow us on Facebook">
+            <i class="bi bi-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on Instagram">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on TikTok">
+            <i class="bi bi-tiktok" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Subscribe on YouTube">
+            <i class="bi bi-youtube" aria-hidden="true"></i>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Shared Cart Helper -->
+  <script src="../js/cart.js"></script>
+</body>
+</html>
