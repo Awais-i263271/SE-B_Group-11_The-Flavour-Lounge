@@ -1,0 +1,815 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Order authentic Pakistani Desi cuisine from The Flavour Lounge â€” aromatic Biryanis, sizzling Karahis, and freshly baked Tandoori Naan.">
+  <title>Desi Cuisine | The Flavour Lounge</title>
+
+  <!-- Google Fonts: Playfair Display & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3 CSS & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Modern Dark Bistro Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/bistro.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Responsive Navigation Bar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+          <span>The Flavour <span class="brand-accent">Lounge</span></span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flavourNavbar"
+          aria-controls="flavourNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="flavourNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="menu.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="special-deals.html">Deals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reviews.html">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="nav-link nav-cart-link" href="cart.html" aria-label="View Cart">
+                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                <span>Cart</span>
+                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Desi Hero Banner -->
+    <section class="bistro-hero">
+      <div class="container position-relative">
+        <nav class="bistro-breadcrumb" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
+          <a href="menu.html">Menu</a>
+          <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
+          <span class="text-offwhite">Desi Cuisine</span>
+        </nav>
+
+        <span class="bistro-eyebrow">
+          <i class="bi bi-fire" aria-hidden="true"></i>
+          Pakistani Heritage Kitchen
+        </span>
+
+        <h1 class="bistro-hero-title">
+          Authentic <span>Desi Cuisine</span>
+        </h1>
+
+        <p class="bistro-hero-subtitle mb-4">
+          Slow-simmered dum biryanis, sizzling charcoal karahis prepared in traditional iron woks,
+          and blistered tandoori naans served fresh from our clay oven.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#desi-menu" class="btn btn-bistro-primary">
+            <i class="bi bi-journal-text me-2" aria-hidden="true"></i>Order Now
+          </a>
+          <a href="chinese.html" class="btn btn-bistro-outline">
+            <i class="bi bi-bowl-hot me-2" aria-hidden="true"></i>Switch to Chinese
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sub-category Filter Toolbar -->
+    <section id="desi-menu" class="pt-5 pb-2" aria-label="Filter Desi Cuisine">
+      <div class="container">
+        <div class="filter-toolbar d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+          <div class="d-flex flex-wrap align-items-center gap-2" role="group" aria-label="Desi dish categories">
+            <button type="button" class="filter-btn active" data-desi-filter="all" aria-pressed="true">
+              All Desi (23)
+            </button>
+            <button type="button" class="filter-btn" data-desi-filter="biryani" aria-pressed="false">
+              Biryani (8)
+            </button>
+            <button type="button" class="filter-btn" data-desi-filter="karahi" aria-pressed="false">
+              Karahi &amp; Handi (9)
+            </button>
+            <button type="button" class="filter-btn" data-desi-filter="naan" aria-pressed="false">
+              Tandoor &amp; Breads (6)
+            </button>
+          </div>
+
+          <div class="small text-offwhite-muted">
+            Showing <strong id="desi-visible-count" class="text-gold">23</strong> freshly prepared dishes
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Biryani (8 Dishes) -->
+    <section id="biryani" class="section-padding py-4 desi-category-section" data-section-category="biryani" aria-labelledby="biryani-heading">
+      <div class="container">
+        <div class="mb-4">
+          <span class="section-eyebrow">Dum &amp; Saffron Rice</span>
+          <h2 id="biryani-heading" class="section-heading">Aromatic Biryanis</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="row g-4">
+          <!-- 1. Afghani Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Afghani Biryani.png" alt="Afghani Biryani topped with caramelized carrots, raisins, and spiced meat" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Afghani Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Fragrant basmati rice layered with tender slow-cooked meat, sweet raisins, and roasted julienne carrots.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 750</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-afghani-biryani" data-name="Afghani Biryani" data-price="750" data-image="../images/Afghani Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 2. Beef Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Beef Biryani.png" alt="Beef Biryani served steaming with tender spiced beef chunks and saffron rice" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Beef Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Slow-braised beef morsels steamed under aromatic saffron-kissed basmati rice with roasted garam masala.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 780</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-beef-biryani" data-name="Beef Biryani" data-price="780" data-image="../images/Beef Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 3. Hyderabadi Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Hyderabadi Biryani.png" alt="Hyderabadi Biryani garnished with crispy fried onions, mint, and saffron strands" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Hyderabadi Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Royal kacchi dum preparation marinated in spiced yogurt, mint, kewra water, and golden crispy onions.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 720</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-hyderabadi-biryani" data-name="Hyderabadi Biryani" data-price="720" data-image="../images/Hyderabadi Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 4. Karachi Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Karachi Biryani.png" alt="Karachi Biryani with spiced chicken, golden potatoes, and tangy masala rice" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Karachi Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Bold street-style Karachi classic packed with fiery masala chicken, tender potatoes, and zesty dried plums.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 650</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-karachi-biryani" data-name="Karachi Biryani" data-price="650" data-image="../images/Karachi Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 5. Lucknowi Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Lucknowi Biryani.png" alt="Lucknowi Biryani cooked in delicate yakhni stock with saffron and aromatic spices" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Lucknowi Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Delicate Awadhi-style rice infused with slow-simmered yakhni broth, rose water, and mild aromatic cardamom.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 740</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-lucknowi-biryani" data-name="Lucknowi Biryani" data-price="740" data-image="../images/Lucknowi Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 6. Matka Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Matka Biryani.png" alt="Matka Biryani slow-cooked and served in a traditional clay pot" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Matka Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Sealed and slow-steamed in an earthen clay pot to lock in smoky charcoal aroma and rich spice flavours.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 850</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-matka-biryani" data-name="Matka Biryani" data-price="850" data-image="../images/Matka Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 7. Mutton BBQ Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Mutton BBQ Biryani.png" alt="Mutton BBQ Biryani topped with smoky charcoal-grilled mutton tikka pieces" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Mutton BBQ Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 5.0</span>
+                </div>
+                <p class="dish-description">Charcoal-grilled smoky mutton tikka layered over spiced saffron biryani rice and served with mint raita.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 990</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-mutton-bbq-biryani" data-name="Mutton BBQ Biryani" data-price="990" data-image="../images/Mutton BBQ Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 8. Sindhi Biryani -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Sindhi Biryani.png" alt="Sindhi Biryani vibrant with green chillies, aloo bukhara, and spiced rice" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Biryani</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Sindhi Biryani</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Tangy and aromatic Sindhi feast featuring green chillies, plums, fresh mint, and rich spiced gravy.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 690</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-sindhi-biryani" data-name="Sindhi Biryani" data-price="690" data-image="../images/Sindhi Biryani.png">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Karahi & Handi (9 Dishes) -->
+    <section id="karahi" class="section-padding py-4 desi-category-section" data-section-category="karahi" aria-labelledby="karahi-heading">
+      <div class="container">
+        <div class="mb-4">
+          <span class="section-eyebrow">Wok-Fired Specialties</span>
+          <h2 id="karahi-heading" class="section-heading">Sizzling Karahi &amp; Handi</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="row g-4">
+          <!-- 9. Chicken Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Chicken Karahi.jpg" alt="Traditional Chicken Karahi cooked in tomato gravy with fresh ginger juliennes" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Chicken Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Our signature Lahori wok karahi simmered in ripe tomatoes, crushed coriander, green chillies, and ginger.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 1,450</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-chicken-karahi" data-name="Chicken Karahi" data-price="1450" data-image="../images/Chicken Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 10. Chicken Handi Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Chicken Handi Karahi.jpg" alt="Creamy Chicken Handi Karahi served in a rich clay pot" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Chicken Handi Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Boneless chicken tenders slow-simmered in a velvety yogurt, cream, and roasted cumin clay-pot gravy.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 1,550</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-chicken-handi-karahi" data-name="Chicken Handi Karahi" data-price="1550" data-image="../images/Chicken Handi Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 11. Chicken Peshawari Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Chicken Peshawari Karahi.jpg" alt="Chicken Peshawari Karahi garnished with green chillies and fresh coriander" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Chicken Peshawari Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Rustic frontier recipe prepared with fresh tomatoes, garlic, black pepper, and a bold kick of green chillies.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 1,600</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-chicken-peshawari-karahi" data-name="Chicken Peshawari Karahi" data-price="1600" data-image="../images/Chicken Peshawari Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 12. Chicken Shinwari Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Chicken Shinwari Karahi.jpg" alt="Chicken Shinwari Karahi sizzling with tomatoes and crushed black pepper" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Chicken Shinwari Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Minimalist Khyber-style wok karahi bursting with pure tomato sweetness, rock salt, and cracked black pepper.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 1,650</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-chicken-shinwari-karahi" data-name="Chicken Shinwari Karahi" data-price="1650" data-image="../images/Chicken Shinwari Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 13. Makhni Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Makhni Karahi.jpg" alt="Makhni Karahi finished with golden butter and velvety tomato cream sauce" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Makhni Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Indulgent butter-finished karahi infused with fenugreek leaves, roasted cashew paste, and smooth dairy cream.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 1,750</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-makhni-karahi" data-name="Makhni Karahi" data-price="1750" data-image="../images/Makhni Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 14. Beef Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Beef Karahi.jpg" alt="Beef Karahi cooked with tender beef cuts in spiced tomato masala" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Beef Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Fork-tender beef simmered in high-flame iron karahi with whole roasted spices, ginger, and fresh coriander.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 1,950</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-beef-karahi" data-name="Beef Karahi" data-price="1950" data-image="../images/Beef Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 15. Mutton Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Mutton Karahi.jpg" alt="Rich Mutton Karahi served sizzling in a traditional metal karahi" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Mutton Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Fresh bone-in goat cuts braised with vine tomatoes, desi ghee, crushed cumin, and fragrant green chillies.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 2,450</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-mutton-karahi" data-name="Mutton Karahi" data-price="2450" data-image="../images/Mutton Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 16. Mutton Nalli Karahi -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Mutton Nalli Karahi.jpg" alt="Mutton Nalli Karahi featuring rich bone marrow shanks in dark masala" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Mutton Nalli Karahi</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 5.0</span>
+                </div>
+                <p class="dish-description">Succulent marrow-rich mutton shanks slow-cooked in spiced tomato reduction for deep, hearty richness.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 2,750</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-mutton-nalli-karahi" data-name="Mutton Nalli Karahi" data-price="2750" data-image="../images/Mutton Nalli Karahi.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 17. Mutton Namkeen Gosht -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Mutton Namkeen Gosht.jpg" alt="Mutton Namkeen Gosht roasted with rock salt, black pepper, and green chillies" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Karahi</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Mutton Namkeen Gosht</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Traditional Peshawari slow-roasted mutton seasoned gently with pink rock salt, garlic, and whole black pepper.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 2,550</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-mutton-namkeen-gosht" data-name="Mutton Namkeen Gosht" data-price="2550" data-image="../images/Mutton Namkeen Gosht.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Tandoor & Breads (6 Dishes) -->
+    <section id="tandoor" class="section-padding py-4 pb-5 desi-category-section" data-section-category="naan" aria-labelledby="naan-heading">
+      <div class="container">
+        <div class="mb-4">
+          <span class="section-eyebrow">Clay-Oven Fresh</span>
+          <h2 id="naan-heading" class="section-heading">Tandoor &amp; Breads</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="row g-4">
+          <!-- 18. Plain Roti (Chapati) -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Plain Roti (Chapati).jpg" alt="Warm whole-wheat Plain Roti Chapati baked fresh on a tawa" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Tandoor</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Plain Roti (Chapati)</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.7</span>
+                </div>
+                <p class="dish-description">Light, soft whole-wheat flatbread rolled thin and cooked fresh to pair seamlessly with any karahi.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 80</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-plain-roti" data-name="Plain Roti (Chapati)" data-price="80" data-image="../images/Plain Roti (Chapati).jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 19. Plain Naan -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Plain Naan.jpg" alt="Fluffy golden-blistered Plain Naan straight from the tandoor" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Tandoor</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Plain Naan</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Classic pillowy leavened bread slapped onto blazing clay walls for crisp golden blisters and soft crumb.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 100</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-plain-naan" data-name="Plain Naan" data-price="100" data-image="../images/Plain Naan.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 20. Butter Naan -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Butter Naan.jpg" alt="Golden Butter Naan brushed generously with warm melted butter" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Tandoor</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Butter Naan</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Warm tandoor-baked naan finished with a generous brush of rich cultured butter right out of the oven.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 130</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-butter-naan" data-name="Butter Naan" data-price="130" data-image="../images/Butter Naan.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 21. Garlic Naan -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Garlic Naan.jpg" alt="Garlic Naan topped with roasted chopped garlic, coriander, and butter" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Tandoor</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Garlic Naan</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Fragrant clay-oven naan studded with minced garlic, fresh cilantro leaves, and warm melted butter.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 140</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-garlic-naan" data-name="Garlic Naan" data-price="140" data-image="../images/Garlic Naan.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 22. Til Wala Naan -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Til Wala Naan.jpg" alt="Til Wala Naan sprinkled with toasted white sesame seeds" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Tandoor</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Til Wala Naan</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.8</span>
+                </div>
+                <p class="dish-description">Crisp-edged Roghni-style tandoori naan generously encrusted with nutty toasted white sesame seeds.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 130</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-til-wala-naan" data-name="Til Wala Naan" data-price="130" data-image="../images/Til Wala Naan.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- 23. Afghani Naan -->
+          <div class="col-md-6 col-lg-4">
+            <article class="bistro-card">
+              <div class="bistro-card-img-wrap">
+                <img src="../images/Afghani Naan.jpg" alt="Long golden-baked Afghani Naan with characteristic scored pattern" class="bistro-card-img">
+                <span class="badge-mint badge-mint-floating">Available</span>
+                <span class="badge-category-tag">Tandoor</span>
+              </div>
+              <div class="bistro-card-body">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
+                  <h3 class="dish-title">Afghani Naan</h3>
+                  <span class="dish-rating"><i class="bi bi-star-fill" aria-hidden="true"></i> 4.9</span>
+                </div>
+                <p class="dish-description">Generous oblong flatbread baked to a crisp golden crust with a chewy, airy interiorâ€”ideal with Namkeen Gosht.</p>
+                <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-25">
+                  <span class="dish-price">Rs. 160</span>
+                  <button type="button" class="btn btn-bistro-primary btn-sm add-to-cart-btn" data-id="desi-afghani-naan" data-name="Afghani Naan" data-price="160" data-image="../images/Afghani Naan.jpg">
+                    <i class="bi bi-bag-plus me-1" aria-hidden="true"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Feedback Banner -->
+  <div id="cart-toast" class="bistro-toast" role="status" aria-live="polite">
+    <i class="bi bi-check-circle-fill text-mint fs-5" aria-hidden="true"></i>
+    <span id="cart-toast-message">Order confirmed in your cart!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-flavour">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="footer-brand h4 mb-3">
+            <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+          </h5>
+          <p class="small mb-3">
+            An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+            delivery.
+          </p>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <h6 class="footer-heading">Explore</h6>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="special-deals.html">Deals</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Order Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <h6 class="footer-heading">Opening Hours</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li>Mon â€“ Thu: 12:00 PM â€“ 10:30 PM</li>
+            <li>Fri â€“ Sat: 12:00 PM â€“ 11:30 PM</li>
+            <li>Sunday: 1:00 PM â€“ 10:00 PM</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6 class="footer-heading">Visit &amp; Contact</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li><i class="bi bi-geo-alt text-gold me-2" aria-hidden="true"></i>Plot 11-A, Main Double Road, F-10 Markaz, Islamabad</li>
+            <li><i class="bi bi-telephone text-gold me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+            <li><i class="bi bi-envelope text-gold me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-3">
+        <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+        <nav class="footer-socials" aria-label="Social Media Links">
+          <a href="#" class="footer-social-link" aria-label="Follow us on Facebook">
+            <i class="bi bi-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on Instagram">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on TikTok">
+            <i class="bi bi-tiktok" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Subscribe on YouTube">
+            <i class="bi bi-youtube" aria-hidden="true"></i>
+          </a>
+        </nav>
+      <p class="mb-0 w-100 text-center mt-2" style="color: rgba(250, 243, 224, 0.45); font-size: 0.75rem; letter-spacing: 0.01em;">Note: Select promotional and menu images used on this website were generated using AI tools for academic demonstration purposes.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- Shared Cart Helper -->
+  <script src="../js/cart.js"></script>
+  <!-- Desi Cuisine Page Script -->
+  <script src="../js/desi.js"></script>
+</body>
+</html>

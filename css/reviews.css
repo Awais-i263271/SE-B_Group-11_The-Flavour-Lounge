@@ -14,6 +14,7 @@
     padding: 1.5rem 2rem;
     max-width: 440px;
     box-shadow: var(--shadow-soft);
+    color: var(--color-offwhite);
 }
 
 .avg-rating-number {
@@ -33,6 +34,7 @@
     padding: 2rem;
     max-width: 820px;
     box-shadow: var(--shadow-soft);
+    color: var(--color-offwhite);
 }
 
 .review-input {
@@ -91,6 +93,7 @@
     font-size: 0.84rem;
     font-weight: 500;
     min-height: 1.2rem;
+    color: #f87171;
 }
 
 .field-error.text-danger {
@@ -172,7 +175,8 @@
     background-color: var(--color-espresso);
     color: var(--color-offwhite);
     border-color: var(--color-orange);
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-orange) 25%, transparent);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.25);
+    outline: none;
 }
 
 /* Submit button – 44px touch target, focus ring */

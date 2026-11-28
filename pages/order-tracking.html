@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your live order from The Flavour Lounge — view kitchen progress, rider details, and estimated arrival countdown.">
+  <title>Track Your Order | The Flavour Lounge</title>
+
+  <!-- Google Fonts: Playfair Display & Poppins (shared with index.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Shared Theme Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .tracking-subtitle {
+      max-width: 40rem;
+    }
+
+    /* Surface Cards (Espresso #181512 on Charcoal #241F1C) */
+    .tracking-card {
+      background-color: var(--color-espresso);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .tracking-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tracking-icon-badge {
+      width: 2.65rem;
+      height: 2.65rem;
+      border-radius: 0.75rem;
+      background-color: rgba(245, 158, 11, 0.13);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--color-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Order Lookup Bar */
+    .lookup-form .form-control {
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      color: var(--color-offwhite);
+      border-radius: 50rem 0 0 50rem;
+      padding: 0.75rem 1.25rem;
+      font-weight: 500;
+    }
+
+    .lookup-form .form-control:focus {
+      background-color: var(--color-charcoal);
+      color: var(--color-offwhite);
+      border-color: var(--color-orange);
+      box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.22);
+    }
+
+    .lookup-btn {
+      border-radius: 0 50rem 50rem 0;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .lookup-feedback {
+      font-size: 0.84rem;
+      min-height: 1.25rem;
+    }
+
+    .lookup-feedback.is-error {
+      color: var(--color-danger);
+    }
+
+    .lookup-feedback.is-success {
+      color: var(--color-gold);
+    }
+
+    /* 4-Step Progress Tracker (Horizontal Desktop, Vertical Mobile) */
+    .progress-tracker {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .tracker-step {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 0.75rem;
+    }
+
+    /* Horizontal Connector Line */
+    .tracker-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 26px;
+      left: calc(50% + 28px);
+      width: calc(100% - 56px);
+      height: 3px;
+      background-color: rgba(250, 243, 224, 0.14);
+      border-radius: 3px;
+      transition: background-color 0.35s ease;
+    }
+
+    .tracker-step.is-completed:not(:last-child)::after {
+      background: linear-gradient(90deg, var(--color-orange), var(--color-gold));
+    }
+
+    .tracker-node {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background-color: var(--color-charcoal);
+      border: 2px solid var(--color-border);
+      color: var(--color-offwhite-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .tracker-step.is-completed .tracker-node {
+      background-color: var(--color-orange);
+      border-color: var(--color-orange);
+      color: var(--color-offwhite);
+      box-shadow: 0 6px 18px rgba(255, 107, 0, 0.35);
+    }
+
+    .tracker-step.is-active .tracker-node {
+      background-color: rgba(245, 158, 11, 0.16);
+      border-color: var(--color-gold);
+      color: var(--color-gold);
+      box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.15);
+      animation: activePulse 2s infinite;
+    }
+
+    @keyframes activePulse {
+      0%, 100% {
+        box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.16);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(245, 158, 11, 0.04);
+      }
+    }
+
+    .tracker-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-offwhite-muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .tracker-step.is-completed .tracker-title,
+    .tracker-step.is-active .tracker-title {
+      color: var(--color-offwhite);
+    }
+
+    .tracker-step.is-active .tracker-title {
+      color: var(--color-gold);
+    }
+
+    .tracker-desc {
+      font-size: 0.8rem;
+      color: var(--color-offwhite-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .tracker-time {
+      display: inline-block;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.18rem 0.6rem;
+      border-radius: 50rem;
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      color: var(--color-offwhite-muted);
+    }
+
+    .tracker-step.is-completed .tracker-time {
+      color: var(--color-offwhite);
+      border-color: rgba(255, 107, 0, 0.4);
+    }
+
+    .tracker-step.is-active .tracker-time {
+      color: var(--color-gold);
+      border-color: rgba(245, 158, 11, 0.45);
+      background-color: rgba(245, 158, 11, 0.1);
+    }
+
+    /* Mobile Vertical Tracker */
+    @media (max-width: 767.98px) {
+      .progress-tracker {
+        grid-template-columns: 1fr;
+        gap: 1.35rem;
+      }
+
+      .tracker-step {
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: 1rem;
+        padding: 0;
+      }
+
+      .tracker-step:not(:last-child)::after {
+        top: 56px;
+        left: 25px;
+        width: 3px;
+        height: calc(100% - 34px);
+      }
+
+      .tracker-node {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+
+      .tracker-content {
+        flex: 1;
+        padding-top: 0.15rem;
+      }
+    }
+
+    /* Countdown Box */
+    .countdown-box {
+      background: linear-gradient(135deg, rgba(255, 107, 0, 0.14), rgba(245, 158, 11, 0.08));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.25rem;
+      text-align: center;
+    }
+
+    .countdown-timer {
+      font-family: var(--font-heading);
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--color-gold);
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+    }
+
+    /* Rider Info Box */
+    .rider-card {
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.1rem 1.2rem;
+    }
+
+    .rider-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: rgba(255, 107, 0, 0.16);
+      border: 2px solid var(--color-orange);
+      color: var(--color-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      flex-shrink: 0;
+    }
+
+    /* Order Items Summary */
+    .tracked-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .tracked-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .tracked-item-img {
+      width: 46px;
+      height: 46px;
+      border-radius: 0.55rem;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-charcoal);
+      flex-shrink: 0;
+    }
+
+    .tracked-item-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.96rem;
+      color: var(--color-offwhite);
+    }
+
+    .summary-divider {
+      border-color: var(--color-border);
+      opacity: 1;
+    }
+
+    .btn-flavour-primary,
+    .btn-flavour-outline {
+      min-height: 44px;
+    }
+
+    @media (max-width: 575.98px) {
+      .tracking-card {
+        padding: 1.25rem;
+      }
+
+      .lookup-form .form-control,
+      .lookup-btn {
+        border-radius: 50rem;
+      }
+
+      .lookup-input-group {
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .lookup-input-group > .form-control,
+      .lookup-input-group > .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Responsive Bootstrap 5 Navbar (Espresso #181512) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+          <span>The Flavour <span class="brand-accent">Lounge</span></span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flavourNavbar"
+          aria-controls="flavourNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="flavourNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="special-deals.html">Deals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reviews.html">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="nav-link nav-cart-link" href="cart.html" aria-label="View Cart">
+                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                <span>Cart</span>
+                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="section-padding">
+    <div class="container">
+
+      <!-- Page Heading -->
+      <section class="text-center mb-4">
+        <span class="section-eyebrow">
+          <i class="bi bi-broadcast me-1" aria-hidden="true"></i>Live Kitchen &amp; Rider Updates
+        </span>
+        <h1 class="hero-title mt-2 mb-2">Track Your Order</h1>
+        <div class="section-divider"></div>
+        <p class="text-muted mx-auto tracking-subtitle mb-0">
+          Follow your freshly prepared meal from our kitchen fire right to your doorstep.
+        </p>
+      </section>
+
+      <!-- Order Lookup Bar -->
+      <section class="tracking-card mb-4" aria-label="Order Lookup">
+        <div class="row align-items-center g-3">
+          <div class="col-lg-5">
+            <div class="d-flex align-items-center gap-3">
+              <div class="tracking-icon-badge">
+                <i class="bi bi-search" aria-hidden="true"></i>
+              </div>
+              <div>
+                <h2 class="h5 mb-0">Order Lookup</h2>
+                <p class="small text-muted mb-0">
+                  Tracking Order: <strong id="activeOrderBadge" class="text-gold">#TFL-84920</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <form id="lookupForm" class="lookup-form" novalidate>
+              <label for="orderLookupInput" class="visually-hidden">Order ID</label>
+              <div class="input-group lookup-input-group">
+                <input
+                  type="text"
+                  id="orderLookupInput"
+                  class="form-control"
+                  placeholder="Enter Order ID (e.g. #TFL-84920)"
+                  aria-describedby="lookupFeedback"
+                >
+                <button type="submit" class="btn btn-flavour-primary lookup-btn">
+                  <i class="bi bi-geo-alt me-1" aria-hidden="true"></i>Track Order
+                </button>
+              </div>
+              <div id="lookupFeedback" class="lookup-feedback mt-1 ps-2" role="status" aria-live="polite"></div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4-Step Visual Progress Tracker -->
+      <section class="tracking-card mb-4" aria-labelledby="progressHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 pb-3 border-bottom" style="border-color: var(--color-border) !important;">
+          <div>
+            <h2 id="progressHeading" class="h4 mb-1">Order Progress</h2>
+            <p id="statusHeadline" class="small text-gold mb-0 fw-medium">
+              Our chefs are currently preparing your dishes.
+            </p>
+          </div>
+
+          <!-- Interactive Simulation Controls -->
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" id="advanceStatusBtn" class="btn btn-flavour-primary btn-sm px-3">
+              <i class="bi bi-fast-forward-fill me-1" aria-hidden="true"></i>Simulate Next Step
+            </button>
+            <button type="button" id="resetStatusBtn" class="btn btn-flavour-outline btn-sm px-3">
+              <i class="bi bi-arrow-counterclockwise me-1" aria-hidden="true"></i>Reset
+            </button>
+          </div>
+        </div>
+
+        <div id="progressTracker" class="progress-tracker" role="list" aria-label="Order Status Steps">
+          <!-- Populated dynamically by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Live Status Details & Ordered Items Summary -->
+      <div class="row g-4 align-items-start">
+
+        <!-- Left: Rider Info & Arrival Countdown -->
+        <div class="col-lg-6">
+          <section class="tracking-card h-100" aria-labelledby="liveDetailsHeading">
+            <div class="tracking-card-header">
+              <div class="tracking-icon-badge">
+                <i class="bi bi-bicycle" aria-hidden="true"></i>
+              </div>
+              <div>
+                <h2 id="liveDetailsHeading" class="h4 mb-0">Live Delivery Details</h2>
+                <p class="small text-muted mb-0">Rider assignment &amp; arrival countdown</p>
+              </div>
+            </div>
+
+            <!-- Estimated Arrival Countdown -->
+            <div class="countdown-box mb-4">
+              <div class="small text-uppercase fw-semibold text-offwhite-muted mb-1">
+                Estimated Arrival Countdown
+              </div>
+              <div id="arrivalCountdown" class="countdown-timer">28:00</div>
+              <div id="countdownSubtext" class="small text-muted mt-1">
+                Minutes remaining until doorstep delivery
+              </div>
+            </div>
+
+            <!-- Rider Information -->
+            <div class="rider-card mb-3">
+              <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <div class="d-flex align-items-center gap-3">
+                  <div class="rider-avatar" aria-hidden="true">
+                    <i class="bi bi-person-badge"></i>
+                  </div>
+                  <div>
+                    <div class="small text-gold fw-semibold text-uppercase">Assigned Rider</div>
+                    <div id="riderName" class="fw-bold fs-6">Bilal Ahmed</div>
+                    <div id="riderVehicle" class="small text-muted">
+                      <i class="bi bi-scooter me-1 text-orange" aria-hidden="true"></i>Honda CD 70 &bull; Plate RIS-4821
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href="tel:+923001234567"
+                  id="callRiderBtn"
+                  class="btn btn-flavour-outline btn-sm px-3"
+                  aria-label="Call rider Bilal Ahmed"
+                >
+                  <i class="bi bi-telephone-fill me-1" aria-hidden="true"></i>Call Rider
+                </a>
+              </div>
+            </div>
+
+            <!-- Delivery Destination -->
+            <div class="rider-card">
+              <div class="small text-gold fw-semibold text-uppercase mb-1">
+                <i class="bi bi-geo-alt me-1" aria-hidden="true"></i>Delivering To
+              </div>
+              <div id="trackingCustomer" class="fw-semibold">Valued Guest</div>
+              <div id="trackingAddress" class="small text-muted">
+                House 14, Street 7, Sector F-10/3, Islamabad
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right: Summary of Ordered Items -->
+        <div class="col-lg-6">
+          <section class="tracking-card h-100" aria-labelledby="orderedItemsHeading">
+            <div class="tracking-card-header">
+              <div class="tracking-icon-badge">
+                <i class="bi bi-bag-check" aria-hidden="true"></i>
+              </div>
+              <div class="flex-grow-1">
+                <h2 id="orderedItemsHeading" class="h4 mb-0">Ordered Items</h2>
+                <p id="trackedItemCount" class="small text-muted mb-0">0 items</p>
+              </div>
+              <span id="trackedPaymentBadge" class="badge rounded-pill text-bg-dark border border-warning-subtle text-gold px-3 py-2">
+                Cash on Delivery
+              </span>
+            </div>
+
+            <div id="trackedItemsList" class="mb-3">
+              <!-- Populated by JavaScript -->
+            </div>
+
+            <hr class="summary-divider">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="fw-bold">Order Total</span>
+              <span id="trackedOrderTotal" class="font-display fs-4 fw-bold text-gold">Rs. 0</span>
+            </div>
+
+            <div class="d-flex flex-column flex-sm-row gap-2">
+              <a href="../index.html" class="btn btn-flavour-primary flex-fill text-center">
+                <i class="bi bi-house-door me-2" aria-hidden="true"></i>Back to Home
+              </a>
+              <a href="menu.html" class="btn btn-flavour-outline flex-fill text-center">
+                <i class="bi bi-journal-text me-2" aria-hidden="true"></i>Order Again
+              </a>
+            </div>
+          </section>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Shared Footer (Espresso #181512, consistent with index.html) -->
+  <footer class="footer-flavour">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="footer-brand h4 mb-3">
+            <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+          </h5>
+          <p class="small mb-3">
+            An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+            delivery.
+          </p>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <h6 class="footer-heading">Explore</h6>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="special-deals.html">Deals</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Order Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <h6 class="footer-heading">Opening Hours</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li>Mon – Thu: 12:00 PM – 10:30 PM</li>
+            <li>Fri – Sat: 12:00 PM – 11:30 PM</li>
+            <li>Sunday: 1:00 PM – 10:00 PM</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6 class="footer-heading">Visit &amp; Contact</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li><i class="bi bi-geo-alt text-gold me-2" aria-hidden="true"></i>Plot 11-A, Main Double Road, F-10 Markaz, Islamabad</li>
+            <li><i class="bi bi-telephone text-gold me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+            <li><i class="bi bi-envelope text-gold me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-3">
+        <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+        <nav class="footer-socials" aria-label="Social Media Links">
+          <a href="#" class="footer-social-link" aria-label="Follow us on Facebook">
+            <i class="bi bi-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on Instagram">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on TikTok">
+            <i class="bi bi-tiktok" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Subscribe on YouTube">
+            <i class="bi bi-youtube" aria-hidden="true"></i>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Shared Cart Helper -->
+  <script src="../js/cart.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const LAST_ORDER_KEY = 'flavourLastOrder';
+      const DEFAULT_ORDER_ID = '#TFL-84920';
+      const DELIVERY_FEE = 50;
+      const TAX_RATE = 0.05;
+
+      const FALLBACK_ITEMS = [
+        {
+          id: 'fallback-1',
+          name: 'Chicken Karahi (Full)',
+          price: 1650,
+          quantity: 1,
+          image: '../images/Chicken Karahi.jpg'
+        },
+        {
+          id: 'fallback-2',
+          name: 'Beef Biryani',
+          price: 750,
+          quantity: 2,
+          image: '../images/Beef Biryani.png'
+        },
+        {
+          id: 'fallback-3',
+          name: 'Butter Naan',
+          price: 120,
+          quantity: 3,
+          image: '../images/Butter Naan.jpg'
+        }
+      ];
+
+      const FALLBACK_SVG =
+        'data:image/svg+xml;charset=UTF-8,' +
+        encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">' +
+            '<rect width="100" height="100" fill="#181512"/>' +
+            '<circle cx="50" cy="50" r="26" fill="#241F1C" stroke="#FF6B00" stroke-width="3"/>' +
+            '<text x="50" y="55" text-anchor="middle" fill="#FAF3E0" font-family="Georgia,serif" font-size="12" font-weight="bold">DISH</text>' +
+          '</svg>'
+        );
+
+      const STEPS = [
+        {
+          title: 'Order Confirmed',
+          desc: 'We received your order and notified the kitchen.',
+          icon: 'bi-check2-circle',
+          headline: 'Your order has been confirmed and queued for our chefs.',
+          minutesLeft: 38
+        },
+        {
+          title: 'Preparing in Kitchen',
+          desc: 'Chefs are freshly cooking and packing your meal.',
+          icon: 'bi-fire',
+          headline: 'Our chefs are currently preparing your dishes.',
+          minutesLeft: 26
+        },
+        {
+          title: 'Out for Delivery',
+          desc: 'Rider Bilal Ahmed is on the way to your doorstep.',
+          icon: 'bi-bicycle',
+          headline: 'Your rider is on the road with your piping hot order!',
+          minutesLeft: 12
+        },
+        {
+          title: 'Delivered',
+          desc: 'Order handed over. Enjoy your meal!',
+          icon: 'bi-house-heart',
+          headline: 'Order delivered! Thank you for dining with The Flavour Lounge.',
+          minutesLeft: 0
+        }
+      ];
+
+      const PAYMENT_LABELS = {
+        cod: 'Cash on Delivery',
+        card: 'Credit / Debit Card',
+        wallet: 'JazzCash / EasyPaisa'
+      };
+
+      // Start on Step 2 ("Preparing in Kitchen", index 1) so completed, active, and pending are all visible
+      let currentStepIndex = 1;
+      let stepTimestamps = [];
+      let remainingSeconds = STEPS[currentStepIndex].minutesLeft * 60;
+      let countdownInterval = null;
+
+      function formatPrice(amount) {
+        return 'Rs. ' + Math.round(Number(amount) || 0).toLocaleString('en-US');
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function resolveImagePath(src) {
+        if (!src) return FALLBACK_SVG;
+        if (src.startsWith('http') || src.startsWith('data:') || src.startsWith('../')) {
+          return src;
+        }
+        return '../' + src.replace(/^\/+/, '');
+      }
+
+      function formatClockTime(date) {
+        return date.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: '2-digit'
+        });
+      }
+
+      function buildInitialTimestamps(activeIndex) {
+        const now = new Date();
+        return STEPS.map((_, idx) => {
+          if (idx <= activeIndex) {
+            const offsetMins = (activeIndex - idx) * 8;
+            return formatClockTime(new Date(now.getTime() - offsetMins * 60000));
+          }
+          return 'Pending';
+        });
+      }
+
+      function loadOrderInfo() {
+        try {
+          const raw = localStorage.getItem(LAST_ORDER_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.orderId) {
+              return parsed;
+            }
+          }
+        } catch (err) {
+          console.warn('Unable to read flavourLastOrder:', err);
+        }
+
+        const subtotal = FALLBACK_ITEMS.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        const tax = Math.round(subtotal * TAX_RATE);
+
+        return {
+          orderId: DEFAULT_ORDER_ID.replace('#', ''),
+          customer: {
+            fullName: 'Valued Guest',
+            deliveryAddress: 'House 14, Street 7, Sector F-10/3',
+            city: 'Islamabad'
+          },
+          paymentMethod: 'cod',
+          items: FALLBACK_ITEMS,
+          totals: {
+            subtotal: subtotal,
+            discount: 0,
+            deliveryFee: DELIVERY_FEE,
+            tax: tax,
+            total: subtotal + DELIVERY_FEE + tax
+          }
+        };
+      }
+
+      function renderTracker() {
+        const container = document.getElementById('progressTracker');
+        const headlineEl = document.getElementById('statusHeadline');
+        const advanceBtn = document.getElementById('advanceStatusBtn');
+
+        container.innerHTML = STEPS.map((step, idx) => {
+          let stateClass = '';
+          let statusLabel = 'Pending';
+          if (idx < currentStepIndex) {
+            stateClass = 'is-completed';
+            statusLabel = 'Completed';
+          } else if (idx === currentStepIndex) {
+            stateClass = currentStepIndex === STEPS.length - 1 ? 'is-completed' : 'is-active';
+            statusLabel = currentStepIndex === STEPS.length - 1 ? 'Completed' : 'In Progress';
+          }
+
+          return (
+            '<div class="tracker-step ' + stateClass + '" role="listitem" aria-label="' + escapeHtml(step.title) + ' - ' + statusLabel + '">' +
+              '<div class="tracker-node" aria-hidden="true">' +
+                '<i class="bi ' + step.icon + '"></i>' +
+              '</div>' +
+              '<div class="tracker-content">' +
+                '<div class="tracker-title">' + (idx + 1) + '. ' + escapeHtml(step.title) + '</div>' +
+                '<div class="tracker-desc">' + escapeHtml(step.desc) + '</div>' +
+                '<span class="tracker-time">' + escapeHtml(stepTimestamps[idx] || 'Pending') + '</span>' +
+              '</div>' +
+            '</div>'
+          );
+        }).join('');
+
+        headlineEl.textContent = STEPS[currentStepIndex].headline;
+
+        if (currentStepIndex >= STEPS.length - 1) {
+          advanceBtn.disabled = true;
+          advanceBtn.innerHTML = '<i class="bi bi-check-all me-1" aria-hidden="true"></i>Order Delivered';
+        } else {
+          advanceBtn.disabled = false;
+          advanceBtn.innerHTML = '<i class="bi bi-fast-forward-fill me-1" aria-hidden="true"></i>Simulate Next Step';
+        }
+      }
+
+      function renderCountdown() {
+        const countdownEl = document.getElementById('arrivalCountdown');
+        const subtextEl = document.getElementById('countdownSubtext');
+
+        if (currentStepIndex >= STEPS.length - 1 || remainingSeconds <= 0) {
+          countdownEl.textContent = 'Arrived!';
+          subtextEl.textContent = 'Delivered to your doorstep';
+          return;
+        }
+
+        const mins = Math.floor(remainingSeconds / 60);
+        const secs = remainingSeconds % 60;
+        countdownEl.textContent =
+          String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+        subtextEl.textContent = 'Minutes remaining until doorstep delivery';
+      }
+
+      function startCountdownTimer() {
+        if (countdownInterval) {
+          clearInterval(countdownInterval);
+        }
+        renderCountdown();
+        countdownInterval = setInterval(function () {
+          if (currentStepIndex >= STEPS.length - 1) {
+            remainingSeconds = 0;
+            renderCountdown();
+            clearInterval(countdownInterval);
+            return;
+          }
+          if (remainingSeconds > 0) {
+            remainingSeconds -= 1;
+            renderCountdown();
+          }
+        }, 1000);
+      }
+
+      function renderOrderDetails(order) {
+        const formattedId = '#' + String(order.orderId || 'TFL-84920').replace(/^#/, '');
+        document.getElementById('activeOrderBadge').textContent = formattedId;
+        document.getElementById('orderLookupInput').value = formattedId;
+
+        const customer = order.customer || {};
+        document.getElementById('trackingCustomer').textContent = customer.fullName || 'Valued Guest';
+        const addressParts = [customer.deliveryAddress, customer.city].filter(Boolean);
+        document.getElementById('trackingAddress').textContent =
+          addressParts.length > 0
+            ? addressParts.join(', ')
+            : 'House 14, Street 7, Sector F-10/3, Islamabad';
+
+        const payLabel = PAYMENT_LABELS[order.paymentMethod] || 'Cash on Delivery';
+        document.getElementById('trackedPaymentBadge').textContent = payLabel;
+
+        const items = Array.isArray(order.items) && order.items.length > 0 ? order.items : FALLBACK_ITEMS;
+        const totalQty = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.getElementById('trackedItemCount').textContent =
+          totalQty + (totalQty === 1 ? ' item' : ' items');
+
+        document.getElementById('trackedItemsList').innerHTML = items
+          .map((item) => {
+            const lineTotal = (Number(item.price) || 0) * (item.quantity || 1);
+            const imgSrc = resolveImagePath(item.image);
+            return (
+              '<div class="tracked-item-row">' +
+                '<div class="d-flex align-items-center gap-3 min-w-0">' +
+                  '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(item.name) + '" class="tracked-item-img" onerror="this.onerror=null;this.src=\'' + FALLBACK_SVG + '\';">' +
+                  '<div class="min-w-0">' +
+                    '<div class="tracked-item-name text-truncate">' + escapeHtml(item.name) + '</div>' +
+                    '<div class="small text-muted">Qty: ' + (item.quantity || 1) + ' &times; ' + formatPrice(item.price) + '</div>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="fw-semibold text-offwhite text-nowrap">' + formatPrice(lineTotal) + '</div>' +
+              '</div>'
+            );
+          })
+          .join('');
+
+        const total = order.totals && order.totals.total !== undefined
+          ? order.totals.total
+          : items.reduce((sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1), 0) + DELIVERY_FEE;
+        document.getElementById('trackedOrderTotal').textContent = formatPrice(total);
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const order = loadOrderInfo();
+        stepTimestamps = buildInitialTimestamps(currentStepIndex);
+
+        renderOrderDetails(order);
+        renderTracker();
+        startCountdownTimer();
+
+        // Simulate Next Step
+        document.getElementById('advanceStatusBtn').addEventListener('click', function () {
+          if (currentStepIndex < STEPS.length - 1) {
+            currentStepIndex += 1;
+            stepTimestamps[currentStepIndex] = formatClockTime(new Date());
+            remainingSeconds = STEPS[currentStepIndex].minutesLeft * 60;
+            renderTracker();
+            startCountdownTimer();
+          }
+        });
+
+        // Reset Simulation
+        document.getElementById('resetStatusBtn').addEventListener('click', function () {
+          currentStepIndex = 1;
+          stepTimestamps = buildInitialTimestamps(currentStepIndex);
+          remainingSeconds = STEPS[currentStepIndex].minutesLeft * 60;
+          renderTracker();
+          startCountdownTimer();
+        });
+
+        // Order ID Lookup
+        document.getElementById('lookupForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+          const input = document.getElementById('orderLookupInput');
+          const feedback = document.getElementById('lookupFeedback');
+          const rawVal = input.value.trim().toUpperCase();
+
+          feedback.classList.remove('is-error', 'is-success');
+
+          if (!rawVal || rawVal.length < 4) {
+            feedback.textContent = 'Please enter a valid Order ID (e.g. #TFL-84920).';
+            feedback.classList.add('is-error');
+            input.focus();
+            return;
+          }
+
+          const normalizedId = rawVal.startsWith('#') ? rawVal : '#' + rawVal;
+          document.getElementById('activeOrderBadge').textContent = normalizedId;
+          input.value = normalizedId;
+
+          // Reset to active kitchen/delivery state for the newly looked-up ID
+          currentStepIndex = 1;
+          stepTimestamps = buildInitialTimestamps(currentStepIndex);
+          remainingSeconds = STEPS[currentStepIndex].minutesLeft * 60;
+          renderTracker();
+          startCountdownTimer();
+
+          feedback.textContent = 'Showing live status for ' + normalizedId + '.';
+          feedback.classList.add('is-success');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
