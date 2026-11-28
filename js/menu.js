@@ -7,37 +7,37 @@
  */
 
 // Fallback image used if any dish or category image fails to load
-const FALLBACK_IMAGE = '../images/Karachi Biryani.png';
+const FALLBACK_IMAGE = '../images/Wajeeha 3304/Karachi Biryani.png';
 
 // Array of 4 Desi Darbar category objects
 const desiCategories = [
   {
     name: 'Biryani & Karahi',
     description: 'Saffron dum biryanis and sizzling iron-wok karahis cooked fresh.',
-    image: '../images/Karachi Biryani.png',
+    image: '../images/Wajeeha 3304/Karachi Biryani.png',
     alt: 'Steaming plate of spiced Karachi Biryani garnished with herbs',
     link: 'desi-cuisine.html'
   },
   {
     name: 'Rice & Curry',
     description: 'Slow-simmered traditional curries paired with fragrant basmati rice.',
-    image: '../images/Makhni Karahi.jpg',
+    image: '../images/Wajeeha 3304/Makhni Karahi.jpg',
     alt: 'Rich creamy Makhni Karahi curry garnished with fresh ginger',
     link: 'rice-curry.html'
   },
   {
     name: 'Tandoor',
     description: 'Blistered garlic, butter, and sesame naans baked in a clay oven.',
-    image: '../images/Garlic Naan.jpg',
+    image: '../images/Wajeeha 3304/Garlic Naan.jpg',
     alt: 'Freshly baked Garlic Naan brushed with butter and coriander',
-    link: 'tandoor.html'
+    link: 'tandoor-breads.html'
   },
   {
     name: 'Add-ons',
     description: 'House chutneys, crispy sides, and flavourful sauces to complete your meal.',
-    image: '../images/Sweet Chilli Sauce.png',
+    image: '../images/Wajeeha 3304/Sweet Chilli Sauce.png',
     alt: 'Bowl of glossy Sweet Chilli Sauce dipping condiment',
-    link: 'add-ons.html'
+    link: 'sides-addons.html'
   }
 ];
 
@@ -46,8 +46,8 @@ const chineseCategory = {
   name: "Chinese Dragon's Chicken",
   description:
     'Dive into high-flame Indo-Chinese wok cooking featuring crispy Dynamite Chicken, glossy Chicken Manchurian, hand-tossed noodles, aromatic fried rice, and bold house-crafted sauces prepared fresh for delivery.',
-  image: '../images/Chicken Manchurian.jpg',
-  alt: 'Glossy wok-tossed Chicken Manchurian garnished with spring onions',
+  image: '../images/Wajeeha 3304/chinese.jpg',
+  alt: 'Assortment of sizzling Chinese Dragon Kitchen dishes served fresh',
   link: 'chinese.html'
 };
 
@@ -56,42 +56,42 @@ const mostLovedDishes = [
   {
     name: 'Karachi Biryani',
     price: 'Rs. 650',
-    image: '../images/Karachi Biryani.png',
+    image: '../images/Wajeeha 3304/Karachi Biryani.png',
     alt: 'Karachi Biryani with spiced chicken, golden potatoes, and saffron rice',
     link: 'desi-cuisine.html#biryani'
   },
   {
     name: 'Chicken Shinwari Karahi',
     price: 'Rs. 1,650',
-    image: '../images/Chicken Shinwari Karahi.jpg',
+    image: '../images/Wajeeha 3304/Chicken Shinwari Karahi.jpg',
     alt: 'Chicken Shinwari Karahi sizzling with fresh tomatoes and ginger',
     link: 'desi-cuisine.html#karahi'
   },
   {
     name: 'Garlic Naan',
     price: 'Rs. 140',
-    image: '../images/Garlic Naan.jpg',
+    image: '../images/Wajeeha 3304/Garlic Naan.jpg',
     alt: 'Warm clay-oven Garlic Naan topped with roasted garlic and butter',
-    link: 'tandoor.html'
+    link: 'tandoor-breads.html'
   },
   {
     name: 'Chicken Chow Mein',
     price: 'Rs. 890',
-    image: '../images/Chicken Chow Mein.jpg',
+    image: '../images/Wajeeha 3304/Chicken Chow Mein.jpg',
     alt: 'Wok-seared Chicken Chow Mein noodles with stir-fried vegetables',
     link: 'chinese.html#noodles'
   },
   {
     name: 'Chicken Manchurian',
     price: 'Rs. 980',
-    image: '../images/Chicken Manchurian.jpg',
+    image: '../images/Wajeeha 3304/Chicken Manchurian.jpg',
     alt: 'Chicken Manchurian simmered in rich tangy garlic-soy glaze',
     link: 'chinese.html#mains'
   },
   {
     name: 'Dynamite Chicken',
     price: 'Rs. 850',
-    image: '../images/Dynamite Chicken.jpg',
+    image: '../images/Wajeeha 3304/Dynamite Chicken.jpg',
     alt: 'Crispy Dynamite Chicken drizzled with spicy creamy sauce',
     link: 'chinese.html#starters'
   }

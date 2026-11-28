@@ -6,7 +6,7 @@
  */
 
 // Fallback image used if any dish photo fails to load
-const DESI_FALLBACK_IMAGE = '../images/Karachi Biryani.png';
+const DESI_FALLBACK_IMAGE = '../images/Wajeeha 3304/Karachi Biryani.png';
 
 // SessionStorage key remembering if the user clicked "No I'm good" on the Naan popup
 const NAAN_DISMISSED_SESSION_KEY = 'desiNaanPopupDismissed';
@@ -23,7 +23,7 @@ const biryaniDishes = [
     price: 650,
     rating: '4.9',
     description: 'Bold Karachi-style layered chicken biryani with tender potatoes, saffron, and whole spices.',
-    image: '../images/Karachi Biryani.png',
+    image: '../images/Wajeeha 3304/Karachi Biryani.png',
     alt: 'Steaming plate of Karachi Biryani with spiced chicken and golden potatoes'
   },
   {
@@ -33,7 +33,7 @@ const biryaniDishes = [
     price: 690,
     rating: '4.8',
     description: 'Tangy and aromatic Sindhi feast featuring green chillies, dried plums, fresh mint, and rich gravy.',
-    image: '../images/Sindhi Biryani.png',
+    image: '../images/Wajeeha 3304/Sindhi Biryani.png',
     alt: 'Vibrant Sindhi Biryani garnished with mint leaves and green chillies'
   },
   {
@@ -43,7 +43,7 @@ const biryaniDishes = [
     price: 720,
     rating: '4.8',
     description: 'Royal dum biryani marinated in spiced yogurt, kewra water, saffron strands, and crispy onions.',
-    image: '../images/Hyderabadi Biryani.png',
+    image: '../images/Wajeeha 3304/Hyderabadi Biryani.jpg',
     alt: 'Hyderabadi Biryani topped with crispy fried onions and fresh herbs'
   },
   {
@@ -53,7 +53,7 @@ const biryaniDishes = [
     price: 740,
     rating: '4.8',
     description: 'Delicate Awadhi-style basmati rice infused with slow-simmered yakhni broth and cardamom.',
-    image: '../images/Lucknowi Biryani.png',
+    image: '../images/Wajeeha 3304/Lucknowi Biryani.png',
     alt: 'Fragrant Lucknowi Biryani cooked in delicate spiced yakhni stock'
   },
   {
@@ -63,7 +63,7 @@ const biryaniDishes = [
     price: 750,
     rating: '4.8',
     description: 'Long-grain rice layered with tender meat, sweet caramelized raisins, and julienned carrots.',
-    image: '../images/Afghani Biryani.png',
+    image: '../images/Wajeeha 3304/Afghani BIryani.jpg',
     alt: 'Afghani Biryani garnished with sweet raisins and sautéed carrots'
   },
   {
@@ -73,7 +73,7 @@ const biryaniDishes = [
     price: 780,
     rating: '4.9',
     description: 'Slow-braised beef morsels steamed under aromatic saffron basmati rice with roasted garam masala.',
-    image: '../images/Beef Biryani.png',
+    image: '../images/Wajeeha 3304/Beef Biryani.png',
     alt: 'Beef Biryani served hot with tender spiced beef chunks'
   },
   {
@@ -83,7 +83,7 @@ const biryaniDishes = [
     price: 850,
     rating: '4.9',
     description: 'Sealed and slow-steamed in a traditional clay pot to lock in smoky dum flavour.',
-    image: '../images/Matka Biryani.png',
+    image: '../images/Wajeeha 3304/Matka Biryani.webp',
     alt: 'Matka Biryani served straight from a sealed earthen clay pot'
   },
   {
@@ -93,7 +93,7 @@ const biryaniDishes = [
     price: 990,
     rating: '5.0',
     description: 'Charcoal-grilled smoky mutton tikka layered over spiced saffron biryani rice.',
-    image: '../images/Mutton BBQ Biryani.png',
+    image: '../images/Wajeeha 3304/Mutton BBQ Biryani.png',
     alt: 'Mutton BBQ Biryani crowned with charcoal-grilled mutton pieces'
   }
 ];
@@ -107,7 +107,7 @@ const karahiDishes = [
     price: 1450,
     rating: '4.9',
     description: 'Classic Lahori iron-wok karahi simmered with ripe tomatoes, crushed coriander, and fresh ginger.',
-    image: '../images/Chicken Karahi.jpg',
+    image: '../images/Wajeeha 3304/Chicken Karahi.jpg',
     alt: 'Sizzling Chicken Karahi garnished with ginger juliennes and green chillies'
   },
   {
@@ -117,7 +117,7 @@ const karahiDishes = [
     price: 1600,
     rating: '4.9',
     description: 'Rustic frontier-style chicken cooked on high flame with vine tomatoes, garlic, and black pepper.',
-    image: '../images/Chicken Peshawari Karahi.jpg',
+    image: '../images/Wajeeha 3304/Chicken Peshawari Karahi.jpg',
     alt: 'Chicken Peshawari Karahi with bright tomato masala and coriander'
   },
   {
@@ -127,7 +127,7 @@ const karahiDishes = [
     price: 1650,
     rating: '4.9',
     description: 'Khyber-style wok karahi celebrating pure tomato sweetness, pink salt, and cracked black pepper.',
-    image: '../images/Chicken Shinwari Karahi.jpg',
+    image: '../images/Wajeeha 3304/Chicken Shinwari Karahi.jpg',
     alt: 'Chicken Shinwari Karahi cooked with whole tomatoes and fresh chillies'
   },
   {
@@ -137,7 +137,7 @@ const karahiDishes = [
     price: 1550,
     rating: '4.8',
     description: 'Boneless chicken tenders slow-simmered in a creamy yogurt, butter, and roasted cumin gravy.',
-    image: '../images/Chicken Handi Karahi.jpg',
+    image: '../images/Wajeeha 3304/Chicken Handi Karahi.jpg',
     alt: 'Creamy Chicken Handi Karahi topped with fresh ginger and cilantro'
   },
   {
@@ -147,7 +147,7 @@ const karahiDishes = [
     price: 1750,
     rating: '4.9',
     description: 'Velvety butter-finished karahi infused with fenugreek leaves, cashews, and smooth dairy cream.',
-    image: '../images/Makhni Karahi.jpg',
+    image: '../images/Wajeeha 3304/Makhni Karahi.jpg',
     alt: 'Golden Makhni Karahi finished with melted butter and cream'
   },
   {
@@ -157,7 +157,7 @@ const karahiDishes = [
     price: 1950,
     rating: '4.8',
     description: 'Fork-tender beef simmered in high-flame iron karahi with roasted whole spices and ginger.',
-    image: '../images/Beef Karahi.jpg',
+    image: '../images/Wajeeha 3304/Beef Karahi.jpg',
     alt: 'Beef Karahi served sizzling in a rich spiced tomato gravy'
   },
   {
@@ -167,7 +167,7 @@ const karahiDishes = [
     price: 2450,
     rating: '4.9',
     description: 'Fresh bone-in goat cuts braised with vine tomatoes, desi ghee, crushed cumin, and chillies.',
-    image: '../images/Mutton Karahi.jpg',
+    image: '../images/Wajeeha 3304/Mutton Karahi.jpg',
     alt: 'Traditional Mutton Karahi garnished with sliced ginger and coriander'
   },
   {
@@ -177,7 +177,7 @@ const karahiDishes = [
     price: 2750,
     rating: '5.0',
     description: 'Succulent marrow-rich mutton shanks slow-cooked in a deeply spiced tomato reduction.',
-    image: '../images/Mutton Nalli Karahi.jpg',
+    image: '../images/Wajeeha 3304/Mutton Nalli Karahi.jpg',
     alt: 'Mutton Nalli Karahi featuring marrow shanks in dark rich masala'
   },
   {
@@ -187,7 +187,7 @@ const karahiDishes = [
     price: 2550,
     rating: '4.9',
     description: 'Traditional Peshawari slow-roasted mutton seasoned gently with rock salt, garlic, and pepper.',
-    image: '../images/Mutton Namkeen Gosht.jpg',
+    image: '../images/Wajeeha 3304/Mutton Namkeen Gosht.jpg',
     alt: 'Mutton Namkeen Gosht roasted with rock salt and green chillies'
   }
 ];
