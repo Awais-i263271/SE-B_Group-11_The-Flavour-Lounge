@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Order confirmed at The Flavour Lounge — view your order ID, estimated delivery time, and itemized receipt.">
+  <title>Order Confirmed | The Flavour Lounge</title>
+
+  <!-- Google Fonts: Playfair Display & Poppins (shared with index.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Shared Theme Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .confirmation-shell {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* Confirmation Hero Card (Espresso #181512 on Charcoal #241F1C) */
+    .confirmation-card {
+      background-color: var(--color-espresso);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* Animated Checkmark */
+    .check-badge-wrap {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check-badge-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 107, 0, 0.24) 0%, rgba(245, 158, 11, 0.06) 70%, transparent 100%);
+      border: 2px solid rgba(255, 107, 0, 0.45);
+      animation: pulseRing 2.2s ease-out infinite;
+    }
+
+    .check-svg {
+      width: 72px;
+      height: 72px;
+      position: relative;
+      z-index: 1;
+      animation: popIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .check-svg-circle {
+      fill: rgba(255, 107, 0, 0.14);
+      stroke: var(--color-orange);
+      stroke-width: 3;
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      animation: drawStroke 0.65s ease-out 0.1s forwards;
+    }
+
+    .check-svg-tick {
+      fill: none;
+      stroke: var(--color-gold);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: drawStroke 0.4s ease-out 0.55s forwards;
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes drawStroke {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0.95);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.16);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.16);
+        opacity: 0;
+      }
+    }
+
+    /* Order ID & Delivery ETA Pills */
+    .order-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.05rem;
+      border-radius: 50rem;
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      font-size: 0.9rem;
+      color: var(--color-offwhite);
+    }
+
+    .meta-pill.is-eta {
+      border-color: rgba(245, 158, 11, 0.4);
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--color-gold);
+      font-weight: 600;
+    }
+
+    /* Info Strip (Delivery Address & Payment Method) */
+    .receipt-info-box {
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      height: 100%;
+    }
+
+    .receipt-info-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-gold);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    /* Itemized Receipt */
+    .receipt-section {
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.35rem;
+    }
+
+    .receipt-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .receipt-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .receipt-item-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 0.55rem;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-espresso);
+      flex-shrink: 0;
+    }
+
+    .receipt-item-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--color-offwhite);
+      font-size: 0.98rem;
+    }
+
+    .receipt-divider {
+      border-color: var(--color-border);
+      opacity: 1;
+    }
+
+    .receipt-total-value {
+      font-family: var(--font-heading);
+      color: var(--color-gold);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .btn-flavour-primary,
+    .btn-flavour-outline {
+      min-height: 46px;
+    }
+
+    @media (max-width: 575.98px) {
+      .confirmation-card {
+        padding: 1.75rem 1.2rem;
+      }
+
+      .receipt-section {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Responsive Bootstrap 5 Navbar (Espresso #181512) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+          <span>The Flavour <span class="brand-accent">Lounge</span></span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flavourNavbar"
+          aria-controls="flavourNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="flavourNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="special-deals.html">Deals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reviews.html">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="nav-link nav-cart-link" href="cart.html" aria-label="View Cart">
+                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                <span>Cart</span>
+                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="section-padding">
+    <div class="container">
+      <div class="confirmation-shell">
+
+        <section class="confirmation-card" aria-labelledby="confirmationHeading">
+
+          <!-- Confirmation Hero Header -->
+          <div class="text-center mb-4">
+            <div class="check-badge-wrap" aria-hidden="true">
+              <div class="check-badge-ring"></div>
+              <svg class="check-svg" viewBox="0 0 52 52">
+                <circle class="check-svg-circle" cx="26" cy="26" r="24" />
+                <path class="check-svg-tick" d="M15 27l7 7 15-15" />
+              </svg>
+            </div>
+
+            <span class="section-eyebrow">
+              <i class="bi bi-stars me-1" aria-hidden="true"></i>Order Received
+            </span>
+            <h1 id="confirmationHeading" class="hero-title mt-2 mb-2">
+              Thank You! Your Order is Confirmed
+            </h1>
+            <p class="text-muted mx-auto mb-0" style="max-width: 34rem;">
+              Our chefs have fired up the kitchen and started preparing your meal fresh to order.
+            </p>
+
+            <!-- Dynamic Order ID & Estimated Delivery Time Badge -->
+            <div class="order-meta-pills">
+              <span class="meta-pill">
+                <i class="bi bi-receipt text-orange" aria-hidden="true"></i>
+                <span>Order ID: <strong id="confirmOrderId" class="text-gold">#TFL-84920</strong></span>
+              </span>
+              <span class="meta-pill is-eta">
+                <i class="bi bi-clock-history" aria-hidden="true"></i>
+                <span>Estimated Delivery: 35–45 mins</span>
+              </span>
+            </div>
+          </div>
+
+          <hr class="receipt-divider my-4">
+
+          <!-- Delivery & Payment Info Grid -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="receipt-info-box">
+                <div class="receipt-info-label">
+                  <i class="bi bi-geo-alt me-1" aria-hidden="true"></i>Delivery Address
+                </div>
+                <div id="confirmCustomerName" class="fw-semibold mb-1">Guest Customer</div>
+                <div id="confirmAddress" class="small text-muted">
+                  Plot 11-A, Main Double Road, F-10 Markaz, Islamabad
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="receipt-info-box">
+                <div class="receipt-info-label">
+                  <i class="bi bi-wallet2 me-1" aria-hidden="true"></i>Payment Method
+                </div>
+                <div id="confirmPaymentMethod" class="fw-semibold mb-1">Cash on Delivery</div>
+                <div id="confirmPaymentNote" class="small text-muted">
+                  Payable at doorstep upon delivery
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Itemized Receipt Summary -->
+          <section class="receipt-section mb-4" aria-labelledby="receiptHeading">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 id="receiptHeading" class="h5 mb-0">Itemized Receipt</h2>
+              <span id="confirmItemCount" class="small text-muted">0 items</span>
+            </div>
+
+            <div id="receiptItemsContainer">
+              <!-- Populated by JavaScript -->
+            </div>
+
+            <hr class="receipt-divider my-3">
+
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">Subtotal</span>
+              <span id="receiptSubtotal" class="fw-semibold">Rs. 0</span>
+            </div>
+
+            <div id="receiptDiscountRow" class="d-flex justify-content-between mb-2 small d-none">
+              <span class="text-gold">
+                Discount (<span id="receiptPromoCode"></span>)
+              </span>
+              <span id="receiptDiscount" class="text-gold fw-semibold">- Rs. 0</span>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2 small">
+              <span class="text-muted">Delivery Fee</span>
+              <span id="receiptDelivery" class="fw-semibold">Rs. 0</span>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3 small">
+              <span class="text-muted">Tax (5%)</span>
+              <span id="receiptTax" class="fw-semibold">Rs. 0</span>
+            </div>
+
+            <hr class="receipt-divider my-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="fw-bold fs-5">Total Paid</span>
+              <span id="receiptTotal" class="receipt-total-value">Rs. 0</span>
+            </div>
+          </section>
+
+          <!-- Action Buttons -->
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <a href="order-tracking.html" class="btn btn-flavour-primary text-center">
+              <i class="bi bi-truck me-2" aria-hidden="true"></i>Track Your Order
+            </a>
+            <a href="../index.html" class="btn btn-flavour-outline text-center">
+              <i class="bi bi-house-door me-2" aria-hidden="true"></i>Back to Home
+            </a>
+          </div>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Shared Footer (Espresso #181512, consistent with index.html) -->
+  <footer class="footer-flavour">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="footer-brand h4 mb-3">
+            <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+          </h5>
+          <p class="small mb-3">
+            An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+            delivery.
+          </p>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <h6 class="footer-heading">Explore</h6>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="special-deals.html">Deals</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Order Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <h6 class="footer-heading">Opening Hours</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li>Mon – Thu: 12:00 PM – 10:30 PM</li>
+            <li>Fri – Sat: 12:00 PM – 11:30 PM</li>
+            <li>Sunday: 1:00 PM – 10:00 PM</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6 class="footer-heading">Visit &amp; Contact</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li><i class="bi bi-geo-alt text-gold me-2" aria-hidden="true"></i>Plot 11-A, Main Double Road, F-10 Markaz, Islamabad</li>
+            <li><i class="bi bi-telephone text-gold me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+            <li><i class="bi bi-envelope text-gold me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-3">
+        <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+        <nav class="footer-socials" aria-label="Social Media Links">
+          <a href="#" class="footer-social-link" aria-label="Follow us on Facebook">
+            <i class="bi bi-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on Instagram">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on TikTok">
+            <i class="bi bi-tiktok" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Subscribe on YouTube">
+            <i class="bi bi-youtube" aria-hidden="true"></i>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Shared Cart Helper -->
+  <script src="../js/cart.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const LAST_ORDER_KEY = 'flavourLastOrder';
+      const DELIVERY_FEE = 50;
+      const TAX_RATE = 0.05;
+
+      const FALLBACK_ITEMS = [
+        {
+          id: 'fallback-1',
+          name: 'Chicken Karahi (Full)',
+          price: 1650,
+          quantity: 1,
+          image: '../images/Chicken Karahi.jpg'
+        },
+        {
+          id: 'fallback-2',
+          name: 'Beef Biryani',
+          price: 750,
+          quantity: 2,
+          image: '../images/Beef Biryani.png'
+        },
+        {
+          id: 'fallback-3',
+          name: 'Butter Naan',
+          price: 120,
+          quantity: 3,
+          image: '../images/Butter Naan.jpg'
+        }
+      ];
+
+      const FALLBACK_SVG =
+        'data:image/svg+xml;charset=UTF-8,' +
+        encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">' +
+            '<rect width="100" height="100" fill="#181512"/>' +
+            '<circle cx="50" cy="50" r="26" fill="#241F1C" stroke="#FF6B00" stroke-width="3"/>' +
+            '<text x="50" y="55" text-anchor="middle" fill="#FAF3E0" font-family="Georgia,serif" font-size="12" font-weight="bold">DISH</text>' +
+          '</svg>'
+        );
+
+      const PAYMENT_LABELS = {
+        cod: {
+          title: 'Cash on Delivery',
+          note: 'Payable in cash when your order arrives'
+        },
+        card: {
+          title: 'Credit / Debit Card',
+          note: 'Paid securely online'
+        },
+        wallet: {
+          title: 'JazzCash / EasyPaisa',
+          note: 'Paid via mobile wallet'
+        }
+      };
+
+      function formatPrice(amount) {
+        return 'Rs. ' + Math.round(Number(amount) || 0).toLocaleString('en-US');
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function resolveImagePath(src) {
+        if (!src) return FALLBACK_SVG;
+        if (src.startsWith('http') || src.startsWith('data:') || src.startsWith('../')) {
+          return src;
+        }
+        return '../' + src.replace(/^\/+/, '');
+      }
+
+      function generateOrderId() {
+        return 'TFL-' + Math.floor(10000 + Math.random() * 90000);
+      }
+
+      function loadOrderData() {
+        try {
+          const raw = localStorage.getItem(LAST_ORDER_KEY);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && Array.isArray(parsed.items) && parsed.items.length > 0) {
+              return parsed;
+            }
+          }
+        } catch (err) {
+          console.warn('Unable to read flavourLastOrder from localStorage.', err);
+        }
+
+        const cartItems = typeof FlavourCart !== 'undefined' ? FlavourCart.getCart() : [];
+        const items = cartItems.length > 0 ? cartItems : FALLBACK_ITEMS;
+        const subtotal = items.reduce(
+          (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
+          0
+        );
+        const tax = Math.round(subtotal * TAX_RATE);
+        const total = subtotal + DELIVERY_FEE + tax;
+
+        return {
+          orderId: generateOrderId(),
+          customer: {
+            fullName: 'Valued Guest',
+            deliveryAddress: 'House 14, Street 7, Sector F-10/3',
+            city: 'Islamabad'
+          },
+          paymentMethod: 'cod',
+          items: items,
+          promoCode: null,
+          totals: {
+            subtotal: subtotal,
+            discount: 0,
+            deliveryFee: DELIVERY_FEE,
+            tax: tax,
+            total: total
+          }
+        };
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const order = loadOrderData();
+
+        // Order ID
+        const rawId = order.orderId ? String(order.orderId).replace(/^#/, '') : generateOrderId();
+        document.getElementById('confirmOrderId').textContent = '#' + rawId;
+
+        // Customer & Address
+        const customer = order.customer || {};
+        document.getElementById('confirmCustomerName').textContent =
+          customer.fullName || 'Valued Guest';
+        const addressParts = [customer.deliveryAddress, customer.city].filter(Boolean);
+        document.getElementById('confirmAddress').textContent =
+          addressParts.length > 0
+            ? addressParts.join(', ')
+            : 'Plot 11-A, Main Double Road, F-10 Markaz, Islamabad';
+
+        // Payment Method
+        const payInfo = PAYMENT_LABELS[order.paymentMethod] || PAYMENT_LABELS.cod;
+        document.getElementById('confirmPaymentMethod').textContent = payInfo.title;
+        document.getElementById('confirmPaymentNote').textContent = payInfo.note;
+
+        // Items
+        const items = Array.isArray(order.items) ? order.items : FALLBACK_ITEMS;
+        const totalQty = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        document.getElementById('confirmItemCount').textContent =
+          totalQty + (totalQty === 1 ? ' item' : ' items');
+
+        const itemsContainer = document.getElementById('receiptItemsContainer');
+        itemsContainer.innerHTML = items
+          .map((item) => {
+            const lineTotal = (Number(item.price) || 0) * (item.quantity || 1);
+            const imgSrc = resolveImagePath(item.image);
+            return (
+              '<div class="receipt-item-row">' +
+                '<div class="d-flex align-items-center gap-3 min-w-0">' +
+                  '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(item.name) + '" class="receipt-item-img" onerror="this.onerror=null;this.src=\'' + FALLBACK_SVG + '\';">' +
+                  '<div class="min-w-0">' +
+                    '<div class="receipt-item-name text-truncate">' + escapeHtml(item.name) + '</div>' +
+                    '<div class="small text-muted">Qty: ' + (item.quantity || 1) + ' &times; ' + formatPrice(item.price) + '</div>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="fw-semibold text-offwhite text-nowrap">' + formatPrice(lineTotal) + '</div>' +
+              '</div>'
+            );
+          })
+          .join('');
+
+        // Totals
+        const totals = order.totals || {};
+        const subtotal = totals.subtotal || 0;
+        const discount = totals.discount || 0;
+        const deliveryFee = totals.deliveryFee !== undefined ? totals.deliveryFee : DELIVERY_FEE;
+        const tax = totals.tax !== undefined ? totals.tax : Math.round(Math.max(0, subtotal - discount) * TAX_RATE);
+        const total = totals.total !== undefined ? totals.total : Math.max(0, subtotal - discount) + deliveryFee + tax;
+
+        document.getElementById('receiptSubtotal').textContent = formatPrice(subtotal);
+        document.getElementById('receiptDelivery').textContent = formatPrice(deliveryFee);
+        document.getElementById('receiptTax').textContent = formatPrice(tax);
+        document.getElementById('receiptTotal').textContent = formatPrice(total);
+
+        if (discount > 0 && order.promoCode) {
+          document.getElementById('receiptPromoCode').textContent = order.promoCode;
+          document.getElementById('receiptDiscount').textContent = '- ' + formatPrice(discount);
+          document.getElementById('receiptDiscountRow').classList.remove('d-none');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
