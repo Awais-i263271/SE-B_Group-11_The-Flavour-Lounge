@@ -271,8 +271,14 @@ a {
   color: var(--color-offwhite);
   position: relative;
   overflow: hidden;
-  padding: 5.5rem 0;
+  padding: 4.5rem 0;
   border-bottom: 1px solid var(--color-border);
+}
+
+@media (max-width: 991.98px) {
+  .hero-section {
+    padding: 3.25rem 0;
+  }
 }
 
 .hero-section::before {
@@ -303,10 +309,10 @@ a {
 .hero-title {
   font-family: var(--font-heading);
   color: var(--color-offwhite);
-  font-size: clamp(2.4rem, 5vw, 3.85rem);
-  line-height: 1.15;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
+  font-size: clamp(2rem, 3.2vw, 2.65rem);
+  line-height: 1.2;
+  margin-top: 1.1rem;
+  margin-bottom: 1.1rem;
 }
 
 .hero-title span {
@@ -325,7 +331,7 @@ a {
   background-color: var(--color-charcoal);
   border: 1px solid rgba(245, 158, 11, 0.24);
   border-radius: var(--radius-lg);
-  padding: 2rem;
+  overflow: hidden;
   color: var(--color-offwhite);
   box-shadow: var(--shadow-card);
 }
@@ -412,7 +418,8 @@ a {
 }
 
 .section-heading {
-  font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  line-height: 1.25;
   color: var(--color-offwhite);
   margin-bottom: 0.75rem;
 }
@@ -425,16 +432,74 @@ a {
   margin: 0 auto 1.5rem;
 }
 
+/* Equal 3-Column Feature Grid */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (max-width: 991.98px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .feature-card,
 .flavour-card {
   background-color: var(--color-charcoal);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 2rem 1.75rem;
   color: var(--color-offwhite);
   box-shadow: var(--shadow-soft);
   height: 100%;
   transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.flavour-card {
+  padding: 2rem 1.75rem;
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+}
+
+.feature-img-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: var(--color-espresso);
+  flex-shrink: 0;
+}
+
+.feature-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.feature-card:hover .feature-img {
+  transform: scale(1.05);
+}
+
+.feature-img-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(24, 21, 18, 0.05) 0%, rgba(36, 31, 28, 0.85) 100%);
+  pointer-events: none;
+}
+
+.feature-card-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .feature-card:hover,
