@@ -310,7 +310,8 @@ h1, h2, h3, h4, h5, h6,
 .m3-page-title {
   font-family: var(--font-heading);
   color: var(--color-offwhite);
-  font-size: clamp(2rem, 4.2vw, 3.1rem);
+  font-size: clamp(2rem, 3.2vw, 2.65rem);
+  line-height: 1.2;
   font-weight: 700;
   margin-bottom: 0.75rem;
 }
