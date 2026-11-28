@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Complete your food order at The Flavour Lounge — enter delivery details, choose a payment method, and place your order.">
+  <title>Checkout | The Flavour Lounge</title>
+
+  <!-- Google Fonts: Playfair Display & Poppins (shared with index.html) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5 CSS & Icons -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  >
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Shared Theme Stylesheet -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    .checkout-subtitle {
+      max-width: 40rem;
+    }
+
+    /* Checkout Step Indicator */
+    .checkout-steps {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background-color: var(--color-espresso);
+      border: 1px solid var(--color-border);
+      border-radius: 50rem;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.85rem;
+      color: var(--color-offwhite-muted);
+    }
+
+    .checkout-step-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .checkout-step-item.is-active {
+      color: var(--color-gold);
+      font-weight: 600;
+    }
+
+    .checkout-step-item.is-done {
+      color: var(--color-orange);
+    }
+
+    /* Surface Cards (Espresso #181512 on Charcoal #241F1C) */
+    .checkout-card {
+      background-color: var(--color-espresso);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .checkout-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.35rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .checkout-icon-badge {
+      width: 2.65rem;
+      height: 2.65rem;
+      border-radius: 0.75rem;
+      background-color: rgba(245, 158, 11, 0.13);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--color-gold);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    /* Form Controls */
+    .checkout-form .form-label {
+      color: var(--color-offwhite);
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .checkout-form .form-control,
+    .checkout-form .form-select {
+      background-color: var(--color-charcoal);
+      border: 1px solid var(--color-border);
+      color: var(--color-offwhite);
+      border-radius: var(--radius-md);
+      padding: 0.72rem 0.95rem;
+      font-size: 0.94rem;
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .checkout-form .form-control::placeholder {
+      color: rgba(250, 243, 224, 0.42);
+    }
+
+    .checkout-form .form-control:focus,
+    .checkout-form .form-select:focus {
+      background-color: var(--color-charcoal);
+      color: var(--color-offwhite);
+      border-color: var(--color-orange);
+      box-shadow: 0 0 0 0.2rem rgba(255, 107, 0, 0.22);
+    }
+
+    .checkout-form .form-control.is-invalid,
+    .checkout-form .form-select.is-invalid {
+      border-color: var(--color-danger);
+      box-shadow: 0 0 0 0.15rem rgba(255, 123, 123, 0.2);
+    }
+
+    .checkout-form .form-control.is-valid,
+    .checkout-form .form-select.is-valid {
+      border-color: rgba(16, 185, 129, 0.65);
+    }
+
+    .field-error {
+      color: var(--color-danger);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      min-height: 1.1rem;
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    /* Payment Method Option Cards */
+    .payment-option {
+      display: block;
+      cursor: pointer;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background-color: var(--color-charcoal);
+      padding: 1rem 1.15rem;
+      transition: border-color var(--transition-base), background-color var(--transition-base), transform var(--transition-base);
+    }
+
+    .payment-option:hover {
+      border-color: rgba(245, 158, 11, 0.45);
+    }
+
+    .payment-option.is-selected {
+      border-color: var(--color-orange);
+      background-color: rgba(255, 107, 0, 0.08);
+      box-shadow: 0 0 0 1px rgba(255, 107, 0, 0.35);
+    }
+
+    .payment-option .form-check-input {
+      background-color: var(--color-espresso);
+      border-color: rgba(250, 243, 224, 0.35);
+      cursor: pointer;
+    }
+
+    .payment-option .form-check-input:checked {
+      background-color: var(--color-orange);
+      border-color: var(--color-orange);
+    }
+
+    .payment-subpanel {
+      margin-top: 1rem;
+      padding: 1.15rem;
+      border-radius: var(--radius-md);
+      background-color: rgba(24, 21, 18, 0.75);
+      border: 1px solid var(--color-border);
+    }
+
+    /* Order Summary Card */
+    .summary-sticky {
+      position: sticky;
+      top: 5.75rem;
+    }
+
+    .summary-items-list {
+      max-height: 310px;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+    }
+
+    .summary-items-list::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .summary-items-list::-webkit-scrollbar-thumb {
+      background-color: rgba(250, 243, 224, 0.2);
+      border-radius: 10px;
+    }
+
+    .summary-item-row {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .summary-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-item-img {
+      width: 54px;
+      height: 54px;
+      border-radius: 0.6rem;
+      object-fit: cover;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-charcoal);
+      flex-shrink: 0;
+    }
+
+    .summary-item-title {
+      font-family: var(--font-heading);
+      color: var(--color-offwhite);
+      font-size: 0.98rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .summary-item-meta {
+      font-size: 0.82rem;
+      color: var(--color-offwhite-muted);
+    }
+
+    .summary-item-price {
+      font-weight: 600;
+      color: var(--color-gold);
+      white-space: nowrap;
+      font-size: 0.95rem;
+    }
+
+    .summary-divider {
+      border-color: var(--color-border);
+      opacity: 1;
+    }
+
+    .summary-total-amount {
+      font-family: var(--font-heading);
+      color: var(--color-gold);
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
+
+    .fallback-notice {
+      background-color: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--color-offwhite-muted);
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      padding: 0.6rem 0.85rem;
+    }
+
+    .promo-message {
+      font-size: 0.82rem;
+      font-weight: 500;
+      min-height: 1.2rem;
+    }
+
+    .promo-message.is-error {
+      color: var(--color-danger);
+    }
+
+    .promo-message.is-success {
+      color: var(--color-gold);
+    }
+
+    .btn-place-order {
+      min-height: 48px;
+      font-size: 1.02rem;
+    }
+
+    @media (max-width: 991.98px) {
+      .summary-sticky {
+        position: static;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .checkout-card {
+        padding: 1.25rem;
+      }
+
+      .checkout-steps {
+        font-size: 0.78rem;
+        padding: 0.4rem 0.85rem;
+        gap: 0.45rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Responsive Bootstrap 5 Navbar (Espresso #181512) -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-flavour sticky-top" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-fire brand-accent" aria-hidden="true"></i>
+          <span>The Flavour <span class="brand-accent">Lounge</span></span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flavourNavbar"
+          aria-controls="flavourNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="flavourNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="special-deals.html">Deals</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reviews.html">Reviews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a class="nav-link nav-cart-link" href="cart.html" aria-label="View Cart">
+                <i class="bi bi-bag-heart" aria-hidden="true"></i>
+                <span>Cart</span>
+                <span id="cart-count" class="cart-badge" data-cart-count>0</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="section-padding">
+    <div class="container">
+
+      <!-- Page Heading -->
+      <section class="text-center mb-5">
+        <span class="section-eyebrow">
+          <i class="bi bi-shield-check me-1" aria-hidden="true"></i>Secure Checkout
+        </span>
+        <h1 class="hero-title mt-2 mb-2">Complete Your Order</h1>
+        <div class="section-divider"></div>
+        <p class="text-muted mx-auto checkout-subtitle mb-3">
+          Enter your delivery details, select a convenient payment option, and confirm your freshly prepared order.
+        </p>
+        <div class="checkout-steps" aria-label="Checkout Progress">
+          <span class="checkout-step-item is-done">
+            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>Cart
+          </span>
+          <i class="bi bi-chevron-right small" aria-hidden="true"></i>
+          <span class="checkout-step-item is-active">
+            <i class="bi bi-dot" aria-hidden="true"></i>Checkout
+          </span>
+          <i class="bi bi-chevron-right small" aria-hidden="true"></i>
+          <span class="checkout-step-item">
+            Confirmation
+          </span>
+        </div>
+      </section>
+
+      <!-- Two-Column Checkout Layout -->
+      <form id="checkoutForm" class="checkout-form" novalidate>
+        <div class="row g-4 align-items-start">
+
+          <!-- Left Column: Delivery Details & Payment Method -->
+          <div class="col-lg-7 d-flex flex-column gap-4">
+
+            <!-- Delivery Details Card -->
+            <section class="checkout-card" aria-labelledby="deliveryHeading">
+              <div class="checkout-card-header">
+                <div class="checkout-icon-badge">
+                  <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h2 id="deliveryHeading" class="h4 mb-0">Delivery Details</h2>
+                  <p class="small text-muted mb-0">Where should we deliver your piping hot meal?</p>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label">
+                    Full Name <span class="text-orange">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    class="form-control"
+                    placeholder="e.g. Ayesha Khan"
+                    autocomplete="name"
+                    required
+                  >
+                  <div id="fullNameError" class="field-error" role="alert"></div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="phoneNumber" class="form-label">
+                    Phone Number <span class="text-orange">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    class="form-control"
+                    placeholder="e.g. 0300 1234567"
+                    autocomplete="tel"
+                    required
+                  >
+                  <div id="phoneNumberError" class="field-error" role="alert"></div>
+                </div>
+
+                <div class="col-12">
+                  <label for="email" class="form-label">
+                    Email Address <span class="text-orange">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="e.g. ayesha@example.com"
+                    autocomplete="email"
+                    required
+                  >
+                  <div id="emailError" class="field-error" role="alert"></div>
+                </div>
+
+                <div class="col-md-8">
+                  <label for="deliveryAddress" class="form-label">
+                    Delivery Address <span class="text-orange">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="deliveryAddress"
+                    name="deliveryAddress"
+                    class="form-control"
+                    placeholder="House #, Street, Sector / Block"
+                    autocomplete="street-address"
+                    required
+                  >
+                  <div id="deliveryAddressError" class="field-error" role="alert"></div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="city" class="form-label">
+                    City <span class="text-orange">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    class="form-control"
+                    list="citySuggestions"
+                    placeholder="e.g. Islamabad"
+                    autocomplete="address-level2"
+                    required
+                  >
+                  <datalist id="citySuggestions">
+                    <option value="Islamabad"></option>
+                    <option value="Rawalpindi"></option>
+                    <option value="Lahore"></option>
+                    <option value="Karachi"></option>
+                    <option value="Faisalabad"></option>
+                    <option value="Multan"></option>
+                    <option value="Peshawar"></option>
+                  </datalist>
+                  <div id="cityError" class="field-error" role="alert"></div>
+                </div>
+
+                <div class="col-12">
+                  <label for="specialInstructions" class="form-label">
+                    Special Instructions <span class="text-muted small">(Optional)</span>
+                  </label>
+                  <textarea
+                    id="specialInstructions"
+                    name="specialInstructions"
+                    class="form-control"
+                    rows="3"
+                    placeholder="Gate code, landmark, extra raita, spice preference, or contactless drop-off..."
+                  ></textarea>
+                </div>
+              </div>
+            </section>
+
+            <!-- Payment Method Card -->
+            <section class="checkout-card" aria-labelledby="paymentHeading">
+              <div class="checkout-card-header">
+                <div class="checkout-icon-badge">
+                  <i class="bi bi-credit-card" aria-hidden="true"></i>
+                </div>
+                <div>
+                  <h2 id="paymentHeading" class="h4 mb-0">Payment Method</h2>
+                  <p class="small text-muted mb-0">Select your preferred way to pay</p>
+                </div>
+              </div>
+
+              <div class="d-flex flex-column gap-3" role="radiogroup" aria-labelledby="paymentHeading">
+
+                <!-- Cash on Delivery -->
+                <label class="payment-option is-selected" for="payCod">
+                  <div class="d-flex align-items-center justify-content-between gap-2">
+                    <div class="form-check mb-0 d-flex align-items-center gap-2">
+                      <input
+                        class="form-check-input mt-0"
+                        type="radio"
+                        name="paymentMethod"
+                        id="payCod"
+                        value="cod"
+                        checked
+                      >
+                      <span class="fw-semibold">Cash on Delivery</span>
+                    </div>
+                    <i class="bi bi-cash-coin text-gold fs-5" aria-hidden="true"></i>
+                  </div>
+                  <p class="small text-muted mb-0 mt-1 ps-4">
+                    Pay in cash directly to our rider when your order arrives at your doorstep.
+                  </p>
+                </label>
+
+                <!-- Credit / Debit Card -->
+                <div>
+                  <label class="payment-option" for="payCard">
+                    <div class="d-flex align-items-center justify-content-between gap-2">
+                      <div class="form-check mb-0 d-flex align-items-center gap-2">
+                        <input
+                          class="form-check-input mt-0"
+                          type="radio"
+                          name="paymentMethod"
+                          id="payCard"
+                          value="card"
+                        >
+                        <span class="fw-semibold">Credit / Debit Card</span>
+                      </div>
+                      <div class="d-flex align-items-center gap-2 text-gold">
+                        <i class="bi bi-credit-card-2-front fs-5" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                    <p class="small text-muted mb-0 mt-1 ps-4">
+                      Visa, Mastercard, or UnionPay — encrypted &amp; instant confirmation.
+                    </p>
+                  </label>
+
+                  <!-- Conditional Card Inputs -->
+                  <div id="cardDetailsPanel" class="payment-subpanel d-none">
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <label for="cardName" class="form-label">
+                          Cardholder Name <span class="text-orange">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="cardName"
+                          name="cardName"
+                          class="form-control"
+                          placeholder="Name as printed on card"
+                          autocomplete="cc-name"
+                        >
+                        <div id="cardNameError" class="field-error" role="alert"></div>
+                      </div>
+
+                      <div class="col-12">
+                        <label for="cardNumber" class="form-label">
+                          Card Number <span class="text-orange">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="cardNumber"
+                          name="cardNumber"
+                          class="form-control"
+                          placeholder="1234 5678 9012 3456"
+                          inputmode="numeric"
+                          maxlength="19"
+                          autocomplete="cc-number"
+                        >
+                        <div id="cardNumberError" class="field-error" role="alert"></div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="cardExpiry" class="form-label">
+                          Expiry Date <span class="text-orange">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="cardExpiry"
+                          name="cardExpiry"
+                          class="form-control"
+                          placeholder="MM/YY"
+                          inputmode="numeric"
+                          maxlength="5"
+                          autocomplete="cc-exp"
+                        >
+                        <div id="cardExpiryError" class="field-error" role="alert"></div>
+                      </div>
+
+                      <div class="col-6">
+                        <label for="cardCvv" class="form-label">
+                          CVV <span class="text-orange">*</span>
+                        </label>
+                        <input
+                          type="password"
+                          id="cardCvv"
+                          name="cardCvv"
+                          class="form-control"
+                          placeholder="123"
+                          inputmode="numeric"
+                          maxlength="4"
+                          autocomplete="cc-csc"
+                        >
+                        <div id="cardCvvError" class="field-error" role="alert"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- JazzCash / EasyPaisa -->
+                <div>
+                  <label class="payment-option" for="payWallet">
+                    <div class="d-flex align-items-center justify-content-between gap-2">
+                      <div class="form-check mb-0 d-flex align-items-center gap-2">
+                        <input
+                          class="form-check-input mt-0"
+                          type="radio"
+                          name="paymentMethod"
+                          id="payWallet"
+                          value="wallet"
+                        >
+                        <span class="fw-semibold">JazzCash / EasyPaisa</span>
+                      </div>
+                      <i class="bi bi-phone text-gold fs-5" aria-hidden="true"></i>
+                    </div>
+                    <p class="small text-muted mb-0 mt-1 ps-4">
+                      Pay seamlessly using your JazzCash or EasyPaisa mobile wallet.
+                    </p>
+                  </label>
+
+                  <!-- Conditional Wallet Inputs -->
+                  <div id="walletDetailsPanel" class="payment-subpanel d-none">
+                    <div class="row g-3">
+                      <div class="col-md-5">
+                        <label for="walletProvider" class="form-label">
+                          Wallet Provider <span class="text-orange">*</span>
+                        </label>
+                        <select id="walletProvider" name="walletProvider" class="form-select">
+                          <option value="JazzCash">JazzCash</option>
+                          <option value="EasyPaisa">EasyPaisa</option>
+                        </select>
+                      </div>
+                      <div class="col-md-7">
+                        <label for="walletNumber" class="form-label">
+                          Mobile Account Number <span class="text-orange">*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          id="walletNumber"
+                          name="walletNumber"
+                          class="form-control"
+                          placeholder="03XX 1234567"
+                          inputmode="tel"
+                        >
+                        <div id="walletNumberError" class="field-error" role="alert"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+          </div>
+
+          <!-- Right Column: Order Summary Card -->
+          <div class="col-lg-5">
+            <aside class="checkout-card summary-sticky" aria-label="Order Summary">
+              <div class="checkout-card-header">
+                <div class="checkout-icon-badge">
+                  <i class="bi bi-bag-check" aria-hidden="true"></i>
+                </div>
+                <div class="flex-grow-1">
+                  <h2 class="h4 mb-0">Order Summary</h2>
+                  <p class="small text-muted mb-0" id="summaryItemCount">0 items</p>
+                </div>
+                <a href="cart.html" class="small text-gold text-decoration-none fw-medium">
+                  Edit Cart
+                </a>
+              </div>
+
+              <!-- Fallback Notice (shown only when localStorage cart is empty) -->
+              <div id="fallbackNotice" class="fallback-notice d-none mb-3">
+                <i class="bi bi-info-circle text-gold me-1" aria-hidden="true"></i>
+                Showing sample dishes because your cart was empty. <a href="menu.html" class="text-gold text-decoration-underline">Browse menu</a> to customize.
+              </div>
+
+              <!-- Dynamic Cart Items List -->
+              <div id="summaryItemsContainer" class="summary-items-list mb-3">
+                <!-- Populated by JavaScript -->
+              </div>
+
+              <hr class="summary-divider">
+
+              <!-- Promo Code Input -->
+              <div class="mb-3">
+                <label for="promoInput" class="form-label small fw-semibold">Promo Code</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    id="promoInput"
+                    class="form-control"
+                    placeholder="FLAVOUR10 or WELCOME100"
+                    aria-describedby="promoMessage"
+                  >
+                  <button type="button" id="applyPromoBtn" class="btn btn-flavour-maroon">
+                    Apply
+                  </button>
+                </div>
+                <div id="promoMessage" class="promo-message mt-1" role="status" aria-live="polite"></div>
+              </div>
+
+              <hr class="summary-divider">
+
+              <!-- Totals Breakdown -->
+              <div aria-live="polite" aria-atomic="true">
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Subtotal</span>
+                  <span id="summarySubtotal" class="fw-semibold">Rs. 0</span>
+                </div>
+
+                <div id="discountRow" class="d-flex justify-content-between mb-2 d-none">
+                  <span class="text-gold fw-medium">
+                    Discount (<span id="appliedPromoLabel"></span>)
+                  </span>
+                  <span id="summaryDiscount" class="text-gold fw-semibold">- Rs. 0</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Delivery Fee</span>
+                  <span id="summaryDelivery" class="fw-semibold">Rs. 0</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                  <span class="text-muted">Tax (5%)</span>
+                  <span id="summaryTax" class="fw-semibold">Rs. 0</span>
+                </div>
+
+                <hr class="summary-divider">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <span class="fw-bold fs-5">Total</span>
+                  <span id="summaryTotal" class="summary-total-amount">Rs. 0</span>
+                </div>
+              </div>
+
+              <!-- Form-Level Error Alert -->
+              <div id="formErrorSummary" class="alert alert-danger py-2 px-3 small d-none mb-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i>
+                Please fix the highlighted fields before placing your order.
+              </div>
+
+              <!-- Place Order Button -->
+              <div class="d-grid gap-2">
+                <button type="submit" id="placeOrderBtn" class="btn btn-flavour-primary btn-place-order">
+                  <i class="bi bi-check2-circle me-2" aria-hidden="true"></i>Place Order
+                </button>
+                <a href="cart.html" class="btn btn-flavour-outline text-center">
+                  <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Back to Cart
+                </a>
+              </div>
+            </aside>
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Shared Footer (Espresso #181512, consistent with index.html) -->
+  <footer class="footer-flavour">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <h5 class="footer-brand h4 mb-3">
+            <i class="bi bi-fire text-orange me-2" aria-hidden="true"></i>The Flavour Lounge
+          </h5>
+          <p class="small mb-3">
+            An online kitchen celebrating rich aromas, authentic recipes, and reliable doorstep
+            delivery.
+          </p>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <h6 class="footer-heading">Explore</h6>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="special-deals.html">Deals</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="cart.html">Order Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-6 col-lg-3">
+          <h6 class="footer-heading">Opening Hours</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li>Mon – Thu: 12:00 PM – 10:30 PM</li>
+            <li>Fri – Sat: 12:00 PM – 11:30 PM</li>
+            <li>Sunday: 1:00 PM – 10:00 PM</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3">
+          <h6 class="footer-heading">Visit &amp; Contact</h6>
+          <ul class="list-unstyled small d-grid gap-2 mb-0">
+            <li><i class="bi bi-geo-alt text-gold me-2" aria-hidden="true"></i>Plot 11-A, Main Double Road, F-10 Markaz, Islamabad</li>
+            <li><i class="bi bi-telephone text-gold me-2" aria-hidden="true"></i>+92 300 000 0000</li>
+            <li><i class="bi bi-envelope text-gold me-2" aria-hidden="true"></i>hello@flavourlounge.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer-divider">
+
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center small gap-3">
+        <p class="mb-0">&copy; 2026 The Flavour Lounge. All rights reserved.</p>
+        <nav class="footer-socials" aria-label="Social Media Links">
+          <a href="#" class="footer-social-link" aria-label="Follow us on Facebook">
+            <i class="bi bi-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on Instagram">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Follow us on TikTok">
+            <i class="bi bi-tiktok" aria-hidden="true"></i>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Subscribe on YouTube">
+            <i class="bi bi-youtube" aria-hidden="true"></i>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Shared Cart Helper -->
+  <script src="../js/cart.js"></script>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const PROMO_STORAGE_KEY = 'flavourPromo';
+      const LAST_ORDER_KEY = 'flavourLastOrder';
+      const DELIVERY_FEE = 50;
+      const TAX_RATE = 0.05;
+      const WELCOME_MIN_SUBTOTAL = 1000;
+
+      // Realistic fallback items if localStorage cart is empty
+      const FALLBACK_CART = [
+        {
+          id: 'fallback-1',
+          name: 'Chicken Karahi (Full)',
+          price: 1650,
+          quantity: 1,
+          image: '../images/Chicken Karahi.jpg'
+        },
+        {
+          id: 'fallback-2',
+          name: 'Beef Biryani',
+          price: 750,
+          quantity: 2,
+          image: '../images/Beef Biryani.png'
+        },
+        {
+          id: 'fallback-3',
+          name: 'Butter Naan',
+          price: 120,
+          quantity: 3,
+          image: '../images/Butter Naan.jpg'
+        }
+      ];
+
+      const FALLBACK_SVG =
+        'data:image/svg+xml;charset=UTF-8,' +
+        encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">' +
+            '<rect width="120" height="120" fill="#181512"/>' +
+            '<circle cx="60" cy="60" r="32" fill="#241F1C" stroke="#FF6B00" stroke-width="3"/>' +
+            '<text x="60" y="65" text-anchor="middle" fill="#FAF3E0" font-family="Georgia,serif" font-size="14" font-weight="bold">DISH</text>' +
+          '</svg>'
+        );
+
+      let activeItems = [];
+      let usingFallback = false;
+      let appliedPromo = null;
+
+      function formatPrice(amount) {
+        return 'Rs. ' + Math.round(Number(amount) || 0).toLocaleString('en-US');
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function resolveImagePath(src) {
+        if (!src) return FALLBACK_SVG;
+        if (src.startsWith('http') || src.startsWith('data:') || src.startsWith('../')) {
+          return src;
+        }
+        return '../' + src.replace(/^\/+/, '');
+      }
+
+      function loadCartItems() {
+        const storedCart = typeof FlavourCart !== 'undefined' ? FlavourCart.getCart() : [];
+        if (storedCart.length > 0) {
+          activeItems = storedCart;
+          usingFallback = false;
+        } else {
+          activeItems = FALLBACK_CART.slice();
+          usingFallback = true;
+        }
+      }
+
+      function getSavedPromo() {
+        try {
+          const raw = localStorage.getItem(PROMO_STORAGE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          return parsed && typeof parsed.code === 'string' ? parsed : null;
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function evaluatePromoCode(code, subtotal) {
+        if (!code) {
+          return { valid: false, discountAmount: 0, message: 'Please enter a promo code.' };
+        }
+        if (code === 'FLAVOUR10') {
+          const discount = Math.round(subtotal * 0.1);
+          return { valid: true, discountAmount: discount, message: 'Promo FLAVOUR10 applied (10% off).' };
+        }
+        if (code === 'WELCOME100') {
+          if (subtotal < WELCOME_MIN_SUBTOTAL) {
+            return {
+              valid: false,
+              discountAmount: 0,
+              message: 'WELCOME100 requires a minimum subtotal of Rs. 1,000.'
+            };
+          }
+          return { valid: true, discountAmount: 100, message: 'Promo WELCOME100 applied (Rs. 100 off).' };
+        }
+        return {
+          valid: false,
+          discountAmount: 0,
+          message: 'Invalid promo code. Try FLAVOUR10 or WELCOME100.'
+        };
+      }
+
+      function setPromoMessage(message, type) {
+        const el = document.getElementById('promoMessage');
+        if (!el) return;
+        el.textContent = message;
+        el.classList.remove('is-error', 'is-success');
+        if (type === 'error') el.classList.add('is-error');
+        if (type === 'success') el.classList.add('is-success');
+      }
+
+      function calculateTotals() {
+        const subtotal = activeItems.reduce(
+          (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
+          0
+        );
+        let discount = 0;
+
+        if (appliedPromo) {
+          const res = evaluatePromoCode(appliedPromo.code, subtotal);
+          if (res.valid) {
+            discount = res.discountAmount;
+          } else {
+            appliedPromo = null;
+          }
+        }
+
+        const discountedSubtotal = Math.max(0, subtotal - discount);
+        const deliveryFee = activeItems.length > 0 ? DELIVERY_FEE : 0;
+        const tax = activeItems.length > 0 ? Math.round(discountedSubtotal * TAX_RATE) : 0;
+        const total = discountedSubtotal + deliveryFee + tax;
+
+        return { subtotal, discount, deliveryFee, tax, total };
+      }
+
+      function renderSummary() {
+        const container = document.getElementById('summaryItemsContainer');
+        const fallbackNotice = document.getElementById('fallbackNotice');
+        const itemCountEl = document.getElementById('summaryItemCount');
+
+        if (fallbackNotice) {
+          fallbackNotice.classList.toggle('d-none', !usingFallback);
+        }
+
+        const totalQty = activeItems.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        if (itemCountEl) {
+          itemCountEl.textContent = totalQty + (totalQty === 1 ? ' item' : ' items');
+        }
+
+        if (container) {
+          container.innerHTML = activeItems
+            .map((item) => {
+              const lineTotal = (Number(item.price) || 0) * (item.quantity || 1);
+              const imgSrc = resolveImagePath(item.image);
+              return (
+                '<div class="summary-item-row">' +
+                  '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(item.name) + '" class="summary-item-img" onerror="this.onerror=null;this.src=\'' + FALLBACK_SVG + '\';">' +
+                  '<div class="flex-grow-1 min-w-0">' +
+                    '<div class="summary-item-title text-truncate">' + escapeHtml(item.name) + '</div>' +
+                    '<div class="summary-item-meta">Qty: ' + item.quantity + ' &times; ' + formatPrice(item.price) + '</div>' +
+                  '</div>' +
+                  '<div class="summary-item-price">' + formatPrice(lineTotal) + '</div>' +
+                '</div>'
+              );
+            })
+            .join('');
+        }
+
+        const totals = calculateTotals();
+        document.getElementById('summarySubtotal').textContent = formatPrice(totals.subtotal);
+        document.getElementById('summaryDelivery').textContent = formatPrice(totals.deliveryFee);
+        document.getElementById('summaryTax').textContent = formatPrice(totals.tax);
+        document.getElementById('summaryTotal').textContent = formatPrice(totals.total);
+
+        const discountRow = document.getElementById('discountRow');
+        if (totals.discount > 0 && appliedPromo) {
+          document.getElementById('appliedPromoLabel').textContent = appliedPromo.code;
+          document.getElementById('summaryDiscount').textContent = '- ' + formatPrice(totals.discount);
+          discountRow.classList.remove('d-none');
+        } else {
+          discountRow.classList.add('d-none');
+        }
+      }
+
+      // Promo Code Handling
+      function handleApplyPromo() {
+        const promoInput = document.getElementById('promoInput');
+        const code = promoInput.value.trim().toUpperCase();
+        const subtotal = activeItems.reduce(
+          (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
+          0
+        );
+
+        const result = evaluatePromoCode(code, subtotal);
+        if (result.valid) {
+          appliedPromo = { code: code, discountAmount: result.discountAmount };
+          try {
+            localStorage.setItem(PROMO_STORAGE_KEY, JSON.stringify(appliedPromo));
+          } catch (err) {
+            // ignore storage errors
+          }
+          setPromoMessage(result.message, 'success');
+        } else {
+          appliedPromo = null;
+          try {
+            localStorage.removeItem(PROMO_STORAGE_KEY);
+          } catch (err) {
+            // ignore
+          }
+          setPromoMessage(result.message, 'error');
+        }
+        renderSummary();
+      }
+
+      // Payment Method Conditional Panels
+      function updatePaymentPanels() {
+        const selected = document.querySelector('input[name="paymentMethod"]:checked');
+        const method = selected ? selected.value : 'cod';
+
+        document.querySelectorAll('.payment-option').forEach((card) => {
+          const input = card.querySelector('input[type="radio"]');
+          card.classList.toggle('is-selected', Boolean(input && input.checked));
+        });
+
+        const cardPanel = document.getElementById('cardDetailsPanel');
+        const walletPanel = document.getElementById('walletDetailsPanel');
+
+        cardPanel.classList.toggle('d-none', method !== 'card');
+        walletPanel.classList.toggle('d-none', method !== 'wallet');
+
+        // Clear validation errors on hidden panels
+        if (method !== 'card') {
+          ['cardName', 'cardNumber', 'cardExpiry', 'cardCvv'].forEach(clearFieldError);
+        }
+        if (method !== 'wallet') {
+          clearFieldError('walletNumber');
+        }
+      }
+
+      // Field Validation Helpers
+      function setFieldError(fieldId, message) {
+        const input = document.getElementById(fieldId);
+        const errorEl = document.getElementById(fieldId + 'Error');
+        if (input) {
+          input.classList.add('is-invalid');
+          input.classList.remove('is-valid');
+          input.setAttribute('aria-invalid', 'true');
+        }
+        if (errorEl) {
+          errorEl.textContent = message;
+          errorEl.classList.add('visible');
+        }
+      }
+
+      function clearFieldError(fieldId, markValid) {
+        const input = document.getElementById(fieldId);
+        const errorEl = document.getElementById(fieldId + 'Error');
+        if (input) {
+          input.classList.remove('is-invalid');
+          input.removeAttribute('aria-invalid');
+          if (markValid) {
+            input.classList.add('is-valid');
+          } else {
+            input.classList.remove('is-valid');
+          }
+        }
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.classList.remove('visible');
+        }
+      }
+
+      function validateField(fieldId) {
+        const input = document.getElementById(fieldId);
+        if (!input) return true;
+        const val = input.value.trim();
+
+        switch (fieldId) {
+          case 'fullName':
+            if (val.length < 2) {
+              setFieldError(fieldId, 'Please enter your full name (at least 2 characters).');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+
+          case 'phoneNumber': {
+            const digits = val.replace(/\D/g, '');
+            if (digits.length < 10 || digits.length > 13) {
+              setFieldError(fieldId, 'Enter a valid phone number (e.g. 0300 1234567).');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+          }
+
+          case 'email': {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            if (!emailRegex.test(val)) {
+              setFieldError(fieldId, 'Please enter a valid email address.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+          }
+
+          case 'deliveryAddress':
+            if (val.length < 6) {
+              setFieldError(fieldId, 'Please enter your complete street address.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+
+          case 'city':
+            if (val.length < 2) {
+              setFieldError(fieldId, 'Please enter your delivery city.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+
+          case 'cardName':
+            if (val.length < 2) {
+              setFieldError(fieldId, 'Enter the cardholder name.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+
+          case 'cardNumber': {
+            const digits = val.replace(/\D/g, '');
+            if (digits.length < 13 || digits.length > 19) {
+              setFieldError(fieldId, 'Enter a valid 13–19 digit card number.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+          }
+
+          case 'cardExpiry': {
+            const match = /^(0[1-9]|1[0-2])\/(\d{2})$/.exec(val);
+            if (!match) {
+              setFieldError(fieldId, 'Use MM/YY format (e.g. 08/28).');
+              return false;
+            }
+            const month = parseInt(match[1], 10);
+            const year = 2000 + parseInt(match[2], 10);
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth() + 1;
+            if (year < currentYear || (year === currentYear && month < currentMonth)) {
+              setFieldError(fieldId, 'This card appears to be expired.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+          }
+
+          case 'cardCvv': {
+            if (!/^\d{3,4}$/.test(val)) {
+              setFieldError(fieldId, 'Enter a valid 3 or 4 digit CVV.');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+          }
+
+          case 'walletNumber': {
+            const digits = val.replace(/\D/g, '');
+            if (!/^03\d{9}$/.test(digits) && !/^923\d{9}$/.test(digits)) {
+              setFieldError(fieldId, 'Enter a valid 11-digit mobile wallet number (03XX XXXXXXX).');
+              return false;
+            }
+            clearFieldError(fieldId, true);
+            return true;
+          }
+
+          default:
+            return true;
+        }
+      }
+
+      function validateForm() {
+        const baseFields = ['fullName', 'phoneNumber', 'email', 'deliveryAddress', 'city'];
+        const selected = document.querySelector('input[name="paymentMethod"]:checked');
+        const method = selected ? selected.value : 'cod';
+
+        let fieldsToValidate = baseFields.slice();
+        if (method === 'card') {
+          fieldsToValidate = fieldsToValidate.concat(['cardName', 'cardNumber', 'cardExpiry', 'cardCvv']);
+        } else if (method === 'wallet') {
+          fieldsToValidate.push('walletNumber');
+        }
+
+        let firstInvalid = null;
+        let allValid = true;
+
+        fieldsToValidate.forEach((id) => {
+          const ok = validateField(id);
+          if (!ok) {
+            allValid = false;
+            if (!firstInvalid) {
+              firstInvalid = document.getElementById(id);
+            }
+          }
+        });
+
+        const errorSummary = document.getElementById('formErrorSummary');
+        if (errorSummary) {
+          errorSummary.classList.toggle('d-none', allValid);
+        }
+
+        if (!allValid && firstInvalid) {
+          firstInvalid.focus();
+        }
+
+        return allValid;
+      }
+
+      // Input Formatting for Card Number and Expiry
+      function attachInputFormatters() {
+        const cardNumberInput = document.getElementById('cardNumber');
+        if (cardNumberInput) {
+          cardNumberInput.addEventListener('input', function () {
+            const digits = this.value.replace(/\D/g, '').slice(0, 16);
+            this.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+          });
+        }
+
+        const cardExpiryInput = document.getElementById('cardExpiry');
+        if (cardExpiryInput) {
+          cardExpiryInput.addEventListener('input', function () {
+            const digits = this.value.replace(/\D/g, '').slice(0, 4);
+            if (digits.length >= 3) {
+              this.value = digits.slice(0, 2) + '/' + digits.slice(2);
+            } else {
+              this.value = digits;
+            }
+          });
+        }
+      }
+
+      // Initialize Checkout Page
+      document.addEventListener('DOMContentLoaded', function () {
+        loadCartItems();
+
+        // Load any previously applied promo from cart page
+        const savedPromo = getSavedPromo();
+        if (savedPromo) {
+          const subtotal = activeItems.reduce(
+            (sum, item) => sum + (Number(item.price) || 0) * (item.quantity || 1),
+            0
+          );
+          const check = evaluatePromoCode(savedPromo.code, subtotal);
+          if (check.valid) {
+            appliedPromo = { code: savedPromo.code, discountAmount: check.discountAmount };
+            document.getElementById('promoInput').value = savedPromo.code;
+            setPromoMessage(check.message, 'success');
+          }
+        }
+
+        renderSummary();
+        updatePaymentPanels();
+        attachInputFormatters();
+
+        // Payment radio listeners
+        document.querySelectorAll('input[name="paymentMethod"]').forEach((radio) => {
+          radio.addEventListener('change', updatePaymentPanels);
+        });
+
+        // Promo button & Enter key
+        document.getElementById('applyPromoBtn').addEventListener('click', handleApplyPromo);
+        document.getElementById('promoInput').addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            handleApplyPromo();
+          }
+        });
+
+        // Live validation on blur & input (once invalid)
+        const trackedFields = [
+          'fullName', 'phoneNumber', 'email', 'deliveryAddress', 'city',
+          'cardName', 'cardNumber', 'cardExpiry', 'cardCvv', 'walletNumber'
+        ];
+        trackedFields.forEach((id) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener('blur', function () {
+            if (el.value.trim() !== '' || el.classList.contains('is-invalid')) {
+              validateField(id);
+            }
+          });
+          el.addEventListener('input', function () {
+            if (el.classList.contains('is-invalid')) {
+              validateField(id);
+            }
+          });
+        });
+
+        // Form Submission
+        document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          if (!validateForm()) {
+            return;
+          }
+
+          const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+          const totals = calculateTotals();
+
+          const orderRecord = {
+            orderId: 'TFL-' + Math.floor(100000 + Math.random() * 900000),
+            placedAt: new Date().toISOString(),
+            customer: {
+              fullName: document.getElementById('fullName').value.trim(),
+              phoneNumber: document.getElementById('phoneNumber').value.trim(),
+              email: document.getElementById('email').value.trim(),
+              deliveryAddress: document.getElementById('deliveryAddress').value.trim(),
+              city: document.getElementById('city').value.trim(),
+              specialInstructions: document.getElementById('specialInstructions').value.trim()
+            },
+            paymentMethod: selectedMethod,
+            items: activeItems,
+            promoCode: appliedPromo ? appliedPromo.code : null,
+            totals: totals
+          };
+
+          try {
+            localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(orderRecord));
+            if (!usingFallback && typeof FlavourCart !== 'undefined') {
+              FlavourCart.clearCart();
+            }
+            localStorage.removeItem(PROMO_STORAGE_KEY);
+          } catch (err) {
+            console.error('Unable to persist order record:', err);
+          }
+
+          window.location.href = 'order-confirmation.html';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
