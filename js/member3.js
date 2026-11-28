@@ -2,13 +2,14 @@
 /* ==========================================================================
    THE FLAVOUR LOUNGE - MEMBER 3
    Pages: Rice & Curry, Tandoor Breads, Sides & Add-ons
-   Features: Food Photos, Search, Filters, Add to Cart
+   Features: Local Food Images, Search, Filters, Add to Cart
    ========================================================================== */
 
 (function () {
   'use strict';
 
   var STORAGE_KEY = 'flavourLoungeCart';
+  var FALLBACK_IMAGE = '../images/hero-platter.jpg';
 
   var CATALOG = {
     'rice-curry': {
@@ -28,7 +29,7 @@
           rating: '4.9',
           price: 1150,
           description: 'Fragrant basmati rice layered with spiced chicken.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Special%20Chicken%20biryani.jpg'
+          image: '../images/menu/rc-1.jpg'
         },
         {
           id: 'rc-2',
@@ -38,7 +39,7 @@
           rating: '4.9',
           price: 1950,
           description: 'Slow-cooked mutton in rich traditional gravy.',
-          image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=900&q=85'
+          image: '../images/menu/rc-2.jpg'
         },
         {
           id: 'rc-3',
@@ -48,7 +49,7 @@
           rating: '4.8',
           price: 1650,
           description: 'Chicken cooked in creamy tomato butter gravy.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Chicken%20Handi.JPG'
+          image: '../images/menu/rc-3.jpg'
         },
         {
           id: 'rc-5',
@@ -58,7 +59,7 @@
           rating: '4.9',
           price: 2250,
           description: 'Traditional mutton karahi with tomatoes and ginger.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mutton%20Karahi%202.JPG'
+          image: '../images/menu/rc-5.jpg'
         },
         {
           id: 'rc-7',
@@ -68,7 +69,7 @@
           rating: '4.8',
           price: 850,
           description: 'Creamy black lentils slow-cooked with butter and traditional spices.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dal%20makhani.jpg'
+          image: '../images/menu/rc-7.jpg'
         },
         {
           id: 'rc-8',
@@ -78,13 +79,18 @@
           rating: '4.9',
           price: 550,
           description: 'Comforting spiced lentils served with steamed white rice.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dal%20chawal.JPG'
+          image: '../images/menu/rc-8.jpg'
         }
       ]
     },
 
     'tandoor-breads': {
-      filters: ['All', 'Classic Naans', 'Stuffed & Specialty', 'Roti & Parathas'],
+      filters: [
+        'All',
+        'Classic Naans',
+        'Stuffed & Specialty',
+        'Roti & Parathas'
+      ],
       items: [
         {
           id: 'tb-1',
@@ -94,7 +100,7 @@
           rating: '4.9',
           price: 140,
           description: 'Soft naan topped with butter and sesame seeds.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Roghni%20Naan.jpg'
+          image: '../images/menu/tb-1.jpg'
         },
         {
           id: 'tb-2',
@@ -104,7 +110,7 @@
           rating: '4.9',
           price: 180,
           description: 'Fresh naan with roasted garlic and coriander.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/GarlicNaan.jpg'
+          image: '../images/menu/tb-2.jpg'
         },
         {
           id: 'tb-3',
@@ -114,7 +120,7 @@
           rating: '4.8',
           price: 320,
           description: 'Sweet naan filled with nuts and coconut.',
-          image: 'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=900&q=85'
+          image: '../images/menu/tb-3.jpg'
         },
         {
           id: 'tb-4',
@@ -124,7 +130,7 @@
           rating: '4.9',
           price: 450,
           description: 'Tandoori bread filled with spiced minced meat.',
-          image: 'https://images.unsplash.com/photo-1574653853027-5d3ac2c2a1a7?auto=format&fit=crop&w=900&q=85'
+          image: '../images/menu/tb-4.jpg'
         },
         {
           id: 'tb-5',
@@ -134,7 +140,7 @@
           rating: '4.8',
           price: 220,
           description: 'Crispy layered paratha prepared with ghee.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Lachha-paratha.jpg'
+          image: '../images/menu/tb-5.jpg'
         },
         {
           id: 'tb-6',
@@ -144,13 +150,18 @@
           rating: '4.7',
           price: 90,
           description: 'Soft traditional whole-wheat tandoori roti.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Khamiri%20Roti.JPG'
+          image: '../images/menu/tb-6.jpg'
         }
       ]
     },
 
     'sides-addons': {
-      filters: ['All', 'Raita & Chutneys', 'Fresh Salads', 'Crispy Starters'],
+      filters: [
+        'All',
+        'Raita & Chutneys',
+        'Fresh Salads',
+        'Crispy Starters'
+      ],
       items: [
         {
           id: 'sa-1',
@@ -160,7 +171,7 @@
           rating: '4.9',
           price: 180,
           description: 'Chilled yogurt blended with fresh mint and coriander.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kheere%20Ka%20Raita.JPG'
+          image: '../images/menu/sa-1.jpg'
         },
         {
           id: 'sa-2',
@@ -170,7 +181,7 @@
           rating: '4.8',
           price: 160,
           description: 'Sweet and tangy traditional tamarind chutney.',
-          image: 'https://images.unsplash.com/photo-1472476443507-c7a5948772fc?auto=format&fit=crop&w=900&q=85'
+          image: '../images/menu/sa-2.jpg'
         },
         {
           id: 'sa-3',
@@ -180,7 +191,7 @@
           rating: '4.7',
           price: 240,
           description: 'Fresh cucumber, tomatoes, onions and coriander.',
-          image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85'
+          image: '../images/menu/sa-3.jpg'
         },
         {
           id: 'sa-4',
@@ -190,7 +201,7 @@
           rating: '4.8',
           price: 210,
           description: 'Creamy yogurt topped with crunchy boondi and cumin.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Boondi%20Raita.JPG'
+          image: '../images/menu/sa-4.jpg'
         },
         {
           id: 'sa-5',
@@ -200,7 +211,7 @@
           rating: '4.9',
           price: 420,
           description: 'Golden crispy fries tossed in special masala.',
-          image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=900&q=85'
+          image: '../images/menu/sa-5.jpg'
         },
         {
           id: 'sa-6',
@@ -210,7 +221,7 @@
           rating: '4.8',
           price: 360,
           description: 'Crispy pastry filled with spiced potatoes and peas.',
-          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Samosas%201.jpg'
+          image: '../images/menu/sa-6.jpg'
         }
       ]
     }
@@ -237,6 +248,7 @@
 
     filters.forEach(function (filter) {
       var button = document.createElement('button');
+
       button.type = 'button';
       button.className = 'm3-filter-btn' +
         (filter === selectedFilter ? ' active' : '');
@@ -283,8 +295,8 @@
     if (filtered.length === 0) {
       grid.innerHTML =
         '<div class="col-12 text-center py-5">' +
-        '<h3>No results found</h3>' +
-        '<p>Try searching for another dish.</p>' +
+          '<h3>No results found</h3>' +
+          '<p>Try searching for another dish.</p>' +
         '</div>';
       return;
     }
@@ -302,21 +314,41 @@
               ' loading="lazy">' +
           '</div>' +
           '<div class="m3-dish-body">' +
-            '<span class="m3-dish-category">' + escapeHtml(dish.category) + '</span>' +
-            '<h2 class="m3-dish-title">' + escapeHtml(dish.name) + '</h2>' +
-            '<p class="m3-dish-description">' + escapeHtml(dish.description) + '</p>' +
+            '<span class="m3-dish-category">' +
+              escapeHtml(dish.category) +
+            '</span>' +
+            '<h2 class="m3-dish-title">' +
+              escapeHtml(dish.name) +
+            '</h2>' +
+            '<p class="m3-dish-description">' +
+              escapeHtml(dish.description) +
+            '</p>' +
             '<div class="m3-dish-meta">' +
               '<span>' + escapeHtml(dish.portion) + '</span>' +
-              '<span><i class="bi bi-star-fill"></i> ' + escapeHtml(dish.rating) + '</span>' +
+              '<span><i class="bi bi-star-fill"></i> ' +
+                escapeHtml(dish.rating) +
+              '</span>' +
             '</div>' +
             '<div class="m3-dish-footer">' +
-              '<strong class="m3-dish-price">' + formatPrice(dish.price) + '</strong>' +
-              '<button type="button" class="btn btn-flavour-primary m3-add-btn" data-dish-id="' + escapeHtml(dish.id) + '">' +
+              '<strong class="m3-dish-price">' +
+                formatPrice(dish.price) +
+              '</strong>' +
+              '<button type="button" class="btn btn-flavour-primary m3-add-btn"' +
+                ' data-dish-id="' + escapeHtml(dish.id) + '">' +
                 '<i class="bi bi-bag-plus"></i> Add to Cart' +
               '</button>' +
             '</div>' +
           '</div>' +
         '</article>';
+
+      var image = col.querySelector('.m3-dish-img');
+
+      image.addEventListener('error', function () {
+        if (image.dataset.fallbackApplied === 'true') return;
+
+        image.dataset.fallbackApplied = 'true';
+        image.src = FALLBACK_IMAGE;
+      });
 
       grid.appendChild(col);
     });
@@ -348,12 +380,16 @@
       });
 
       if (existing) {
-        existing.quantity = (parseInt(existing.quantity, 10) || 1) + 1;
+        existing.quantity =
+          (parseInt(existing.quantity, 10) || 1) + 1;
       } else {
         cart.push(payload);
       }
 
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+      window.localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(cart)
+      );
 
       var total = cart.reduce(function (sum, entry) {
         return sum + (parseInt(entry.quantity, 10) || 0);
@@ -377,7 +413,8 @@
       msgEl.textContent = dishName + ' added to cart';
     }
 
-    if (!toastEl || typeof bootstrap === 'undefined' || !bootstrap.Toast) {
+    if (!toastEl || typeof bootstrap === 'undefined' ||
+        !bootstrap.Toast) {
       return;
     }
 
@@ -403,8 +440,18 @@
 
     function updateView(filter) {
       currentFilter = filter;
-      renderFilters(pageData.filters, currentFilter, updateView);
-      renderDishes(pageData.items, currentFilter, currentSearch);
+
+      renderFilters(
+        pageData.filters,
+        currentFilter,
+        updateView
+      );
+
+      renderDishes(
+        pageData.items,
+        currentFilter,
+        currentSearch
+      );
     }
 
     updateView('All');
@@ -412,7 +459,12 @@
     if (searchInput) {
       searchInput.addEventListener('input', function () {
         currentSearch = this.value;
-        renderDishes(pageData.items, currentFilter, currentSearch);
+
+        renderDishes(
+          pageData.items,
+          currentFilter,
+          currentSearch
+        );
       });
     }
 
@@ -443,7 +495,10 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeMember3);
+    document.addEventListener(
+      'DOMContentLoaded',
+      initializeMember3
+    );
   } else {
     initializeMember3();
   }
