@@ -268,8 +268,7 @@
     });
 
     if (countEl) {
-      countEl.textContent = filtered.length +
-        (filtered.length === 1 ? ' Dish Available' : ' Dishes Available');
+      countEl.textContent = String(filtered.length);
     }
 
     grid.innerHTML = '';

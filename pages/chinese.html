@@ -18,6 +18,7 @@
   <!-- Modern Dark Bistro Stylesheet -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/bistro.css">
+  <link rel="stylesheet" href="../css/desi.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -113,28 +114,40 @@
       </div>
     </section>
 
-    <!-- Sub-category Filter Toolbar -->
-    <section id="chinese-menu" class="pt-5 pb-2" aria-label="Filter Chinese Cuisine">
+    <!-- Search Controls -->
+    <section id="chinese-menu" class="pt-5 pb-2" aria-label="Search Chinese Cuisine">
       <div class="container">
-        <div class="filter-toolbar d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
-          <div class="d-flex flex-wrap align-items-center gap-2" role="group" aria-label="Chinese dish categories">
-            <button type="button" class="filter-btn active" data-chinese-filter="all" aria-pressed="true">
-              All Chinese (33)
-            </button>
-            <button type="button" class="filter-btn" data-chinese-filter="noodle-dynasty" aria-pressed="false">
-              Noodle Dynasty (12)
-            </button>
-            <button type="button" class="filter-btn" data-chinese-filter="rice-wok-special" aria-pressed="false">
-              Rice and Wok Special (16)
-            </button>
-            <button type="button" class="filter-btn" data-chinese-filter="sauce-station" aria-pressed="false">
-              Sauce Station (5)
-            </button>
+        <div class="desi-controls-bar d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+          <div class="search-wrap flex-grow-1">
+            <label for="chinese-search-input" class="visually-hidden">Search Chinese dishes</label>
+            <i class="bi bi-search search-wrap-icon" aria-hidden="true"></i>
+            <input
+              type="search"
+              id="chinese-search-input"
+              class="form-control desi-search-box"
+              placeholder="Search dishes..."
+              autocomplete="off"
+            >
           </div>
+          <div class="small text-offwhite-muted text-nowrap">
+            Showing <strong id="chinese-visible-count" class="text-gold">33</strong> dishes
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="small text-offwhite-muted">
-            Showing <strong id="chinese-visible-count" class="text-gold">33</strong> freshly prepared items
-          </div>
+    <!-- Empty Search State ("No dishes found") -->
+    <section id="no-dishes-message" class="py-4 d-none" aria-live="polite">
+      <div class="container">
+        <div class="desi-no-results">
+          <i class="bi bi-search text-gold fs-2 d-block mb-2" aria-hidden="true"></i>
+          <h2 class="h4 mb-2">No dishes found</h2>
+          <p class="text-offwhite-muted mb-3">
+            No Chinese dish matched your current search. Try another dish name or reset your search.
+          </p>
+          <button type="button" id="reset-filters-btn" class="btn btn-bistro-primary btn-sm">
+            Show All Dishes
+          </button>
         </div>
       </div>
     </section>
@@ -975,6 +988,40 @@
   <div id="cart-toast" class="bistro-toast" role="status" aria-live="polite">
     <i class="bi bi-check-circle-fill text-mint fs-5" aria-hidden="true"></i>
     <span id="cart-toast-message">Order confirmed in your cart!</span>
+  </div>
+
+  <!-- Noodle Dynasty Utensil Choice Modal -->
+  <div
+    class="modal fade bistro-modal"
+    id="noodleUtensilModal"
+    tabindex="-1"
+    aria-labelledby="noodleUtensilModalTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title h5 mb-0" id="noodleUtensilModalTitle">
+            <i class="bi bi-bowl-hot text-gold me-2" aria-hidden="true"></i>Noodle Utensils
+          </h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-4 text-center">
+          <p class="mb-4 fs-5">Should we send you chopsticks or Fork? Choose carefully.</p>
+          <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+            <button type="button" id="utensil-fork-btn" class="btn btn-bistro-secondary">
+              Fork (safe choice)
+            </button>
+            <button type="button" id="utensil-chopsticks-btn" class="btn btn-bistro-primary">
+              Chopsticks (im a pro)
+            </button>
+          </div>
+          <p class="small text-offwhite-muted mb-0 mt-3" style="font-size: 0.78rem;">
+            No charges apply.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->

@@ -81,13 +81,19 @@
     <!-- 2. Hero: The Desi Darbar -->
     <section class="bistro-hero">
       <div class="container position-relative">
-        <nav class="bistro-breadcrumb" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a>
-          <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
-          <a href="menu.html">Menu</a>
-          <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
-          <span class="text-offwhite">The Desi Darbar</span>
-        </nav>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <nav class="bistro-breadcrumb mb-0" aria-label="Breadcrumb">
+            <a href="../index.html">Home</a>
+            <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
+            <a href="menu.html">Menu</a>
+            <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
+            <span class="text-offwhite">The Desi Darbar</span>
+          </nav>
+
+          <a href="chinese.html" class="btn btn-bistro-outline btn-sm">
+            <i class="bi bi-bowl-hot me-2" aria-hidden="true"></i>Switch to Chinese
+          </a>
+        </div>
 
         <span class="bistro-eyebrow">
           <i class="bi bi-fire" aria-hidden="true"></i>
@@ -123,39 +129,23 @@
       </div>
     </section>
 
-    <!-- Search & Category Filter Controls -->
-    <section class="pt-5 pb-2" aria-label="Search and Filter Desi Dishes">
+    <!-- Search Controls -->
+    <section class="pt-5 pb-2" aria-label="Search Desi Dishes">
       <div class="container">
-        <div class="desi-controls-bar d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
-          <!-- Category Filter Buttons -->
-          <div class="d-flex flex-wrap align-items-center gap-2" role="group" aria-label="Filter by Desi dish type">
-            <button type="button" class="filter-btn active" data-desi-filter="all" aria-pressed="true">
-              All
-            </button>
-            <button type="button" class="filter-btn" data-desi-filter="biryani" aria-pressed="false">
-              Biryani
-            </button>
-            <button type="button" class="filter-btn" data-desi-filter="karahi" aria-pressed="false">
-              Karahi
-            </button>
+        <div class="desi-controls-bar d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3">
+          <div class="search-wrap flex-grow-1">
+            <label for="dish-search-input" class="visually-hidden">Search biryani or karahi dishes</label>
+            <i class="bi bi-search search-wrap-icon" aria-hidden="true"></i>
+            <input
+              type="search"
+              id="dish-search-input"
+              class="form-control desi-search-box"
+              placeholder="Search dishes..."
+              autocomplete="off"
+            >
           </div>
-
-          <!-- Search Input & Visible Dish Count -->
-          <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
-            <div class="search-wrap">
-              <label for="dish-search-input" class="visually-hidden">Search biryani or karahi dishes</label>
-              <i class="bi bi-search search-wrap-icon" aria-hidden="true"></i>
-              <input
-                type="search"
-                id="dish-search-input"
-                class="form-control desi-search-box"
-                placeholder="Search biryani or karahi..."
-                autocomplete="off"
-              >
-            </div>
-            <div class="small text-offwhite-muted text-nowrap">
-              Showing <strong id="desi-visible-count" class="text-gold">0</strong> dishes
-            </div>
+          <div class="small text-offwhite-muted text-nowrap">
+            Showing <strong id="desi-visible-count" class="text-gold">0</strong> dishes
           </div>
         </div>
       </div>
@@ -412,7 +402,7 @@
           <p class="mb-0 fs-5">You can't eat karahi with a spoon. Order naan?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" id="naan-no-btn" class="btn btn-bistro-secondary">
+          <button type="button" id="naan-no-btn" class="btn btn-bistro-secondary" data-bs-dismiss="modal">
             No I'm good
           </button>
           <button type="button" id="naan-yes-btn" class="btn btn-bistro-primary">

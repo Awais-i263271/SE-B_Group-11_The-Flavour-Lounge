@@ -398,7 +398,7 @@ select:focus-visible {
   height: 3px;
   background-color: var(--color-orange);
   border-radius: 2px;
-  margin-bottom: 1.25rem;
+  margin: 0 0 1.25rem;
 }
 
 .section-divider-center {
@@ -607,6 +607,41 @@ select:focus-visible {
 
 .search-wrap {
   position: relative;
+  width: 100%;
+}
+
+/* Match Rice & Curry card width while keeping taller Deals-like silhouette on Desi & Chinese pages */
+.desi-section .bistro-card,
+.chinese-category-section .bistro-card {
+  width: 100%;
+  min-height: 470px;
+}
+
+.desi-section .bistro-card-img,
+.chinese-category-section .bistro-card-img {
+  height: 215px;
+}
+
+.desi-section .bistro-card-body,
+.chinese-category-section .bistro-card-body {
+  padding: 1.5rem;
+}
+
+.desi-section .bistro-card-body > .border-top,
+.chinese-category-section .bistro-card-body > .border-top {
+  flex-direction: column;
+  align-items: stretch !important;
+  gap: 0.75rem;
+  padding-top: 0.9rem !important;
+}
+
+.desi-section .bistro-card-body > .border-top .btn,
+.chinese-category-section .bistro-card-body > .border-top .btn {
+  width: 100%;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-wrap-icon {

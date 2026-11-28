@@ -1,63 +1,87 @@
 /**
  * JavaScript for the Chinese Cuisine Page (pages/chinese.html)
- * Handles sub-category filtering (Starters, Mains, Noodles & Rice, Sauces) and Add to Cart actions.
+ * Handles live dish search filtering and Add to Cart actions.
  */
 
 // Timer ID used to auto-hide the confirmation toast after a few seconds
 let chineseToastTimer = null;
 
+// Bootstrap Modal instance and active dish name for Noodle Dynasty utensil popup
+let noodleUtensilModalInstance = null;
+let lastOrderedNoodleName = '';
+
 /**
- * Show only the Chinese category sections that match the chosen filter
- * ("all", "starters", "mains", "noodles-rice", or "sauces").
- * Updates the visible item count in the filter toolbar.
- * @param {string} selectedCategory - The category key from the clicked filter button.
+ * Filter Chinese dish cards across all sections by the user's search text.
+ * Hides sections with zero matches, updates the visible dish count, and toggles
+ * the empty-search state message when nothing matches.
+ * @param {string} searchText - Current value from the Chinese search input.
  */
-function filterChineseDishes(selectedCategory) {
+function filterChineseDishesBySearch(searchText) {
+  const cleanSearch = (searchText || '').trim().toLowerCase();
   const sections = document.querySelectorAll('.chinese-category-section');
+  const noResultsSection = document.getElementById('no-dishes-message');
+  const counterElement = document.getElementById('chinese-visible-count');
   let visibleItemCount = 0;
 
   for (let i = 0; i < sections.length; i++) {
     const section = sections[i];
-    const sectionCategory = section.getAttribute('data-section-category');
+    const cards = section.querySelectorAll('.bistro-card');
+    let sectionVisibleCount = 0;
 
-    if (selectedCategory === 'all' || sectionCategory === selectedCategory) {
-      section.classList.remove('d-none');
-      const cardsInSection = section.querySelectorAll('.bistro-card');
-      visibleItemCount += cardsInSection.length;
-    } else {
-      section.classList.add('d-none');
+    for (let j = 0; j < cards.length; j++) {
+      const card = cards[j];
+      const col = card.parentElement;
+      const titleEl = card.querySelector('.dish-title');
+      const descEl = card.querySelector('.dish-description');
+      const tagEl = card.querySelector('.badge-category-tag');
+
+      const searchableText = [
+        titleEl ? titleEl.textContent : '',
+        descEl ? descEl.textContent : '',
+        tagEl ? tagEl.textContent : ''
+      ].join(' ').toLowerCase();
+
+      const matches = !cleanSearch || searchableText.indexOf(cleanSearch) !== -1;
+
+      if (col) {
+        col.classList.toggle('d-none', !matches);
+      }
+
+      if (matches) {
+        sectionVisibleCount++;
+        visibleItemCount++;
+      }
     }
+
+    section.classList.toggle('d-none', sectionVisibleCount === 0);
   }
 
-  const counterElement = document.getElementById('chinese-visible-count');
   if (counterElement) {
     counterElement.textContent = String(visibleItemCount);
   }
-}
 
-/**
- * Highlight the clicked filter button and set aria-pressed for keyboard/screen-reader accessibility.
- * Keeps the active Tangerine Orange button state synced with what is shown on screen.
- * @param {NodeList} allButtons - All Chinese category filter buttons.
- * @param {HTMLElement} activeButton - The button that was clicked.
- */
-function updateChineseFilterButtons(allButtons, activeButton) {
-  for (let i = 0; i < allButtons.length; i++) {
-    const button = allButtons[i];
-    button.classList.remove('active');
-    button.setAttribute('aria-pressed', 'false');
+  if (noResultsSection) {
+    noResultsSection.classList.toggle('d-none', visibleItemCount > 0);
   }
-
-  activeButton.classList.add('active');
-  activeButton.setAttribute('aria-pressed', 'true');
 }
 
 /**
- * Display the Mint Green confirmation toast at the bottom-right when an item is added.
- * Resets any active hide timer so multiple quick clicks stay visible long enough to read.
- * @param {string} dishName - The name of the dish added to the cart.
+ * Reset the Chinese search input and show all dishes again.
  */
-function showChineseCartToast(dishName) {
+function resetChineseSearch() {
+  const searchInput = document.getElementById('chinese-search-input');
+  if (searchInput) {
+    searchInput.value = '';
+  }
+  filterChineseDishesBySearch('');
+}
+
+/**
+ * Display a confirmation message in the bottom-right toast banner.
+ * Resets any active hide timer so multiple quick clicks stay visible long enough to read.
+ * @param {string} messageText - Message text to display inside the toast.
+ */
+function showChineseToastMessage(messageText) {
   const toastElement = document.getElementById('cart-toast');
   const toastMessage = document.getElementById('cart-toast-message');
 
@@ -65,7 +89,7 @@ function showChineseCartToast(dishName) {
     return;
   }
 
-  toastMessage.textContent = dishName + ' added — Order Confirmed!';
+  toastMessage.textContent = messageText;
   toastElement.classList.add('show');
 
   if (chineseToastTimer !== null) {
@@ -75,6 +99,39 @@ function showChineseCartToast(dishName) {
   chineseToastTimer = setTimeout(function () {
     toastElement.classList.remove('show');
   }, 2600);
+}
+
+/**
+ * Display the Mint Green confirmation toast at the bottom-right when an item is added.
+ * @param {string} dishName - The name of the dish added to the cart.
+ */
+function showChineseCartToast(dishName) {
+  showChineseToastMessage(dishName + ' added — Order Confirmed!');
+}
+
+/**
+ * Open the Fork vs. Chopsticks modal when a dish from Noodle Dynasty is ordered.
+ * @param {string} dishName - The ordered noodle dish name.
+ */
+function openNoodleUtensilModal(dishName) {
+  lastOrderedNoodleName = dishName || 'your noodles';
+
+  if (noodleUtensilModalInstance) {
+    noodleUtensilModalInstance.show();
+  }
+}
+
+/**
+ * Handle choosing Fork or Chopsticks in the Noodle Dynasty popup and close the modal.
+ * @param {string} utensilLabel - Chosen utensil label ("Fork" or "Chopsticks").
+ */
+function handleUtensilChoice(utensilLabel) {
+  if (noodleUtensilModalInstance) {
+    noodleUtensilModalInstance.hide();
+  }
+
+  const dishSuffix = lastOrderedNoodleName ? ' for ' + lastOrderedNoodleName : '';
+  showChineseToastMessage(utensilLabel + ' selected' + dishSuffix + ' — no charges apply!');
 }
 
 /**
@@ -115,23 +172,51 @@ function addChineseDishToCart(button) {
 
   flashChineseButtonAdded(button);
   showChineseCartToast(dishItem.name);
+
+  if (button.closest('#noodle-dynasty')) {
+    openNoodleUtensilModal(dishItem.name);
+  }
 }
 
 /**
  * Set up all event listeners for the Chinese Cuisine page after the HTML loads.
- * Connects sub-category filter buttons and Add to Cart buttons.
+ * Connects live search filtering, reset button, Noodle Dynasty utensil popup, and Add to Cart buttons.
  */
 function initChinesePage() {
-  const filterButtons = document.querySelectorAll('[data-chinese-filter]');
+  const searchInput = document.getElementById('chinese-search-input');
+  const resetButton = document.getElementById('reset-filters-btn');
   const addButtons = document.querySelectorAll('.add-to-cart-btn');
+  const utensilModalEl = document.getElementById('noodleUtensilModal');
+  const forkBtn = document.getElementById('utensil-fork-btn');
+  const chopsticksBtn = document.getElementById('utensil-chopsticks-btn');
 
-  // Set up sub-category filtering
-  for (let i = 0; i < filterButtons.length; i++) {
-    filterButtons[i].addEventListener('click', function () {
-      const selectedCategory = this.getAttribute('data-chinese-filter');
-      updateChineseFilterButtons(filterButtons, this);
-      filterChineseDishes(selectedCategory);
+  if (utensilModalEl && window.bootstrap && window.bootstrap.Modal) {
+    noodleUtensilModalInstance = window.bootstrap.Modal.getOrCreateInstance(utensilModalEl);
+  }
+
+  if (forkBtn) {
+    forkBtn.addEventListener('click', function () {
+      handleUtensilChoice('Fork');
     });
+  }
+
+  if (chopsticksBtn) {
+    chopsticksBtn.addEventListener('click', function () {
+      handleUtensilChoice('Chopsticks');
+    });
+  }
+
+  // Initialize visible dish count and search filtering
+  filterChineseDishesBySearch(searchInput ? searchInput.value : '');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      filterChineseDishesBySearch(this.value);
+    });
+  }
+
+  if (resetButton) {
+    resetButton.addEventListener('click', resetChineseSearch);
   }
 
   // Set up Add to Cart buttons

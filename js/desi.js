@@ -11,8 +11,8 @@ const DESI_FALLBACK_IMAGE = '../images/Wajeeha 3304/Karachi Biryani.png';
 // SessionStorage key remembering if the user clicked "No I'm good" on the Naan popup
 const NAAN_DISMISSED_SESSION_KEY = 'desiNaanPopupDismissed';
 
-// Teammate page URL where naan can be ordered
-const NAAN_PAGE_URL = 'add-ons.html#naan';
+// Page URL where tandoori naan can be ordered
+const NAAN_PAGE_URL = 'tandoor-breads.html';
 
 // Array of Biryani Bazaar dishes
 const biryaniDishes = [
@@ -949,7 +949,7 @@ function initSmartNaanPopup() {
     naanModalInstance = new window.bootstrap.Modal(modalElement);
   }
 
-  // "Yeah sure" closes the modal and goes to add-ons.html#naan
+  // "Yeah sure" closes the modal and goes to tandoor-breads.html
   if (yesButton) {
     yesButton.addEventListener('click', function () {
       cancelNaanPopupTimer();

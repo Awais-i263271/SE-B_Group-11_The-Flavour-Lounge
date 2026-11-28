@@ -17,6 +17,8 @@
 
   <!-- Shared Theme Stylesheet & Member 3 Stylesheet -->
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/bistro.css">
+  <link rel="stylesheet" href="../css/desi.css">
   <link rel="stylesheet" href="../css/member3.css">
 </head>
 <body data-member3-page="tandoor-breads">
@@ -49,12 +51,15 @@
             </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="menu.html">Menu</a>
+<<<<<<< Updated upstream
             </li>
             <li class="nav-item">
               <a class="nav-link" href="special-deals.html">Deals</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="reviews.html">Reviews</a>
+=======
+>>>>>>> Stashed changes
             </li>
             <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
@@ -75,65 +80,84 @@
     </nav>
   </header>
 
-  <!-- Page Hero Header -->
-  <section class="m3-page-hero text-center">
+  <!-- Shared Hero: The Desi Darbar -->
+  <section class="bistro-hero">
     <div class="container position-relative">
-      <span class="m3-eyebrow">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <nav class="bistro-breadcrumb mb-0" aria-label="Breadcrumb">
+          <a href="../index.html">Home</a>
+          <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
+          <a href="menu.html">Menu</a>
+          <span class="text-offwhite-muted mx-2" aria-hidden="true">/</span>
+          <span class="text-offwhite">The Desi Darbar</span>
+        </nav>
+
+        <a href="chinese.html" class="btn btn-bistro-outline btn-sm">
+          <i class="bi bi-bowl-hot me-2" aria-hidden="true"></i>Switch to Chinese
+        </a>
+      </div>
+
+      <span class="bistro-eyebrow">
         <i class="bi bi-fire" aria-hidden="true"></i>
-        Straight from the Clay Tandoor
+        Pakistani Royal Feast
       </span>
-      <h1 class="m3-page-title">Tandoor <span>Breads</span></h1>
-      <p class="m3-page-subtitle mx-auto mb-0">
+
+      <h1 class="bistro-hero-title">
+        The <span>Desi Darbar</span>
+      </h1>
+
+      <p class="bistro-hero-subtitle mb-4">
         Hand-stretched naans, stuffed specialties, and flaky whole-wheat parathas blistered over glowing charcoal embers.
       </p>
-      <div class="m3-section-divider"></div>
+
+      <div class="d-flex flex-wrap gap-3">
+        <a href="desi-cuisine.html#biryani" class="btn btn-bistro-outline">
+          <i class="bi bi-stars me-2" aria-hidden="true"></i>Biryani Bazaar
+        </a>
+        <a href="desi-cuisine.html#karahi" class="btn btn-bistro-outline">
+          <i class="bi bi-fire me-2" aria-hidden="true"></i>Karahi Kingdom
+        </a>
+        <a href="rice-curry.html" class="btn btn-bistro-outline">
+          <i class="bi bi-cup-hot me-2" aria-hidden="true"></i>Rice and Curry
+        </a>
+        <a href="tandoor-breads.html" class="btn btn-bistro-primary" aria-current="page">
+          <i class="bi bi-disc me-2" aria-hidden="true"></i>Tandoor
+        </a>
+        <a href="sides-addons.html" class="btn btn-bistro-outline">
+          <i class="bi bi-basket2 me-2" aria-hidden="true"></i>Side Add-ons
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Member 3 Specialty Navigation Bar -->
-  <nav class="m3-category-nav" aria-label="Member 3 Menu Categories">
-    <div class="container">
-      <div class="m3-category-pills">
-        <a href="rice-curry.html" class="m3-page-pill">
-          <i class="bi bi-cup-hot" aria-hidden="true"></i>
-          <span>Rice &amp; Curry</span>
-        </a>
-        <a href="tandoor-breads.html" class="m3-page-pill active" aria-current="page">
-          <i class="bi bi-fire" aria-hidden="true"></i>
-          <span>Tandoor Breads</span>
-        </a>
-        <a href="sides-addons.html" class="m3-page-pill">
-          <i class="bi bi-basket2" aria-hidden="true"></i>
-          <span>Sides &amp; Add-ons</span>
-        </a>
-      </div>
-    </div>
-  </nav>
-
   <!-- Main Dish Grid -->
-  <main class="m3-catalog-section">
+  <main class="m3-catalog-section pt-5">
     <div class="container">
-      <!-- Menu Search Bar -->
-<div class="m3-search-wrapper mb-4">
-  <div class="input-group">
-    <span class="input-group-text">
-      <i class="bi bi-search"></i>
-    </span>
-    <input
-      type="search"
-      id="menuSearch"
-      class="form-control"
-      placeholder="Search your favourite food..."
-      aria-label="Search menu"
-    >
-  </div>
-</div>
-      <div class="m3-filter-bar">
-        <div id="categoryFilters" class="m3-filter-group" role="group" aria-label="Filter Tandoor Breads"></div>
-        <span id="menuCount" class="m3-item-count"></span>
+      <!-- Search Controls -->
+      <div class="desi-controls-bar d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+        <div class="search-wrap flex-grow-1">
+          <label for="menuSearch" class="visually-hidden">Search Tandoor Breads</label>
+          <i class="bi bi-search search-wrap-icon" aria-hidden="true"></i>
+          <input
+            type="search"
+            id="menuSearch"
+            class="form-control desi-search-box"
+            placeholder="Search dishes..."
+            autocomplete="off"
+            aria-label="Search menu"
+          >
+        </div>
+        <div class="small text-offwhite-muted text-nowrap">
+          Showing <strong id="menuCount" class="text-gold">0</strong> dishes
+        </div>
       </div>
 
       <section aria-label="Tandoor Breads Menu">
+        <div class="mb-4">
+          <span class="section-eyebrow">Straight from the Clay Tandoor</span>
+          <h2 class="section-heading">Tandoor Breads</h2>
+          <div class="section-divider"></div>
+        </div>
         <div id="menuGrid" class="row g-4"></div>
       </section>
 
