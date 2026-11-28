@@ -1,0 +1,277 @@
+/* ==========================================================================
+   The Flavour Lounge - Customer Reviews Page Styles (Modern Dark Bistro Theme)
+   Reuses shared CSS variables from css/style.css
+   ========================================================================== */
+
+.reviews-subtitle { max-width: 38rem; }
+
+/* ── Overall Rating Summary Card ─────────────────────────────────────────── */
+.rating-summary-card {
+    background-color: var(--color-charcoal);
+    color: var(--color-offwhite);
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 2rem;
+    max-width: 440px;
+    box-shadow: var(--shadow-soft);
+    color: var(--color-offwhite);
+}
+
+.avg-rating-number {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    line-height: 1;
+}
+
+/* ── Submit Your Review Form Card ────────────────────────────────────────── */
+.review-form-card {
+    background-color: var(--color-charcoal);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    max-width: 820px;
+    box-shadow: var(--shadow-soft);
+    color: var(--color-offwhite);
+}
+
+.review-input {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.review-input::placeholder {
+    color: rgba(250, 243, 224, 0.48);
+}
+
+.review-input:focus {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border-color: var(--color-orange);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-orange) 25%, transparent);
+}
+
+.review-input.is-invalid {
+    border-color: var(--color-danger);
+}
+
+/* ── Interactive Star Rating Buttons ─────────────────────────────────────── */
+.star-rating-input {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.star-btn {
+    background-color: transparent;
+    border: none;
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 0.35rem;
+    transition: transform var(--transition-base);
+}
+
+.star-btn:hover { transform: scale(1.12); }
+
+.star-btn:focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 2px;
+}
+
+/* aria-live error regions under each field */
+.field-error {
+    font-size: 0.84rem;
+    font-weight: 500;
+    min-height: 1.2rem;
+    color: #f87171;
+}
+
+.field-error.text-danger {
+    color: var(--color-danger) !important;
+}
+
+/* ── Uploaded Photo Thumbnail ─────────────────────────────────────────────── */
+.photo-preview-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.photo-preview-thumb {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background-color: var(--color-espresso);
+    border: 1px solid var(--color-border);
+}
+
+/* ── Filter Buttons & Sort Controls Bar ──────────────────────────────────── */
+.controls-bar {
+    background-color: var(--color-charcoal);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    box-shadow: var(--shadow-soft);
+}
+
+.filter-btn {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: 50rem;
+    min-height: 44px;
+    padding: 0.4rem 1.1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all var(--transition-base);
+}
+
+.filter-btn:hover,
+.filter-btn:focus-visible,
+.filter-btn.active {
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+    color: var(--color-offwhite);
+}
+
+.filter-btn:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+}
+
+.sort-label {
+    color: var(--color-gold);
+    white-space: nowrap;
+}
+
+.sort-select {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    min-width: 155px;
+    min-height: 44px;
+}
+
+.sort-select option {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+}
+
+.sort-select:focus {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border-color: var(--color-orange);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.25);
+    outline: none;
+}
+
+/* Submit button – 44px touch target, focus ring */
+#submitReviewBtn {
+    min-height: 44px;
+}
+
+#submitReviewBtn:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+}
+
+/* ── Review Cards ────────────────────────────────────────────────────────── */
+.review-card {
+    background-color: var(--color-charcoal);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+    border-color: rgba(245, 158, 11, 0.45);
+}
+
+.review-img-wrapper { background-color: var(--color-espresso); }
+
+.review-img {
+    width: 100%;
+    height: 185px;
+    object-fit: cover;
+    display: block;
+    background-color: var(--color-espresso);
+}
+
+.reviewer-name {
+    font-family: var(--font-heading);
+    color: var(--color-offwhite);
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.review-date { color: var(--color-offwhite-muted); font-size: 0.82rem; }
+
+.review-text { color: var(--color-offwhite); font-size: 0.94rem; }
+
+.dish-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background-color: var(--color-espresso);
+    color: var(--color-gold);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-radius: 50rem;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+/* ── Empty State Message ─────────────────────────────────────────────────── */
+.empty-reviews-msg {
+    color: var(--color-offwhite);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 2.25rem 1rem;
+    border: 1px dashed rgba(245, 158, 11, 0.35);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-charcoal);
+}
+
+/* ── Bootstrap Success Toast ─────────────────────────────────────────────── */
+.flavour-toast {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 2px solid var(--color-orange);
+    font-weight: 600;
+}
+
+/* ── Responsive breakpoints ─────────────────────────────────────────────── */
+@media (max-width: 575.98px) {
+    .review-form-card { padding: 1.25rem; }
+
+    .controls-bar { flex-direction: column; align-items: stretch; }
+
+    #ratingFilters { flex-direction: column; align-items: stretch; }
+    #ratingFilters .filter-btn { width: 100%; text-align: center; }
+
+    .sort-select { width: 100%; min-width: 0; }
+
+    .star-btn { min-width: 40px; }
+
+    .rating-summary-card { padding: 1.25rem 1rem; }
+}

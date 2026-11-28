@@ -1,0 +1,170 @@
+/* ==========================================================================
+   The Flavour Lounge - Special Deals Page Styles (Modern Dark Bistro Theme)
+   Reuses shared CSS variables from css/style.css
+   ========================================================================== */
+
+/* ── Responsive helpers ─────────────────────────────────────────────────── */
+.deals-subtitle { max-width: 38rem; }
+
+/* ── Category Filter Pills ───────────────────────────────────────────────── */
+.filter-btn {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: 50rem;
+    min-height: 44px;
+    padding: 0.45rem 1.2rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all var(--transition-base);
+}
+
+.filter-btn:hover,
+.filter-btn:focus-visible,
+.filter-btn.active {
+    background-color: var(--color-orange);
+    border-color: var(--color-orange);
+    color: var(--color-offwhite);
+}
+
+.filter-btn:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+}
+
+/* ── Deal Cards ──────────────────────────────────────────────────────────── */
+.deal-card {
+    background-color: var(--color-charcoal);
+    color: var(--color-offwhite);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.deal-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+    border-color: rgba(245, 158, 11, 0.45);
+}
+
+.deal-img-wrapper {
+    position: relative;
+    background-color: var(--color-espresso);
+}
+
+.deal-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background-color: var(--color-espresso);
+}
+
+/* Discount Percentage Badge */
+.discount-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background-color: var(--color-orange);
+    color: var(--color-offwhite);
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50rem;
+}
+
+/* Category Label & Star Rating */
+.category-tag {
+    color: var(--color-gold);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.star-rating {
+    color: var(--color-gold);
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+/* Availability Badge */
+.status-badge {
+    background-color: var(--color-espresso);
+    color: var(--color-gold);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 50rem;
+}
+
+.deal-title { color: var(--color-offwhite); }
+
+.deal-items {
+    color: var(--color-offwhite-muted);
+    font-size: 0.94rem;
+}
+
+/* Price Display */
+.old-price {
+    color: var(--color-offwhite-muted);
+    text-decoration: line-through;
+    font-size: 0.92rem;
+}
+
+.new-price {
+    color: var(--color-gold);
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+/* "Add to Cart" button – 44px min touch target, visible focus */
+.btn-add-deal {
+    min-height: 44px;
+}
+
+.btn-add-deal:focus-visible,
+.btn-flavour-primary:focus-visible,
+.btn-flavour-outline:focus-visible,
+.btn-flavour-maroon:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 3px;
+}
+
+/* Empty Filter Message */
+.empty-deals-msg {
+    color: var(--color-offwhite);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 2.25rem 1rem;
+    border: 1px dashed rgba(245, 158, 11, 0.35);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-charcoal);
+}
+
+/* Bootstrap Toast */
+.flavour-toast {
+    background-color: var(--color-espresso);
+    color: var(--color-offwhite);
+    border: 2px solid var(--color-orange);
+    font-weight: 600;
+}
+
+/* ── Responsive breakpoints ─────────────────────────────────────────────── */
+@media (max-width: 575.98px) {
+    #categoryFilters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #categoryFilters .filter-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .deal-img { height: 170px; }
+}
