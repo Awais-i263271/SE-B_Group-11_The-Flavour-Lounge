@@ -12,7 +12,13 @@
 
   var CATALOG = {
     'rice-curry': {
-      filters: ['All', 'Biryani & Pulao', 'Karahi & Handi', 'Signature Curries'],
+      filters: [
+        'All',
+        'Biryani & Pulao',
+        'Karahi & Handi',
+        'Signature Curries',
+        'Daal & Rice'
+      ],
       items: [
         {
           id: 'rc-1',
@@ -22,7 +28,7 @@
           rating: '4.9',
           price: 1150,
           description: 'Fragrant basmati rice layered with spiced chicken.',
-          image: 'https://images.unsplash.com/photo-1563379091339-03246963d96c?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Special%20Chicken%20biryani.jpg'
         },
         {
           id: 'rc-2',
@@ -42,17 +48,7 @@
           rating: '4.8',
           price: 1650,
           description: 'Chicken cooked in creamy tomato butter gravy.',
-          image: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=900&q=85'
-        },
-        {
-          id: 'rc-4',
-          name: 'Kabuli Afghani Lamb Pulao',
-          category: 'Biryani & Pulao',
-          portion: 'Full Serving',
-          rating: '4.8',
-          price: 1750,
-          description: 'Rice cooked with lamb, carrots and raisins.',
-          image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Chicken%20Handi.JPG'
         },
         {
           id: 'rc-5',
@@ -62,17 +58,27 @@
           rating: '4.9',
           price: 2250,
           description: 'Traditional mutton karahi with tomatoes and ginger.',
-          image: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Mutton%20Karahi%202.JPG'
         },
         {
-          id: 'rc-6',
-          name: 'Hyderabadi Beef Haleem Bowl',
-          category: 'Signature Curries',
-          portion: 'Classic Bowl',
-          rating: '4.7',
-          price: 950,
-          description: 'Slow-cooked wheat, lentils and shredded beef.',
-          image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85'
+          id: 'rc-7',
+          name: 'Special Daal Makhni',
+          category: 'Daal & Rice',
+          portion: 'Regular Bowl',
+          rating: '4.8',
+          price: 850,
+          description: 'Creamy black lentils slow-cooked with butter and traditional spices.',
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dal%20makhani.jpg'
+        },
+        {
+          id: 'rc-8',
+          name: 'Traditional Daal Chawal',
+          category: 'Daal & Rice',
+          portion: 'Full Plate',
+          rating: '4.9',
+          price: 550,
+          description: 'Comforting spiced lentils served with steamed white rice.',
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dal%20chawal.JPG'
         }
       ]
     },
@@ -88,7 +94,7 @@
           rating: '4.9',
           price: 140,
           description: 'Soft naan topped with butter and sesame seeds.',
-          image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Roghni%20Naan.jpg'
         },
         {
           id: 'tb-2',
@@ -98,7 +104,7 @@
           rating: '4.9',
           price: 180,
           description: 'Fresh naan with roasted garlic and coriander.',
-          image: 'https://images.unsplash.com/photo-1626074353765-517a681e40be?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/GarlicNaan.jpg'
         },
         {
           id: 'tb-3',
@@ -128,7 +134,7 @@
           rating: '4.8',
           price: 220,
           description: 'Crispy layered paratha prepared with ghee.',
-          image: 'https://images.unsplash.com/photo-1606491956689-2ea866880c84?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Lachha-paratha.jpg'
         },
         {
           id: 'tb-6',
@@ -138,7 +144,7 @@
           rating: '4.7',
           price: 90,
           description: 'Soft traditional whole-wheat tandoori roti.',
-          image: 'https://images.unsplash.com/photo-1610057099431-d73a1c9d2f2f?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Khamiri%20Roti.JPG'
         }
       ]
     },
@@ -154,7 +160,7 @@
           rating: '4.9',
           price: 180,
           description: 'Chilled yogurt blended with fresh mint and coriander.',
-          image: 'https://images.unsplash.com/photo-1571167366136-b57e07761625?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kheere%20Ka%20Raita.JPG'
         },
         {
           id: 'sa-2',
@@ -184,7 +190,7 @@
           rating: '4.8',
           price: 210,
           description: 'Creamy yogurt topped with crunchy boondi and cumin.',
-          image: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Boondi%20Raita.JPG'
         },
         {
           id: 'sa-5',
@@ -204,7 +210,7 @@
           rating: '4.8',
           price: 360,
           description: 'Crispy pastry filled with spiced potatoes and peas.',
-          image: 'https://images.unsplash.com/photo-1601050690117-94f5f6fa8bd7?auto=format&fit=crop&w=900&q=85'
+          image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Samosas%201.jpg'
         }
       ]
     }
@@ -293,8 +299,7 @@
             '<img src="' + escapeHtml(dish.image) + '"' +
               ' alt="' + escapeHtml(dish.name) + '"' +
               ' class="m3-dish-img"' +
-              ' loading="lazy"' +
-              ' onerror="this.onerror=null;this.src=\'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=900&q=80\'">' +
+              ' loading="lazy">' +
           '</div>' +
           '<div class="m3-dish-body">' +
             '<span class="m3-dish-category">' + escapeHtml(dish.category) + '</span>' +
